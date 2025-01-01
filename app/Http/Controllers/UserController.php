@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Course;
 use App\Models\Semester;
 use Illuminate\Http\Request;
 
@@ -13,10 +14,12 @@ class UserController extends Controller
         $users = User::with('role')->with('semester')->get();
         $roles = Role::all();
         $semesters = Semester::all();
+        $courses = Course::all();
         return response()->json([
             'users' => $users,
             'roles' => $roles,
             'semester' => $semesters,
+            'course' => $courses,
         ]);
     }
     public function create() {
