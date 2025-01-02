@@ -8,7 +8,11 @@ use App\Http\Controllers\UserController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+<<<<<<< HEAD
 Route::get('/roles', [RoleController::class, 'rolesForRegister']);
+=======
+Route::get('/roles',[RoleController::class, 'rolesForRegister']);
+>>>>>>> af45e3d (add login and register ui)
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/', [UserController::class, 'index']);
@@ -17,6 +21,10 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/users/{id}/edit', [UserController::class, 'edit']);
     Route::post('/users/{id}/update', [UserController::class, 'update']);
     Route::post('/users/{id}/delete', [UserController::class, 'delete']);
+<<<<<<< HEAD
     Route::post('/users/{id}/isApproved', [UserController::class, 'isApproved']);
     Route::post('/users/{id}/pendingApproved', [UserController::class, 'pendingApproved']);
+=======
+
+>>>>>>> af45e3d (add login and register ui)
 });
