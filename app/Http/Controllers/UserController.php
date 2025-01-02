@@ -72,4 +72,20 @@ class UserController extends Controller
             'user' => $user
         ], 200);
     }
+    public function isApproved($id) {
+        $user = User::findOrFail($id);
+        $user->is_active = true;
+        $user->save();
+        return response()->json([
+            'user' => $user
+        ], 200);
+    }
+    public function pendingApproved($id) {
+        $user = User::findOrFail($id);
+        $user->is_active = false;
+        $user->save();
+        return response()->json([
+            'user' => $user
+        ], 200);
+    }
 }
