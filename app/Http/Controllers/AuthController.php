@@ -22,8 +22,8 @@ class AuthController extends Controller
                 'error' => $validator->errors(),
             ], 422);
         };
-        $role = Role::findOrFail(request()->role_id);
-        if(!$role || $role->name === "admin") {
+        $roles = Role::findOrFail(request()->role_id);
+        if(!$roles || $roles->name === "admin") {
             return response()->json([
                 'success' => false,
                 'error' => 'You are not allowed to register as an admin.',
@@ -33,7 +33,7 @@ class AuthController extends Controller
         $user->name = request()->name;
         $user->email = request()->email;
         $user->password = request()->password;
-        $user->role_id = $role->id;
+        $user->role_id = $roles->id;
         $user->save();
         $user->makeVisible('password');
         return response()->json([
