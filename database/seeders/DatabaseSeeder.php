@@ -76,5 +76,12 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         }
+
+        $permissions = ['view', 'user-create', 'user-update', 'user-delete'];
+        foreach ($permissions as $permission) {
+            \App\Models\Permission::factory()->create([
+                'name' => $permission,
+            ]);
+        }
     }
 }
