@@ -7,15 +7,18 @@ use App\Models\User;
 use App\Models\Course;
 use App\Models\Semester;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     public function index() {
+        $authUser = Auth::user();
         $users = User::with('role')->with('semester')->get();
         $roles = Role::all();
         $semesters = Semester::all();
         $courses = Course::all();
         return response()->json([
+            'authUser' => $authUser,
             'users' => $users,
             'roles' => $roles,
             'semester' => $semesters,
@@ -74,18 +77,34 @@ class UserController extends Controller
     }
     public function isApproved($id) {
         $user = User::findOrFail($id);
-        $user->is_active = true;
+        $user->is_approved = true;
         $user->save();
         return response()->json([
+            'success' => true,
             'user' => $user
         ], 200);
     }
-    public function pendingApproved($id) {
+    public function approvePending($id) {
         $user = User::findOrFail($id);
-        $user->is_active = false;
+        $user->is_approved = false;
         $user->save();
         return response()->json([
+            'success' => true,
             'user' => $user
+        ], 200);
+    }
+    public function learnersList() {
+        $learners = User::where('role_id', '3')->with('role')->get();
+        return response()->json([
+            'success' => true,
+            'learners' => $learners
+        ], 200);
+    }
+    public function instructorsList() {
+        $instructors = User::where('role_id', '2')->with('role')->get();
+        return response()->json([
+            'success' => true,
+            'instructors' => $instructors
         ], 200);
     }
 }

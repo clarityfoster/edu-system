@@ -22,18 +22,11 @@ class AuthController extends Controller
                 'error' => $validator->errors(),
             ], 422);
         };
-        $roles = Role::findOrFail(request()->role_id);
-        if(!$roles || $roles->name === "admin") {
-            return response()->json([
-                'success' => false,
-                'error' => 'You are not allowed to register as an admin.',
-            ]);
-        }
         $user = new User();
         $user->name = request()->name;
         $user->email = request()->email;
         $user->password = request()->password;
-        $user->role_id = $roles->id;
+        $user->role_id = request()->role_id;
         $user->save();
         $user->makeVisible('password');
         return response()->json([
