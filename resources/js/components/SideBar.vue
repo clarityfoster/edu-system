@@ -1,44 +1,80 @@
 <template>
-  <div id="app" class="d-flex">
+  <div id="app" class="d-flex position-relative">
     <!-- Sidebar -->
-    <div id="sidebar" class="bg-success text-white p-3 vh-100">
-      <!-- Admin Info -->
-      <div class="d-flex align-items-center mb-4">
-        <img src="https://via.placeholder.com/150" alt="Admin Avatar" class="rounded-circle" width="50" height="50" />
-        <div class="ms-3">
-          <h5>Admin Name</h5>
-          <p class="mb-0">Administrator</p>
+    <aside
+      id="sidebar"
+      class="sidebar bg-primary text-light vh-100 shadow-sm d-none d-lg-block"
+      :class="{ 'collapsed': isCollapsed }"
+    >
+      <!-- Header -->
+      <div class="nav flex-column pt-3">
+        <div class="d-flex align-items-center mb-4">
+          <img
+            src="https://via.placeholder.com/150"
+            alt="Admin Avatar"
+            class="rounded-circle"
+            width="50"
+            height="50"
+          />
+          <div v-if="!isCollapsed" class="ms-3">
+            <h5></h5>
+            <p class="mb-0"></p>
+          </div>
         </div>
+
+        <hr class="text-white" />
+
+        <!-- Menu Items -->
+        <ul class="nav flex-column">
+          <li v-for="(item, index) in filteredMenuItems" :key="index" class="nav-item">
+            <a
+              class="nav-link text-white d-flex align-items-center"
+              href="#"
+              @click="toggleSubMenu(index)"
+              :class="{ active: isActive(item) }"
+            >
+              <i :class="'mdi ' + item.icon + ' me-2'"></i>
+              <span v-if="!isCollapsed">{{ item.title }}</span>
+            </a>
+            <!-- Submenu -->
+            <ul v-if="item.expanded" class="nav flex-column ms-3">
+              <li v-for="subItem in item.children" :key="subItem.title" class="nav-item">
+                <a
+                  class="nav-link text-white"
+                  @click.prevent="navigateTo(subItem.route)"
+                  :class="{ active: isActive(subItem) }"
+                >
+                  <i :class="'mdi ' + subItem.icon + ' me-2'"></i>
+                  {{ subItem.title }}
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
+        <hr class="text-white" />
+
+        <!-- Logout -->
+        <button
+          class="btn btn-link text-white d-flex align-items-center"
+          @click="logout"
+        >
+          <i class="mdi mdi-logout me-2"></i>
+          <span v-if="!isCollapsed">Logout</span>
+        </button>
       </div>
 
-      <hr class="text-white" />
-
-      <!-- Menu Items -->
-      <ul class="nav flex-column">
-        <li v-for="(item, index) in filteredMenuItems" :key="index" class="nav-item">
-          <a class="nav-link text-white" href="#" @click="toggleSubMenu(index)">
-            <i :class="'mdi ' + item.icon + ' me-2'"></i>
-            {{ item.title }}
-          </a>
-          <!-- Submenu -->
-          <ul v-if="item.expanded" class="nav flex-column ms-3">
-            <li v-for="subItem in item.children" :key="subItem.title" class="nav-item">
-              <a class="nav-link text-white" @click.prevent="navigateTo(subItem.route)">
-                <i :class="'mdi ' + subItem.icon + ' me-2'"></i>
-                {{ subItem.title }}
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-
-      <hr class="text-white" />
-
-      <!-- Logout -->
-      <button class="btn btn-link text-white" @click="logout">
-        <i class="mdi mdi-logout me-2"></i>Logout
+      <!-- Toggle Button -->
+      <button
+        class="btn btn-light toggle-btn"
+        @click="toggleSidebar"
+        aria-label="Toggle Sidebar"
+      >
+        <i class="mdi" :class="isCollapsed ? 'mdi-menu' : 'mdi-chevron-left'"></i>
       </button>
-    </div>
+
+    </aside>
+
   </div>
 </template>
 
@@ -46,6 +82,7 @@
 import { mapState, mapActions } from "vuex";
 
 export default {
+  name: "SideBar",
   data() {
     return {
       menuItems: [
@@ -55,11 +92,21 @@ export default {
           roles: [1],
           expanded: false,
           children: [
-            { title: "View User Lists", icon: "mdi-account-multiple", route: "/userlist", roles: [1] },
-            { title: "Create User", icon: "mdi-account-plus", route: "/createuser", roles: [1] },
+            {
+              title: "View User Lists",
+              icon: "mdi-account-multiple",
+              route: "/viewuserlist",
+              roles: [1],
+            },
+            {
+              title: "Create User",
+              icon: "mdi-account-plus",
+              route: "/createuser",
+              roles: [1],
+            },
           ],
         },
-        {
+         {
           title: "Students",
           icon: "mdi-school",
           roles: [1, 2, 3],
@@ -99,27 +146,28 @@ export default {
             { title: "Add Course", icon: "mdi-book-plus", route: "/addcourse", roles: [1] },
           ],
         },
+
       ],
+      isCollapsed: false,
     };
   },
 
   computed: {
-    ...mapState(["roleId", "users"]),
+    ...mapState(["roleId","users"]),
 
     filteredMenuItems() {
       const roleId = this.roleId || 0;
-      // Use a separate property to avoid modifying `menuItems`
       return this.menuItems
         .map((item) => {
-          if (item.roles && !item.roles.includes(roleId)) return null;
+          if (!item.roles.includes(roleId)) return null;
           if (item.children) {
-            item.children = item.children.filter((subItem) => {
-              return !subItem.roles || subItem.roles.includes(roleId);
-            });
+            item.children = item.children.filter(
+              (subItem) => !subItem.roles || subItem.roles.includes(roleId)
+            );
           }
           return item;
         })
-        .filter((item) => item !== null); // Remove null items (those not available for the role)
+        .filter((item) => item);
     },
   },
 
@@ -133,17 +181,20 @@ export default {
     },
 
     navigateTo(route) {
-      if (!route) {
-        console.error("Route not defined for this item.");
-        return;
-      }
-
-      console.log("Navigating to:", route);
+      if (!route) return;
       this.$router.push(route).catch((err) => {
         if (err.name !== "NavigationDuplicated") {
           console.error(err);
         }
       });
+    },
+
+    isActive(item) {
+      return this.$route.path === item.route;
+    },
+
+    toggleSidebar() {
+      this.isCollapsed = !this.isCollapsed;
     },
 
     logout() {
@@ -156,31 +207,38 @@ export default {
 
   mounted() {
     this.fetchUsers();
-
     const roleId = parseInt(localStorage.getItem("role_id"));
     if (roleId) {
       this.$store.commit("setRoleId", roleId);
-    } else {
-      console.error("No role_id found in localStorage.");
     }
   },
 };
 </script>
 
 <style scoped>
+/* Styles for sidebar */
 #sidebar {
   width: 250px;
-  position: fixed;
+  transition: width 0.3s;
+}
+#sidebar.collapsed {
+  width: 70px;
+}
+.sidebar {
+  position: sticky;
   top: 0;
-  left: 0;
-  bottom: 0;
+  overflow-y: auto;
 }
-
-.mdi {
-  font-size: 1.2rem;
+.toggle-btn {
+  position: absolute;
+  top: 10px;
+  right: -20px;
+  z-index: 1000;
 }
-
 .nav-link {
   cursor: pointer;
+}
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 </style>

@@ -16,9 +16,10 @@ Route::get('/instructors', [UserController::class, 'instructorsList']);
 
 Route::get('/semesters', [SemesterController::class, 'index']);
 Route::get('/courses', [CourseController::class, 'index']);
+Route::get('/users', [UserController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function() {
-    Route::get('/users', [UserController::class, 'index']);
+    // Route::get('/users', [UserController::class, 'index']);
     Route::post('/users/create', [UserController::class, 'create']);
     Route::get('/users/{id}/read', [UserController::class, 'read']);
     Route::get('/users/{id}/edit', [UserController::class, 'edit']);
