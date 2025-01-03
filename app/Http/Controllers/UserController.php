@@ -7,15 +7,18 @@ use App\Models\User;
 use App\Models\Course;
 use App\Models\Semester;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     public function index() {
+        $authUser = Auth::user();
         $users = User::with('role')->with('semester')->get();
         $roles = Role::all();
         $semesters = Semester::all();
         $courses = Course::all();
         return response()->json([
+            'authUser' => $authUser,
             'users' => $users,
             'roles' => $roles,
             'semester' => $semesters,
