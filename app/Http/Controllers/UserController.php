@@ -11,14 +11,18 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function index() {
+    public function authUser() {
         $authUser = Auth::user();
+        return response()->json([
+            'authUser' => $authUser
+        ], 200);
+    }
+    public function index() {
         $users = User::with('role')->with('semester')->get();
         $roles = Role::all();
         $semesters = Semester::all();
         $courses = Course::all();
         return response()->json([
-            'authUser' => $authUser,
             'users' => $users,
             'roles' => $roles,
             'semester' => $semesters,
