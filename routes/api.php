@@ -10,7 +10,9 @@ use App\Http\Controllers\SemesterController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-Route::get('/roles',[RoleController::class, 'rolesForRegister']);
+Route::get('/users', [UserController::class, 'index']);
+Route::get('/roles',[RoleController::class, 'index']);
+Route::get('/register-roles',[RoleController::class, 'rolesForRegister']);
 Route::get('/learners', [UserController::class, 'learnersList']);
 Route::get('/instructors', [UserController::class, 'instructorsList']);
 
@@ -18,7 +20,7 @@ Route::get('/semesters', [SemesterController::class, 'index']);
 Route::get('/courses', [CourseController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function() {
-    Route::get('/users', [UserController::class, 'index']);
+    Route::get('/auth-users', [UserController::class, 'authUser']);
     Route::post('/users/create', [UserController::class, 'create']);
     Route::get('/users/{id}/read', [UserController::class, 'read']);
     Route::get('/users/{id}/edit', [UserController::class, 'edit']);
@@ -38,4 +40,10 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/courses/{id}/edit', [CourseController::class, 'edit']);
     Route::post('/courses/{id}/update', [CourseController::class, 'update']);
     Route::post('/courses/{id}/delete', [CourseController::class, 'delete']);
+
+    Route::post('/roles/create', [RoleController::class, 'create']);
+    Route::get('/roles/{id}/read', [RoleController::class, 'read']);
+    Route::get('/roles/{id}/edit', [RoleController::class, 'edit']);
+    Route::post('/roles/{id}/update', [RoleController::class, 'update']);
+    Route::post('/roles/{id}/delete', [RoleController::class, 'delete']);
 });

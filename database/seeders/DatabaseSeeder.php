@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
         ]);
         $roles = ['Admin', 'Instructor', 'Learner'];
         foreach ($roles as $role) {
-            \App\Models\Role::factory()->create([
+            \App\Models\Role::create([
                 'name' => $role,
             ]);
         }
@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Fourth Semester', 'start_date' => '2026-07-01', 'end_date' => '2026-12-31'],
         ];
         foreach ($semesters as $semester) {
-            \App\Models\Semester::factory()->create($semester);
+            \App\Models\Semester::create($semester);
         }
         $courses = [
             'Introduction to Programming',
@@ -50,7 +50,7 @@ class DatabaseSeeder extends Seeder
             'Binary Tree Algorithms',
         ];
         foreach($courses as $course) {
-            Course::factory()->create([
+            Course::create([
                 'name' => $course,
             ]);
         }
@@ -72,23 +72,19 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         }
-        $userPermissions = ['create-user', 'view-user', 'update-user', 'delete-user'];
-        foreach ($userPermissions as $permission) {
-            UserPermission::factory()->create([
-                'name' => $permission,
-            ]);
-        }
-        $coursePermissions = ['create-course', 'view-course', 'update-course', 'delete-course'];
-        foreach ($coursePermissions as $permission) {
-            CoursePermission::factory()->create([
-                'name' => $permission,
-            ]);
-        }
-        $semesterCourses = ['create-semester', 'view-semester', 'update-semester', 'delete-semester'];
-        foreach ($semesterCourses as $permission) {
-            SemesterPermission::factory()->create([
-                'name' => $permission,
-            ]);
+        $permissions = [
+            'user' => ['create-user', 'view-user', 'update-user', 'delete-user'],
+            'role' => ['create-role', 'view-role', 'update-role', 'delete-role'],
+            'semester' => ['create-semester', 'view-semester', 'update-semester', 'delete-semester'],
+            'course' => ['create-course', 'view-course', 'update-course', 'delete-course'],
+        ];
+        foreach($permissions as $category => $categoryPermissions) {
+            foreach($categoryPermissions as $permission) {
+                \App\Models\Permission::create([
+                    'name' => $permission,
+                    'category' => $category,
+                ]);
+            }
         }
     }
 }
