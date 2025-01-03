@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Course;
@@ -18,8 +19,9 @@ class UserController extends Controller
         ], 200);
     }
     public function index() {
-        $users = User::with('role')->with('semester')->get();
+        $users = User::with('role.permission')->with('semester')->get();
         $roles = Role::all();
+        $permissions = Permission::all();
         $semesters = Semester::all();
         $courses = Course::all();
         return response()->json([
