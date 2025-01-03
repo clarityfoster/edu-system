@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function authUser() {
-        $authUser = Auth::user();
+        $authUser = Auth::user()->load('role');
         return response()->json([
             'authUser' => $authUser
         ], 200);

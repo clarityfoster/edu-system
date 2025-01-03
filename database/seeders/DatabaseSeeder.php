@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Role;
 use App\Models\Course;
 use App\Models\Semester;
+use App\Models\Permission;
 use App\Models\UserPermission;
 use Illuminate\Database\Seeder;
 use App\Models\CoursePermission;
@@ -80,11 +81,26 @@ class DatabaseSeeder extends Seeder
         ];
         foreach($permissions as $category => $categoryPermissions) {
             foreach($categoryPermissions as $permission) {
-                \App\Models\Permission::create([
+                Permission::create([
                     'name' => $permission,
                     'category' => $category,
                 ]);
             }
+        }
+        $adminRole = Role::where('name', 'Admin')->first();
+        $instructorRole = Role::where('name', 'Instructor')->first();
+        $learnerRole = Role::where('name', 'Learner')->first();
+        if($adminRole) {
+            $adminRole->permission()->attach(Permission::all());
+        }
+        if ($instructorRole) {
+            $instructorRole->permission()->attach(
+                Permission::whereIn('name', [
+                    'view-user', 'update-user', 'create-user',
+                    'create-semester', 'view-semester', 'update-semester', 'delete-semester',
+                    'create-course', 'view-course', 'update-course', 'delete-course',
+                ])->get()
+            );
         }
     }
 }

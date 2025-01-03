@@ -12,4 +12,7 @@ class Course extends Model
     public function semester() {
         return $this->belongsTo(Semester::class);
     }
+    public function user() {
+        return $this->hasMany(User::class);
+    }
 }
