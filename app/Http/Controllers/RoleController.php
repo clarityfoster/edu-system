@@ -7,18 +7,23 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
     }
+
     public function rolesForRegister() {
         $roles = Role::where('name', '!=', 'admin')->get();
         return response()->json([
             'roles' => $roles,
         ], 200);
     }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -67,4 +72,5 @@ class RoleController extends Controller
     {
         //
     }
+
 }

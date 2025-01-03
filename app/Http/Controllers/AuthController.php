@@ -22,6 +22,7 @@ class AuthController extends Controller
                 'error' => $validator->errors(),
             ], 422);
         };
+
         $user = new User();
         $user->name = request()->name;
         $user->email = request()->email;

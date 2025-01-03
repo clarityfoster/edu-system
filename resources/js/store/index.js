@@ -4,12 +4,25 @@ import axios from "axios";
 
 export const store = createStore({
     state: {
+        roleId: parseInt(localStorage.getItem("role_id")) || null,
         roles: [],
+        users: [],
     },
     mutations: {
+        setRoleId(state, roleId) {
+
+            state.roleId = roleId;
+        },
         setRoles(state, roles) {
             state.roles = roles;
             console.log('Roles', state.roles);
+        },
+        fetchUsers(state, users) {
+            state.users = users;
+        },
+        setCurrentUser(state, user) {
+            state.currentUser = user;
+            console.log('Current User', state.currentUser);
         },
     },
     getters: {
@@ -30,7 +43,20 @@ export const store = createStore({
             } catch (error) {
                 console.error("Error fetching roles:", error.response?.data || error);
             }
+        },
+        async fetchUsers({ commit }) {
+            try {
+                console.log('Fetching Users...');
+                const response = await axios.get("http://127.0.0.1:8000/api/users");
+                console.log('API Response:', response);
+                commit('fetchUsers', response.data.users);
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            }
         }
+
+
+
     }
 
 
