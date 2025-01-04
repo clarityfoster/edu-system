@@ -9,9 +9,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Course extends Model
 {
     use HasFactory;
-    public function semester() {
-        return $this->belongsTo(Semester::class);
+    public function semester()
+    {
+        return $this->belongsToMany(Semester::class, 'semester_courses', 'course_id', 'semester_id');
     }
+
     public function user() {
         return $this->hasMany(User::class);
     }

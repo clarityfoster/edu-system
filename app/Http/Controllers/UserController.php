@@ -19,16 +19,17 @@ class UserController extends Controller
         ], 200);
     }
     public function index() {
-        $users = User::with('role.permission')->with('semester')->get();
-        $roles = Role::all();
-        $permissions = Permission::all();
-        $semesters = Semester::all();
-        $courses = Course::all();
+        $users = User::with('role.permission')->with('semester.course')->get();
+        $roles = Role::with('permission')->get();
+        $permissions = Permission::with('role')->get();
+        $semesters = Semester::with('course')->get();
+        $courses = Course::with('semester')->get();
         return response()->json([
             'users' => $users,
             'roles' => $roles,
             'semester' => $semesters,
             'course' => $courses,
+            'permission' => $permissions
         ]);
     }
     public function create() {
