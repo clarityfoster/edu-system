@@ -7,6 +7,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SemesterController;
+use App\Http\Controllers\PermissionController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
@@ -47,4 +48,9 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/roles/{id}/edit', [RoleController::class, 'edit']);
     Route::post('/roles/{id}/update', [RoleController::class, 'update']);
     Route::post('/roles/{id}/delete', [RoleController::class, 'delete']);
+
+    Route::get('/roles-permissions', [PermissionController::class, 'index']);
+    Route::post('/permissions/create', [PermissionController::class, 'create']);
+    Route::post('/roles-permissions/update', [PermissionController::class, 'updatePermission']);
+
 });
