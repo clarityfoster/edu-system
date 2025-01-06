@@ -111,4 +111,38 @@ class UserController extends Controller
             'instructors' => $instructors
         ], 200);
     }
+
+//    public function approveUser($id)
+// {
+//     $this->authorize('approve-user');
+
+//     $user = User::findOrFail($id);
+//     $user->is_approved = 1;
+//     $user->save();
+
+//     return response()->json([
+//         'message' => 'User approved successfully!',
+//         'user' => $user,
+//     ], 200);
+// }
+// public function filterstudent()
+// {
+//     $filterstudents = User::with('role')
+//         ->whereHas('role', function ($query) {
+//             $query->where('name', 'Learner');
+//         })
+//         ->where('is_approved', 1)
+//         ->get();
+
+//     $roles = Role::all();
+
+
+//     return response()->json([
+//         'filterstudents' => $filterstudents,
+//         'roles' => $roles,
+
+//     ]);
+// }
+
+
 }

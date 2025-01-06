@@ -5,14 +5,16 @@ import Login from './components/Login.vue';
 import Register from './components/Register.vue';
 import SideBar from './components/SideBar.vue';
 import ViewUserList from './components/ViewUserList.vue';
+import StudentList from './components/StudentList.vue';
+import InstructorList from './components/InstructorList.vue';
 const routes = [
     {
-        path: '/',
+        path: '/home',
         name: 'home',
         component: Home
     },
     {
-        path: '/login',
+        path: '/',
         name: 'login',
         component: Login
     },
@@ -30,6 +32,16 @@ const routes = [
         path: '/viewuserlist',
         name: 'ViewUserList',
         component: ViewUserList
+    },
+    {
+        path: '/studentlist',
+        name: 'studentlist',
+        component: StudentList
+    },
+    {
+        path: '/instructorlist',
+        name: 'instructorlist',
+        component: InstructorList
     },
 ];
 const router = createRouter({

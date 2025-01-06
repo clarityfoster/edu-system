@@ -12,8 +12,8 @@
 
         <!-- <v-card-text> -->
           <v-data-table
-            :items="users"
-            :headers="headers"
+            :items="filterstudents"
+             :headers="filteredHeaders"
             class="elevation-1"
             item-value="id"
             dense
@@ -21,7 +21,7 @@
           >
             <template v-slot:top>
               <v-toolbar flat>
-                <v-toolbar-title class="text-center ">User Management</v-toolbar-title>
+                <v-toolbar-title class="text-center">Student Lists</v-toolbar-title>
               </v-toolbar>
             </template>
 
@@ -72,7 +72,7 @@ import axios from "axios";
 import { mapState, mapActions } from "vuex";
 
 export default {
-  name: "ViewUserList",
+  name: "StudentList",
   components: {
     SideBar,
   },
@@ -85,15 +85,21 @@ export default {
         { title: "Phone", value: "phone", align: "center", width: "15%" },
         { title: "Email", value: "email", align: "center", width: "20%" },
         { title: "Roles", value: "role", align: "center", width: "10%" },
-        { title: "Action", value: "action", align: "center", width: "10%" },
+
       ],
     };
   },
   computed: {
-    ...mapState(["users", "roles"]),
+      ...mapState(["filterstudents", "roles", "authUsers"]),
+     filteredHeaders() {
+      const isAdmin = this.authUsers?.role?.name === "Admin";
+      return isAdmin
+        ? [...this.headers, { title: "Action", value: "action", align: "center", width: "10%" }]
+        : this.headers;
+    },
   },
   methods: {
-    ...mapActions(["fetchUsers", "fetchRoles"]),
+    ...mapActions(["fetchFilterStudents","fetchRoles", "fetchAuthUsers"]),
     async approveUser(userId, index) {
       this.loadingIndex = index;
       try {
@@ -118,7 +124,9 @@ export default {
     },
   },
   mounted() {
-    this.fetchUsers();
+      this.fetchFilterStudents();
+      this.fetchRoles();
+    this.fetchAuthUsers();
   },
 };
 </script>

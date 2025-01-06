@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
 export default {
   data() {
@@ -69,7 +69,7 @@ export default {
       valid: false,
       message: {
         text: "",
-        type: ""
+        type: "",
       },
       rules: {
         required: (value) => !!value || "This field is required.",
@@ -79,7 +79,7 @@ export default {
       },
       validation: {
         emailStatus: false,
-        passwordStatus: false
+        passwordStatus: false,
       },
     };
   },
@@ -88,52 +88,66 @@ export default {
       this.validation.emailStatus = !this.email;
       this.validation.passwordStatus = !this.password;
 
-
       if (this.validation.emailStatus || this.validation.passwordStatus) {
         return;
       }
 
       try {
-
         const response = await axios.post("http://127.0.0.1:8000/api/login", {
           email: this.email,
           password: this.password,
         });
 
-         const user = response.data.user;
-        localStorage.setItem("role_id", user.role_id);
-        this.$store.commit("setRoleId", user.role_id);
-        this.$router.push("/sidebar");
-
-
+        const user = response.data.user;
         const token = response.data.token;
+
+        if (user.is_approved !== 1) {
+          this.message.text = "Your account has not been approved yet.";
+          this.message.type = "error";
+          return;
+        }
+
         localStorage.setItem("auth_token", token);
+        localStorage.setItem("role_id", user.role_id);
 
-        const userId = response.data.user.id;
-
-        // Set success message
-        this.message.text = "Login successful!";
-        this.message.type = "success";
-
-        // Clear email and password fields
-        this.email = "";
-        this.password = "";
+        this.$store.commit("setRoleId", user.role_id);
 
 
+          if (user.role_id == 1) {
+            console.log("Admin");
 
-            this.$router.push("/sidebar");
+      this.message.text = "Login successful!";
+      this.message.type = "success";
 
+      this.email = "";
+      this.password = "";
+
+      this.$router.push("/viewuserlist");
+          } else {
+            console.log("User");
+       this.message.text = "Login successful!";
+      this.message.type = "success";
+
+      this.email = "";
+      this.password = "";
+
+      this.$router.push("/home");
+    }
       } catch (error) {
         console.error("Login failed:", error);
 
-        // Display error message if login fails
-        this.message.text = "Login failed. Please check your credentials.";
-        this.message.type = "error";
+        if (error.response && error.response.data) {
+          const errorMessage =
+            error.response.data.message || "Login failed. Please try again.";
+          this.message.text = errorMessage;
+          this.message.type = "error";
+        } else {
+          this.message.text = "Unable to connect to the server. Check your internet connection.";
+          this.message.type = "error";
+        }
       }
-      },
-
     },
-
+  },
 };
 </script>
 

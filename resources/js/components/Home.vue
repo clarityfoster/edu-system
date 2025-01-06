@@ -1,7 +1,11 @@
 <template>
-    <v-app>
-        <v-container class="d-flex justify-center align-center" style="height: 100vh;">
-            <v-card class="pa-5" max-width="400">
+  <v-container fluid class="d-flex h-100">
+    <!-- Sidebar -->
+    <SideBar />
+
+    <!-- Main Content Area -->
+    <v-container fluid class="flex-grow-1 py-4 bg-light ms-md-5">
+     <v-card class="pa-5" max-width="400">
                 <v-card-title class="justify-center">
                     Hello
                 </v-card-title>
@@ -12,12 +16,17 @@
                     <v-btn color="primary" @click="handleClick">Click Me</v-btn>
                 </v-card-actions>
             </v-card>
-        </v-container>
-    </v-app>
+    </v-container>
+  </v-container>
 </template>
 
+
 <script>
+import SideBar from "./SideBar.vue";
 export default {
+     components: {
+    SideBar,
+  },
     data() {
         return {};
     },

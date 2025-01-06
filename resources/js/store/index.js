@@ -7,6 +7,9 @@ export const store = createStore({
         roleId: parseInt(localStorage.getItem("role_id")) || null,
         roles: [],
         users: [],
+        authUsers: [],
+        filterstudents: [],
+        filterinstructor:[],
     },
     mutations: {
         setRoleId(state, roleId) {
@@ -19,6 +22,15 @@ export const store = createStore({
         },
         fetchUsers(state, users) {
             state.users = users;
+        },
+        fetchAuthUsers(state, authUsers) {
+            state.authUsers = authUsers;
+        },
+         fetchFilterStudents(state, filterstudents) {
+            state.filterstudents = filterstudents;
+        },
+        fetchFilterInstructors(state, filterinstructors) {
+            state.filterinstructors = filterinstructors;
         },
         setCurrentUser(state, user) {
             state.currentUser = user;
@@ -46,17 +58,64 @@ export const store = createStore({
         },
         async fetchUsers({ commit }) {
             try {
-                console.log('Fetching Users...');
+
                 const response = await axios.get("http://127.0.0.1:8000/api/users");
-                console.log('API Response:', response);
+                // console.log('API Response:', response);
                 commit('fetchUsers', response.data.users);
             } catch (error) {
                 console.error("Error fetching users:", error);
             }
+        },
+        async fetchFilterStudents({ commit }) {
+            try {
+
+                const response = await axios.get("http://127.0.0.1:8000/api/learners");
+
+                commit('fetchFilterStudents', response.data.learners);
+
+            } catch (error) {
+                console.error("Error fetching filterstudents:", error);
+            }
+        },
+        async fetchFilterInstructors({ commit }) {
+            try {
+
+                const response = await axios.get("http://127.0.0.1:8000/api/instructors");
+
+                commit('fetchFilterInstructors', response.data.instructors);
+
+            } catch (error) {
+                console.error("Error fetching filterinstructors:", error);
+            }
+        },
+        async fetchAuthUsers({ commit }) {
+      try {
+        const token = localStorage.getItem("auth_token");
+
+        if (!token) {
+          console.error("No token found. Redirecting to login...");
+          return;
         }
 
+        const response = await axios.get("http://127.0.0.1:8000/api/auth-users", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
-
+        if (response.data && response.data.authUser) {
+          commit("fetchAuthUsers", response.data.authUser);
+        } else {
+          console.error("authUsers key not found in the response.");
+        }
+      } catch (error) {
+        if (error.response && error.response.status === 401) {
+          console.error("Unauthorized: Token invalid or expired.");
+        } else {
+          console.error("Error fetching auth users:", error.message);
+        }
+      }
+    },
     }
 
 

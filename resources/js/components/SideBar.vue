@@ -17,8 +17,8 @@
             height="50"
           />
           <div v-if="!isCollapsed" class="ms-3">
-            <h5></h5>
-            <p class="mb-0"></p>
+            <h5>{{ authUsers.name }}</h5>
+            <!-- <p class="mb-0">{{ authUsers.role.name }}</p> -->
           </div>
         </div>
 
@@ -112,7 +112,7 @@ export default {
           roles: [1, 2, 3],
           expanded: false,
           children: [
-            { title: "View Students", icon: "mdi-account-multiple", route: "/students", roles: [1, 2, 3] },
+            { title: "View Students", icon: "mdi-account-multiple", route: "/studentlist", roles: [1, 2, 3] },
             { title: "Add Student", icon: "mdi-account-plus", route: "/addstudent", roles: [1] },
           ],
         },
@@ -122,7 +122,7 @@ export default {
           roles: [1, 2, 3],
           expanded: false,
           children: [
-            { title: "View Instructors", icon: "mdi-account-multiple", route: "/instructors", roles: [1, 2, 3] },
+            { title: "View Instructors", icon: "mdi-account-multiple", route: "/instructorlist", roles: [1, 2, 3] },
             { title: "Add Instructor", icon: "mdi-account-plus", route: "/addinstructor", roles: [1] },
           ],
         },
@@ -139,7 +139,7 @@ export default {
         {
           title: "Courses",
           icon: "mdi-book",
-          roles: [1, 2],
+          roles: [1, 2, 3],
           expanded: false,
           children: [
             { title: "View Courses", icon: "mdi-book-open", route: "/courses", roles: [1, 2, 3] },
@@ -153,7 +153,7 @@ export default {
   },
 
   computed: {
-    ...mapState(["roleId","users"]),
+    ...mapState(["roleId","users","authUsers"]),
 
     filteredMenuItems() {
       const roleId = this.roleId || 0;
@@ -168,17 +168,38 @@ export default {
           return item;
         })
         .filter((item) => item);
-    },
+      },
+    filteredMenuItems() {
+  const roleId = this.roleId || 0;
+  return this.menuItems
+    .map((item) => {
+      // Filter out items not allowed for this role
+      if (!item.roles.includes(roleId)) return null;
+
+      // Filter children for this role
+      if (item.children) {
+        item.children = item.children.filter(
+          (subItem) => !subItem.roles || subItem.roles.includes(roleId)
+        );
+      }
+      return item;
+    })
+    .filter((item) => item && item.children && item.children.length > 0); // Ensure non-empty items
+},
+
+
   },
 
   methods: {
-    ...mapActions(["fetchUsers"]),
+    ...mapActions(["fetchUsers","fetchAuthUsers"]),
 
     toggleSubMenu(index) {
       this.menuItems.forEach((item, i) => {
         item.expanded = i === index ? !item.expanded : false;
       });
-    },
+      },
+
+
 
     navigateTo(route) {
       if (!route) return;
@@ -191,7 +212,9 @@ export default {
 
     isActive(item) {
       return this.$route.path === item.route;
-    },
+      },
+
+
 
     toggleSidebar() {
       this.isCollapsed = !this.isCollapsed;
@@ -201,12 +224,13 @@ export default {
       console.log("Logout clicked");
       localStorage.removeItem("role_id");
       this.$store.commit("setRoleId", null);
-      this.$router.push("/login");
+      this.$router.push("/");
     },
   },
 
   mounted() {
     this.fetchUsers();
+    this.fetchAuthUsers();
     const roleId = parseInt(localStorage.getItem("role_id"));
     if (roleId) {
       this.$store.commit("setRoleId", roleId);
