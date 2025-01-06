@@ -36,6 +36,8 @@ class UserController extends Controller
         $validator = validator(request()->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users',
+            'phone' => 'required|digits_between:10,15',
+            'semester_id' => 'required',
             'password' => 'required|min:8',
         ]);
         if($validator->fails()) {
@@ -46,7 +48,10 @@ class UserController extends Controller
         $user = new User();
         $user->name = request()->name;
         $user->email = request()->email;
+        $user->phone = request()->phone;
         $user->password = request()->password;
+        $user->semester_id = request()->semester_id;
+        $user->is_approved = 1;
         $user->save();
         return response()->json([
             'user' => $user
@@ -107,11 +112,63 @@ class UserController extends Controller
             'learners' => $learners
         ], 200);
     }
+    public function learnersCreate() {
+        $validate = validator(request()->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'phone' => 'required|digits_between:10,15',
+            'semester_id' => 'required',
+            'password' => 'required|min:8',
+        ]);
+        if($validate->fails()) {
+            return response()->json([
+                'errors' => $validate->errors(),
+            ], 422);
+        }
+        $learner = new User();
+        $learner->name = request()->name;
+        $learner->email = request()->email;
+        $learner->phone = request()->phone;
+        $learner->password = request()->password;
+        $learner->semester_id = request()->semester_id;
+        $learner->role_id = 3;
+        $learner->is_approved = 1;
+        $learner->save();
+        return response()->json([
+            'success' => true,
+            'learner' => $learner,
+        ]);
+    }
     public function instructorsList() {
         $instructors = User::where('role_id', '2')->with('role')->get();
         return response()->json([
             'success' => true,
             'instructors' => $instructors
         ], 200);
+    }
+    public function instructorsCreate() {
+        $validate = validator(request()->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users',
+            'phone' => 'required|digits_between:10,15',
+            'password' => 'required|min:8',
+        ]);
+        if($validate->fails()) {
+            return response()->json([
+                'errors' => $validate->errors(),
+            ], 422);
+        }
+        $instructor = new User();
+        $instructor->name = request()->name;
+        $instructor->email = request()->email;
+        $instructor->phone = request()->phone;
+        $instructor->password = request()->password;
+        $instructor->role_id = 2;
+        $instructor->is_approved = 1;
+        $instructor->save();
+        return response()->json([
+            'success' => true,
+            'instructor' => $instructor,
+        ]);
     }
 }
