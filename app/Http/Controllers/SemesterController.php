@@ -11,7 +11,7 @@ class SemesterController extends Controller
         $semesters = Semester::with('course')->get();
         return response()->json([
             'status' => 'success',
-            'data' => $semesters
+            'semesters' => $semesters
         ]);
     }
     public function create() {
