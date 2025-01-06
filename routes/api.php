@@ -19,7 +19,6 @@ Route::get('/instructors', [UserController::class, 'instructorsList']);
 
 Route::get('/semesters', [SemesterController::class, 'index']);
 Route::get('/courses', [CourseController::class, 'index']);
-Route::get('/users', [UserController::class, 'index']);
 
 
 Route::middleware('auth:sanctum')->group(function() {

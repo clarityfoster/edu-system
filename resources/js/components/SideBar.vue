@@ -132,7 +132,7 @@ export default {
           roles: [1, 2, 3],
           expanded: false,
           children: [
-            { title: "View Semesters", icon: "mdi-calendar", route: "/semesters", roles: [1, 2, 3] },
+            { title: "View Semesters", icon: "mdi-calendar", route: "/semesterlist", roles: [1, 2, 3] },
             { title: "Add Semester", icon: "mdi-calendar-plus", route: "/addsemester", roles: [1] },
           ],
         },

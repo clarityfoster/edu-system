@@ -7,7 +7,7 @@
     <v-container fluid class="flex-grow-1 py-4 bg-light ms-md-5">
 
           <v-data-table
-            :items="filterstudents"
+            :items="semesters"
              :headers="headers"
             class="elevation-1"
             item-value="id"
@@ -22,6 +22,16 @@
 
             <template v-slot:item.index="{ index }">
               {{ index + 1 }}
+            </template>
+
+            <template v-slot:item.sname="{ item }">
+              {{ item.name }}
+            </template>
+
+             <template v-slot:item.course="{ item }">
+            <div v-for="(course, index) in item.course" :key="index">
+                {{ course.name }}
+            </div>
             </template>
 
 
@@ -49,7 +59,7 @@ export default {
       headers: [
         { title: "Id", value: "index", align: "center", width: "5%" },
         { title: "Semester Name", value: "sname", align: "center", width: "20%" },
-        { title: "Course Name", value: "cname", align: "center", width: "15%" },
+        { title: "Course Name", value: "course", align: "center", width: "15%" },
 
       ],
     };
@@ -60,33 +70,11 @@ export default {
   },
   methods: {
     ...mapActions(["fetchSemesters"]),
-    async approveUser(userId, index) {
-      this.loadingIndex = index;
-      try {
-        const response = await axios.post(
-          `http://127.0.0.1:8000/api/users/${userId}/approve`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
-            },
-          }
-        );
 
-        this.users[index].is_approved = 1;
-        console.log(response.data.message);
-      } catch (error) {
-        console.error("Error approving user:", error.response?.data || error);
-        alert("Failed to approve the user. Please try again.");
-      } finally {
-        this.loadingIndex = null;
-      }
-    },
   },
   mounted() {
-      this.fetchFilterStudents();
-      this.fetchRoles();
-    this.fetchAuthUsers();
+      this.fetchSemesters();
+
   },
 };
 </script>

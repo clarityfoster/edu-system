@@ -9,7 +9,8 @@ export const store = createStore({
         users: [],
         authUsers: [],
         filterstudents: [],
-        filterinstructor:[],
+        filterinstructor: [],
+        semesters: [],
     },
     mutations: {
         setRoleId(state, roleId) {
@@ -36,6 +37,10 @@ export const store = createStore({
             state.currentUser = user;
             console.log('Current User', state.currentUser);
         },
+        fetchSemesters(state, semesters) {
+            state.semesters = semesters;
+        }
+
     },
     getters: {
         roles: (state) => state.roles,
@@ -64,6 +69,18 @@ export const store = createStore({
                 commit('fetchUsers', response.data.users);
             } catch (error) {
                 console.error("Error fetching users:", error);
+            }
+        },
+        async fetchSemesters({ commit }) {
+            try {
+
+                const response = await axios.get("http://127.0.0.1:8000/api/semesters");
+
+                commit('fetchSemesters', response.data.semesters);
+                console.log('Semesters', response.data.semesters);
+
+            } catch (error) {
+                console.error("Error fetching semesters:", error);
             }
         },
         async fetchFilterStudents({ commit }) {

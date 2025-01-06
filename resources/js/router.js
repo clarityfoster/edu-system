@@ -7,6 +7,7 @@ import SideBar from './components/SideBar.vue';
 import ViewUserList from './components/ViewUserList.vue';
 import StudentList from './components/StudentList.vue';
 import InstructorList from './components/InstructorList.vue';
+import SemesterList from './components/SemesterList.vue';
 const routes = [
     {
         path: '/home',
@@ -42,6 +43,11 @@ const routes = [
         path: '/instructorlist',
         name: 'instructorlist',
         component: InstructorList
+    },
+    {
+        path: '/semesterlist',
+        name: 'semesterlist',
+        component: SemesterList
     },
 ];
 const router = createRouter({
