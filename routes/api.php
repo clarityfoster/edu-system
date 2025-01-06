@@ -20,7 +20,6 @@ Route::get('/instructors', [UserController::class, 'instructorsList']);
 Route::get('/semesters', [SemesterController::class, 'index']);
 Route::get('/courses', [CourseController::class, 'index']);
 
-
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/auth-users', [UserController::class, 'authUser']);
     Route::post('/users/create', [UserController::class, 'create']);

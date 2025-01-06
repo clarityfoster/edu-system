@@ -24,8 +24,42 @@
                 </div>
                 <div>
                     <h4>Analytsics Overview</h4>
-                    <div class="bg-primary rounded-4 d-flex align-items-center justify-content-center mt-4" style="max-width: 100%; height: 300px;">
-                        <p>Chart goes here</p>
+                    <div class="bg-primary rounded-4 d-flex align-items-center justify-content-center gap-3 mt-4" style="max-width: 100%; height: 300px;">
+                        <div class="text-content d-flex flex-column gap-4">
+                            <div class="title">
+                                <h3>Learn With Effectively With Us!</h3>
+                                <span style="font-weight: 300; font-size: 15px;">
+                                    Loream ipsum dolor sit amet consectetur.
+                                </span>
+                            </div>
+                            <div class="content d-flex gap-4 mt-3">
+                                <div class="content1 d-flex  align-items-center gap-2">
+                                    <div class="rounded-circle bg-white d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                        <i class="bi bi-mortarboard-fill text-primary fs-4"></i>
+                                    </div>
+                                    <div class="text">
+                                        <h5 style="font-size: 17px; margin: 0;">Instructors</h5>
+                                        <span style="font-weight: bold;font-size: 15px;">
+                                            30+
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="content1 d-flex align-items-center gap-2">
+                                    <div class="rounded-circle bg-white d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                        <i class="bi bi-people-fill text-primary fs-4"></i>
+                                    </div>
+                                    <div class="text">
+                                        <h5 style="font-size: 17px; margin: 0;">Learners</h5>
+                                        <span style="font-weight: bold;font-size: 15px;">
+                                            100+
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="image-content">
+                            <img src="" alt="">
+                        </div>
                     </div>
                 </div>
             </v-card>
@@ -40,7 +74,9 @@ export default {
         SideBar,
     },
     data() {
-        return {};
+        return {
+            imageSrc: require()
+        };
     },
     methods: {
         handleClick() {

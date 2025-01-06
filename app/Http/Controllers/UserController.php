@@ -101,7 +101,7 @@ class UserController extends Controller
         ], 200);
     }
     public function learnersList() {
-        $learners = User::where('role_id', '3')->with('role')->get();
+        $learners = User::where('role_id', '3')->with('role')->with('semester')->get();
         return response()->json([
             'success' => true,
             'learners' => $learners
