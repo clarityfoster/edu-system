@@ -22,12 +22,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'alice@gmail.com',
             'role_id' => 1,
             'semester_id' => null,
+            'is_approved' => 1,
         ]);
         \App\Models\User::factory()->create([
             'name' => 'John',
             'email' => 'john@gmail.com',
             'role_id' => 2,
             'semester_id' => null,
+            'is_approved' => 1,
         ]);
         $roles = ['Admin', 'Instructor', 'Learner'];
         foreach ($roles as $role) {
