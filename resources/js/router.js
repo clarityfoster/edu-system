@@ -8,6 +8,7 @@ import ViewUserList from './components/ViewUserList.vue';
 import StudentList from './components/StudentList.vue';
 import InstructorList from './components/InstructorList.vue';
 import SemesterList from './components/SemesterList.vue';
+import CourseList from './components/CourseList.vue';
 const routes = [
     {
         path: '/home',
@@ -48,6 +49,11 @@ const routes = [
         path: '/semesterlist',
         name: 'semesterlist',
         component: SemesterList
+    },
+    {
+        path: '/courselist',
+        name: 'courselist',
+        component: CourseList
     },
 ];
 const router = createRouter({

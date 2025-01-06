@@ -142,7 +142,7 @@ export default {
           roles: [1, 2, 3],
           expanded: false,
           children: [
-            { title: "View Courses", icon: "mdi-book-open", route: "/courses", roles: [1, 2, 3] },
+            { title: "View Courses", icon: "mdi-book-open", route: "/courselist", roles: [1, 2, 3] },
             { title: "Add Course", icon: "mdi-book-plus", route: "/addcourse", roles: [1] },
           ],
         },
