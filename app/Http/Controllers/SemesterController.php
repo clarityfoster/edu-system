@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class SemesterController extends Controller
 {
     public function index() {
-        $semesters = Semester::all();
+        $semesters = Semester::with('course')->get();
         return response()->json([
             'status' => 'success',
             'data' => $semesters
