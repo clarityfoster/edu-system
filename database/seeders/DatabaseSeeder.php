@@ -88,19 +88,30 @@ class DatabaseSeeder extends Seeder
             }
         }
         $adminRole = Role::where('name', 'Admin')->first();
-        $instructorRole = Role::where('name', 'Instructor')->first();
         $learnerRole = Role::where('name', 'Learner')->first();
         if($adminRole) {
             $adminRole->permission()->attach(Permission::all());
         }
-        if ($instructorRole) {
-            $instructorRole->permission()->attach(
-                Permission::whereIn('name', [
-                    'view-user', 'update-user', 'create-user',
-                    'create-semester', 'view-semester', 'update-semester', 'delete-semester',
-                    'create-course', 'view-course', 'update-course', 'delete-course',
-                ])->get()
-            );
+
+        $instructorRole = Role::where('name', 'Instructor')->first();
+        $instructorPermissions = Permission::where('category', 'course')
+                                            ->orWhere('category', 'semester')
+                                            ->orWhereIn('name', [
+                                                'view-user', 'update-user', 'create-user', 'view-role'
+                                            ])
+                                            ->get();
+        if($instructorRole) {
+            $instructorRole->permission()->attach($instructorPermissions->pluck('id'));
+        }
+
+        $learnerRole = Role::where('name', 'Learner')->first();
+        $learnerPermissions = Permission::whereIn('name', [
+                                                'view-user', 'update-user', 'delete-user',
+                                                'view-role', 'view-semester', 'view-course'
+                                            ])
+                                            ->get();
+        if($learnerRole) {
+            $learnerRole->permission()->attach($learnerPermissions->pluck('id'));
         }
     }
 }
