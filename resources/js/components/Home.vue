@@ -1,12 +1,13 @@
 <template>
-    <v-container fluid class="d-flex justify-content-around h-100" >
+    <v-container fluid class="d-flex justify-content-around h-100">
         <!-- Sidebar -->
         <SideBar />
 
         <!-- Main Content Area -->
             <v-card
+            class="home-dashboard expanded-card elevation-2 mx-3"
                 elevation="0"
-                style="gap: 30px;"
+                style="gap: 30px; width: 2300px;"
             >
                 <div class="input-group" style="max-width: 500px; margin-bottom: 30px; margin-top: 8px;">
                     <input
@@ -473,3 +474,22 @@ export default {
     },
 };
 </script>
+
+
+<style>
+@media (max-width: 1502px) {
+    .expanded-card {
+        max-width: 1100px;
+    }
+}
+@media (max-width: 1440px) {
+    .expanded-card {
+        max-width: 1050px;
+    }
+}
+@media (max-width: 13414px) {
+    .expanded-card {
+        max-width: 950px;
+    }
+}
+</style>
