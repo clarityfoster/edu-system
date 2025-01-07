@@ -28,8 +28,7 @@
                 <div style="margin-bottom: 50px;">
                     <h4 style="font-weight: 600">Analytsics Overview</h4>
                     <div
-                        class="bg-primary rounded-4 d-flex align-items-center justify-content-evenly gap-3 mt-4"
-                        style=" height: 350px"
+                        class="education-poster bg-primary rounded-4 d-flex align-items-center justify-content-evenly gap-3 mt-4"
                     >
                         <div class="text-content d-flex flex-column gap-4">
                             <div class="title">
@@ -37,7 +36,7 @@
                                     Learn Effectively With Us!
                                 </h3>
                                 <span style="font-size: 15px">
-                                    Loream ipsum dolor sit amet consectetur.
+                                    Urean ilora lordo tis amte seconyort.
                                 </span>
                             </div>
                             <div class="content d-flex gap-5 mt-5">
@@ -127,7 +126,7 @@
                         >
                             <div class="card rounded-4 w-100">
                                 <div
-                                    class="card-body d-flex justify-content-between align-items-center gap-3"
+                                    class="popular-courses card-body d-flex justify-content-between align-items-center gap-3"
                                 >
                                     <div>
                                         <p
@@ -161,7 +160,7 @@
                             </div>
                             <div class="card rounded-4 w-100">
                                 <div
-                                    class="card-body d-flex justify-content-between align-items-center gap-3"
+                                    class="popular-courses card-body d-flex justify-content-between align-items-center gap-3"
                                 >
                                     <div>
                                         <p
@@ -195,7 +194,7 @@
                             </div>
                             <div class="card rounded-4 w-100">
                                 <div
-                                    class="card-body d-flex justify-content-between align-items-center gap-3"
+                                    class="popular-courses card-body d-flex justify-content-between align-items-center gap-3"
                                 >
                                     <div>
                                         <p
@@ -229,7 +228,7 @@
                             </div>
                             <div class="card rounded-4 w-100">
                                 <div
-                                    class="card-body d-flex justify-content-between align-items-center gap-3"
+                                    class="popular-courses card-body d-flex justify-content-between align-items-center gap-3"
                                 >
                                     <div>
                                         <p
@@ -283,7 +282,7 @@
                                 >
                                     <div>
                                         <h3 class="text-white" style="font-weight: bold; padding: 0; margin: 0;">7K+</h3>
-                                        <span class="text-white" style="padding: 0; font-weight: bold;">Completed Courses</span>
+                                        <span class="text-white" style="padding: 0; font-weight: bold;">Completed Semesters</span>
                                     </div>
                                     <router-link class="w-100 text-end">
                                         <i class="bi bi-arrow-up-right-circle-fill fs-3 text-white"></i>
@@ -477,19 +476,23 @@ export default {
 
 
 <style>
+.education-poster {
+    height: 350px;
+}
 @media (max-width: 1502px) {
     .expanded-card {
         max-width: 1100px;
     }
 }
-@media (max-width: 1440px) {
+@media (max-width: 1441px) {
+    .education-poster {
+        height: 260px;
+    }
     .expanded-card {
         max-width: 1050px;
     }
-}
-@media (max-width: 13414px) {
-    .expanded-card {
-        max-width: 950px;
+    .popular-courses {
+        height: 78px;
     }
 }
 </style>

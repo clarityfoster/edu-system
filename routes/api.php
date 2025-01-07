@@ -38,6 +38,8 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/semesters/{id}/edit', [SemesterController::class, 'edit']);
     Route::post('/semesters/{id}/update', [SemesterController::class, 'update']);
     Route::post('/semesters/{id}/delete', [SemesterController::class, 'delete']);
+    Route::get('/semesters/ongoing', [SemesterController::class, 'getOngoingSemester']);
+    Route::get('/semesters/completed', [SemesterController::class, 'completedSemester']);
 
     Route::post('/courses/create', [CourseController::class, 'create']);
     Route::get('/courses/{id}/read', [CourseController::class, 'read']);
