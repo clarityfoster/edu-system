@@ -1,17 +1,14 @@
 <template>
-    <v-container fluid class="d-flex justify-content-around h-100" style="gap: 130px;">
+    <v-container fluid class="d-flex justify-content-around h-100" >
         <!-- Sidebar -->
         <SideBar />
 
         <!-- Main Content Area -->
             <v-card
-                class="d-flex flex-column"
-                max-width="100%"
-                height="99%"
                 elevation="0"
-                style="gap: 30px; margin-left: 85px;"
+                style="gap: 30px;"
             >
-                <div class="input-group" style="max-width: 500px">
+                <div class="input-group" style="max-width: 500px; margin-bottom: 30px; margin-top: 8px;">
                     <input
                         type="text"
                         class="form-control rounded-5"
@@ -27,11 +24,11 @@
                         <i class="bi bi-search"></i>
                     </button>
                 </div>
-                <div>
+                <div style="margin-bottom: 50px;">
                     <h4 style="font-weight: 600">Analytsics Overview</h4>
                     <div
                         class="bg-primary rounded-4 d-flex align-items-center justify-content-evenly gap-3 mt-4"
-                        style="max-width: 100%; height: 350px"
+                        style=" height: 350px"
                     >
                         <div class="text-content d-flex flex-column gap-4">
                             <div class="title">
@@ -105,9 +102,9 @@
                     </div>
                 </div>
                 <div
-                    class="d-flex justify-content-between align-items-start gap-5 mt-3"
+                    class="d-flex justify-content-between align-items-start gap-5"
                 >
-                    <div style="min-width: 480px; height: 400px">
+                    <div style="width: 480px; height: 400px">
                         <div
                             class="d-flex align-items-center justify-content-between"
                         >
@@ -265,7 +262,7 @@
                             </div>
                         </div>
                     </div>
-                    <div style="min-width: 400px; height: 400px">
+                    <div style="width: 400px; height: 400px">
                         <h5 style="font-weight: 600">Current Activity</h5>
                         <div class="mt-4 d-flex flex-column gap-3">
                             <div
@@ -310,7 +307,7 @@
                             </div>
                         </div>
                     </div>
-                    <div style="min-width: 400px">
+                    <div style="width: 400px">
                         <h5 style="font-weight: 600">Best Learners</h5>
                         <div class="d-flex flex-column gap-2 align-items-start justify-content-center mt-4">
                             <div class="card rounded-4 w-100">
