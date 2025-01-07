@@ -30,6 +30,9 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::post('/users/{id}/approve', [UserController::class, 'isApproved']);
     Route::post('/users/{id}/approve-pending', [UserController::class, 'approvePending']);
 
+    Route::post('/learners/create', [UserController::class, 'learnersCreate']);
+    Route::post('/instructors/create', [UserController::class, 'instructorsCreate']);
+
     Route::post('/semesters/create', [SemesterController::class, 'create']);
     Route::get('/semesters/{id}/read', [SemesterController::class, 'read']);
     Route::get('/semesters/{id}/edit', [SemesterController::class, 'edit']);
@@ -49,7 +52,6 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::post('/roles/{id}/delete', [RoleController::class, 'delete']);
 
     Route::get('/roles-permissions', [PermissionController::class, 'index']);
-    Route::post('/permissions/create', [PermissionController::class, 'create']);
     Route::post('/roles-permissions/update', [PermissionController::class, 'updatePermission']);
 
 });
