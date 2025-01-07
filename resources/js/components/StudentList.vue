@@ -30,16 +30,10 @@
             </template>
 
 
-            <template v-slot:item.role="{ item }">
-              <v-chip
-                v-if="item.role"
-                color="success"
-                text-color="white"
-                small
-              >
-                {{ item.role.name }}
-              </v-chip>
-              <span v-else class="text-muted">No Role</span>
+            <template v-slot:item.semester="{ item }">
+
+                {{ item.semester.name }}
+
             </template>
 
             <template v-slot:item.action="{ item, index }">
@@ -84,7 +78,7 @@ export default {
         { title: "Name", value: "name", align: "center", width: "20%" },
         { title: "Phone", value: "phone", align: "center", width: "15%" },
         { title: "Email", value: "email", align: "center", width: "20%" },
-        { title: "Roles", value: "role", align: "center", width: "10%" },
+        { title: "Semester", value: "semester", align: "center", width: "15%" },
 
       ],
     };
@@ -94,7 +88,7 @@ export default {
      filteredHeaders() {
       const isAdmin = this.authUsers?.role?.name === "Admin";
       return isAdmin
-        ? [...this.headers, { title: "Action", value: "action", align: "center", width: "10%" }]
+        ? [...this.headers, { title: "Action", value: "action", align: "center", width: "5%" }]
         : this.headers;
     },
   },

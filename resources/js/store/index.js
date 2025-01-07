@@ -121,7 +121,9 @@ export const store = createStore({
         });
 
         if (response.data && response.data.authUser) {
-          commit("fetchAuthUsers", response.data.authUser);
+            commit("fetchAuthUsers", response.data.authUser);
+            console.log('Auth Users', response.data.authUser);
+
         } else {
           console.error("authUsers key not found in the response.");
         }

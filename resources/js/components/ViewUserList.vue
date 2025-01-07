@@ -5,10 +5,7 @@
 
     <!-- Main Content Area -->
     <v-container fluid class="flex-grow-1 py-4 bg-light ms-md-5">
-      <!-- <v-card outlined> -->
-        <!-- <v-card-title class="primary text-white text-center">
-          <h5 class="mb-0">User List</h5>
-        </v-card-title> -->
+
 
         <!-- <v-card-text> -->
           <v-data-table
@@ -60,8 +57,6 @@
               </v-btn>
             </template>
           </v-data-table>
-        <!-- </v-card-text>
-      </v-card> -->
     </v-container>
   </v-container>
 </template>

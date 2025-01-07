@@ -23,12 +23,7 @@
           {{ index + 1 }}
         </template>
 
-        <template v-slot:item.role="{ item }">
-          <v-chip v-if="item.role" color="success" text-color="white" small>
-            {{ item.role.name }}
-          </v-chip>
-          <span v-else class="text-muted">No Role</span>
-        </template>
+       
 
         <template v-slot:item.action="{ item, index }">
           <v-btn
@@ -70,14 +65,14 @@ export default {
         { title: "Name", value: "name", align: "center", width: "20%" },
         { title: "Phone", value: "phone", align: "center", width: "15%" },
         { title: "Email", value: "email", align: "center", width: "20%" },
-        { title: "Roles", value: "role", align: "center", width: "10%" },
+
       ],
     };
   },
   computed: {
     ...mapState(["filterinstructors", "roles", "authUsers"]),
 
-    // Dynamically add Action column header based on authUser's role
+
     filteredHeaders() {
       const isAdmin = this.authUsers?.role?.name === "Admin";
       return isAdmin

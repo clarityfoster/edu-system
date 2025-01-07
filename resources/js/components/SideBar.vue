@@ -18,39 +18,176 @@
           />
           <div v-if="!isCollapsed" class="ms-3">
             <h5>{{ authUsers.name }}</h5>
-            <!-- <p class="mb-0">{{ authUsers.role.name }}</p> -->
+           <p class="mb-0">{{ authUsers.role?.name }}</p>
           </div>
         </div>
 
         <hr class="text-white" />
 
         <!-- Menu Items -->
-        <ul class="nav flex-column">
-          <li v-for="(item, index) in filteredMenuItems" :key="index" class="nav-item">
+        <ul class="nav flex-column" v-if="roleId == 1">
+          <li  class="nav-item">
             <a
-              class="nav-link text-white d-flex align-items-center"
-              href="#"
-              @click="toggleSubMenu(index)"
-              :class="{ active: isActive(item) }"
+               class="nav-link text-white d-flex align-items-center  collapsed "
+                data-bs-target="#userListsNav"
+                data-bs-toggle="collapse"
+                href="#"
             >
-              <i :class="'mdi ' + item.icon + ' me-2'"></i>
-              <span v-if="!isCollapsed">{{ item.title }}</span>
+              <i class="mdi mdi-account-group"></i>
+                <span >User Lists</span>
+                <i class="bi bi-chevron-down ms-auto" style="color: white;"></i>
             </a>
             <!-- Submenu -->
-            <ul v-if="item.expanded" class="nav flex-column ms-3">
-              <li v-for="subItem in item.children" :key="subItem.title" class="nav-item">
+            <!-- <ul  class="nav flex-column ms-3" id="userListsNav"> -->
+              <ul  class="nav flex-column ms-3" data-bs-parent="#sidebar-nav" id="userListsNav">
+              <li  class="nav-item">
                 <a
-                  class="nav-link text-white"
-                  @click.prevent="navigateTo(subItem.route)"
-                  :class="{ active: isActive(subItem) }"
+                  class="nav-link text-white" href="/viewuserlist"
                 >
-                  <i :class="'mdi ' + subItem.icon + ' me-2'"></i>
-                  {{ subItem.title }}
+                  <i class="mdi mdi-account-multiple"></i>
+                  View User
                 </a>
               </li>
             </ul>
           </li>
         </ul>
+         <ul class="nav flex-column">
+          <li  class="nav-item">
+            <a
+               class="nav-link text-white d-flex align-items-center  collapsed "
+                data-bs-target="#studentListsNav"
+                data-bs-toggle="collapse"
+                href="#"
+            >
+              <i class="mdi mdi-school"></i>
+                <span >Students</span>
+                 <i class="bi bi-chevron-down ms-auto" style="color: white;"></i>
+            </a>
+            <!-- Submenu -->
+            <ul  class="nav  ms-3 nav-content collapse" data-bs-parent="#sidebar-nav" id="studentListsNav">
+              <li  class="nav-item">
+                <a
+                  class="nav-link text-white" href="/studentlist"
+                >
+                  <i class="mdi mdi-account-multiple"></i>
+                  View Student
+                </a>
+              </li>
+              <li  class="nav-item" v-if="roleId == 1">
+                <a
+                  class="nav-link text-white"
+                >
+                  <i class="mdi mdi-account-plus"></i>
+                  Add Students
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="nav flex-column">
+          <li  class="nav-item">
+            <a
+               class="nav-link text-white d-flex align-items-center  collapsed "
+                data-bs-target="#instructorListsNav"
+                data-bs-toggle="collapse"
+                href="#"
+            >
+              <i class= "mdi mdi-shield-account"></i>
+                <span v-if="!isCollapsed">Instructors</span>
+                <i class="bi bi-chevron-down ms-auto" style="color: white;"></i>
+            </a>
+            <!-- Submenu -->
+            <ul  class="nav  ms-3 nav-content collapse" data-bs-parent="#sidebar-nav" id="instructorListsNav">
+              <li  class="nav-item">
+                <a
+                  class="nav-link text-white" href="/instructorlist"
+                >
+                  <i class="mdi mdi-account-multiple"></i>
+                  View Instructors
+                </a>
+              </li>
+               <li  class="nav-item" v-if="roleId == 1">
+                <a
+                  class="nav-link text-white"
+                >
+                  <i class="mdi mdi-account-plus"></i>
+                 Add Instructor
+                </a>
+              </li>
+
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="nav flex-column">
+          <li  class="nav-item">
+            <a
+              class="nav-link text-white d-flex align-items-center  collapsed "
+                data-bs-target="#semesterListsNav"
+                data-bs-toggle="collapse"
+                href="#"
+            >
+              <i class= "mdi mdi-calendar-month"></i>
+                <span v-if="!isCollapsed">Semesters</span>
+                 <i class="bi bi-chevron-down ms-auto" style="color: white;"></i>
+            </a>
+            <!-- Submenu -->
+             <ul  class="nav  ms-3 nav-content collapse" data-bs-parent="#sidebar-nav" id="semesterListsNav">
+              <li  class="nav-item">
+                <a
+                  class="nav-link text-white" href="/semesterlist"
+                >
+                  <i class="mdi mdi-calendar"></i>
+                  View Semesters
+                </a>
+              </li>
+               <li  class="nav-item" v-if="roleId == 1">
+                <a
+                  class="nav-link text-white"
+                >
+                  <i class="mdi mdi-calendar-plus"></i>
+                 Add Semester
+                </a>
+              </li>
+
+            </ul>
+          </li>
+        </ul>
+         <ul class="nav flex-column">
+          <li  class="nav-item">
+            <a
+              class="nav-link text-white d-flex align-items-center  collapsed "
+                data-bs-target="#courseListsNav"
+                data-bs-toggle="collapse"
+                href="#"
+            >
+              <i class= "mdi mdi-book"></i>
+                <span v-if="!isCollapsed">Courses</span>
+                 <i class="bi bi-chevron-down ms-auto" style="color: white;"></i>
+            </a>
+            <!-- Submenu -->
+           <ul  class="nav  ms-3 nav-content collapse" data-bs-parent="#sidebar-nav" id="courseListsNav">
+              <li  class="nav-item">
+                <a
+                  class="nav-link text-white" href="/courselist"
+                >
+                  <i class="mdi mdi-book-open"></i>
+                  View Courses
+                </a>
+              </li>
+               <li  class="nav-item" v-if="roleId == 1">
+                <a
+                  class="nav-link text-white"
+                >
+                  <i class="mdi mdi-book-plus"></i>
+                 Add Course
+                </a>
+              </li>
+
+            </ul>
+          </li>
+        </ul>
+
 
         <hr class="text-white" />
 
@@ -65,13 +202,20 @@
       </div>
 
       <!-- Toggle Button -->
-      <button
+      <!-- <button
         class="btn btn-light toggle-btn"
         @click="toggleSidebar"
         aria-label="Toggle Sidebar"
       >
         <i class="mdi" :class="isCollapsed ? 'mdi-menu' : 'mdi-chevron-left'"></i>
-      </button>
+      </button> -->
+      <button
+    class="btn btn-light d-lg-none toggle-btn"
+    @click="toggleMobileSidebar"
+    aria-label="Toggle Sidebar"
+    >
+    <i class="mdi mdi-menu"></i>
+    </button>
 
     </aside>
 
@@ -85,69 +229,7 @@ export default {
   name: "SideBar",
   data() {
     return {
-      menuItems: [
-        {
-          title: "User Lists",
-          icon: "mdi-account-group",
-          roles: [1],
-          expanded: false,
-          children: [
-            {
-              title: "View User Lists",
-              icon: "mdi-account-multiple",
-              route: "/viewuserlist",
-              roles: [1],
-            },
-            {
-              title: "Create User",
-              icon: "mdi-account-plus",
-              route: "/createuser",
-              roles: [1],
-            },
-          ],
-        },
-         {
-          title: "Students",
-          icon: "mdi-school",
-          roles: [1, 2, 3],
-          expanded: false,
-          children: [
-            { title: "View Students", icon: "mdi-account-multiple", route: "/studentlist", roles: [1, 2, 3] },
-            { title: "Add Student", icon: "mdi-account-plus", route: "/addstudent", roles: [1] },
-          ],
-        },
-        {
-          title: "Instructors",
-          icon: "mdi-shield-account",
-          roles: [1, 2, 3],
-          expanded: false,
-          children: [
-            { title: "View Instructors", icon: "mdi-account-multiple", route: "/instructorlist", roles: [1, 2, 3] },
-            { title: "Add Instructor", icon: "mdi-account-plus", route: "/addinstructor", roles: [1] },
-          ],
-        },
-        {
-          title: "Semesters",
-          icon: "mdi-calendar-month",
-          roles: [1, 2, 3],
-          expanded: false,
-          children: [
-            { title: "View Semesters", icon: "mdi-calendar", route: "/semesterlist", roles: [1, 2, 3] },
-            { title: "Add Semester", icon: "mdi-calendar-plus", route: "/addsemester", roles: [1] },
-          ],
-        },
-        {
-          title: "Courses",
-          icon: "mdi-book",
-          roles: [1, 2, 3],
-          expanded: false,
-          children: [
-            { title: "View Courses", icon: "mdi-book-open", route: "/courselist", roles: [1, 2, 3] },
-            { title: "Add Course", icon: "mdi-book-plus", route: "/addcourse", roles: [1] },
-          ],
-        },
 
-      ],
       isCollapsed: false,
     };
   },
@@ -155,70 +237,18 @@ export default {
   computed: {
     ...mapState(["roleId","users","authUsers"]),
 
-    filteredMenuItems() {
-      const roleId = this.roleId || 0;
-      return this.menuItems
-        .map((item) => {
-          if (!item.roles.includes(roleId)) return null;
-          if (item.children) {
-            item.children = item.children.filter(
-              (subItem) => !subItem.roles || subItem.roles.includes(roleId)
-            );
-          }
-          return item;
-        })
-        .filter((item) => item);
-      },
-    filteredMenuItems() {
-  const roleId = this.roleId || 0;
-  return this.menuItems
-    .map((item) => {
-      // Filter out items not allowed for this role
-      if (!item.roles.includes(roleId)) return null;
-
-      // Filter children for this role
-      if (item.children) {
-        item.children = item.children.filter(
-          (subItem) => !subItem.roles || subItem.roles.includes(roleId)
-        );
-      }
-      return item;
-    })
-    .filter((item) => item && item.children && item.children.length > 0); // Ensure non-empty items
-},
-
 
   },
+watch: {
+    roleId() {
+        this.fetchAuthUsers();
+      console.log(this.roleId);
 
+    },
+  },
   methods: {
     ...mapActions(["fetchUsers","fetchAuthUsers"]),
 
-    toggleSubMenu(index) {
-      this.menuItems.forEach((item, i) => {
-        item.expanded = i === index ? !item.expanded : false;
-      });
-      },
-
-
-
-    navigateTo(route) {
-      if (!route) return;
-      this.$router.push(route).catch((err) => {
-        if (err.name !== "NavigationDuplicated") {
-          console.error(err);
-        }
-      });
-    },
-
-    isActive(item) {
-      return this.$route.path === item.route;
-      },
-
-
-
-    toggleSidebar() {
-      this.isCollapsed = !this.isCollapsed;
-    },
 
     logout() {
       console.log("Logout clicked");
@@ -242,8 +272,15 @@ export default {
 <style scoped>
 /* Styles for sidebar */
 #sidebar {
-  width: 250px;
-  transition: width 0.3s;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%; /* Full height */
+  width: 200px; /* Default width */
+  transition: width 0.3s, transform 0.3s ease-in-out;
+  background-color: #007bff;
+  z-index: 1050;
+  overflow-y: auto; 
 }
 #sidebar.collapsed {
   width: 70px;
