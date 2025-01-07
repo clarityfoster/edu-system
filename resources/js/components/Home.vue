@@ -5,9 +5,9 @@
 
         <!-- Main Content Area -->
             <v-card
-            class="home-dashboard expanded-card elevation-2 mx-3"
+            class="home-dashboard expanded-card elevation-2"
                 elevation="0"
-                style="gap: 30px; width: 2300px;"
+                style="gap: 30px; width: 2300px; max-width: 80%; margin-left: 100px;"
             >
                 <div class="input-group" style="max-width: 500px; margin-bottom: 30px; margin-top: 8px;">
                     <input
