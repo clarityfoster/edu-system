@@ -201,21 +201,7 @@
         </button>
       </div>
 
-      <!-- Toggle Button -->
-      <!-- <button
-        class="btn btn-light toggle-btn"
-        @click="toggleSidebar"
-        aria-label="Toggle Sidebar"
-      >
-        <i class="mdi" :class="isCollapsed ? 'mdi-menu' : 'mdi-chevron-left'"></i>
-      </button> -->
-      <button
-        class="btn btn-light toggle-btn"
-        @click="toggleSidebar"
-        aria-label="Toggle Sidebar"
-      >
-        <i class="mdi" :class="isCollapsed ? 'mdi-menu' : 'mdi-chevron-left'"></i>
-      </button>
+      
 
     </aside>
 
@@ -271,8 +257,16 @@ watch: {
 
 <style scoped>
 #sidebar {
-
-    position: fixed;
+ position: fixed;
+ top: 0;
+ left: 0;
+ height: 100%;
+    width: 200px;
+    transition: width 0.3s, transform 0.3s ease-in-out;
+    background-color: #343a40;
+    z-index: 1050;
+    overflow-y: auto;
+  height: 100%;
   width: 200px;
 
 }

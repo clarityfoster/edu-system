@@ -1,15 +1,15 @@
 <template>
-    <v-container fluid class="d-flex h-100">
+    <v-container fluid class="d-flex justify-content-around h-100">
         <!-- Sidebar -->
         <SideBar />
 
         <!-- Main Content Area -->
-        <v-container fluid class="flex-grow-1 py-4 bg-light ms-md-5 ">
             <v-card
-                class="pa-5 d-flex flex-column"
+                class="d-flex flex-column"
                 max-width="100%"
                 height="99%"
-                style="gap: 30px"
+                elevation="0"
+                style="gap: 30px; margin-left: 85px;"
             >
                 <div class="input-group" style="max-width: 500px">
                     <input
@@ -36,7 +36,7 @@
                         <div class="text-content d-flex flex-column gap-4">
                             <div class="title">
                                 <h3 style="font-weight: bold; color: #ffc726">
-                                    Learn With Effectively With Us!
+                                    Learn Effectively With Us!
                                 </h3>
                                 <span style="font-size: 15px">
                                     Loream ipsum dolor sit amet consectetur.
@@ -105,7 +105,7 @@
                     </div>
                 </div>
                 <div
-                    class="d-flex justify-content-between align-items-start gap-5"
+                    class="d-flex justify-content-between align-items-start gap-5 mt-3"
                 >
                     <div style="min-width: 480px; height: 400px">
                         <div
@@ -457,7 +457,6 @@
                     </div>
                 </div>
             </v-card>
-        </v-container>
     </v-container>
 </template>
 

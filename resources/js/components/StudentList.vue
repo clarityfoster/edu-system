@@ -1,11 +1,14 @@
 <template>
-  <v-container fluid class="d-flex h-100">
+
+    <v-container fluid class="d-flex justify-content-around h-100">
     <!-- Sidebar -->
     <SideBar />
 
     <!-- Main Content Area -->
-    <v-container fluid class="flex-grow-1 py-4 bg-light ms-md-5 px-4">
-      
+    <!-- <v-container fluid class="flex-grow-1 py-4 bg-light ms-md-5 px-4"> -->
+        <v-card class="expanded-card elevation-2 mx-3" width="950">
+
+
           <v-data-table
             :items="filterstudents"
              :headers="filteredHeaders"
@@ -49,10 +52,9 @@
               </v-btn>
             </template>
           </v-data-table>
-        <!-- </v-card-text>
-      </v-card> -->
+      </v-card>
     </v-container>
-  </v-container>
+
 </template>
 
 <script>
