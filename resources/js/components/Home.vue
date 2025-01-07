@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid class="d-flex justify-content-around h-100">
+    <v-container fluid class="d-flex justify-content-around h-100" style="gap: 130px;">
         <!-- Sidebar -->
         <SideBar />
 

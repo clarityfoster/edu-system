@@ -1,10 +1,10 @@
 <template>
-  <v-container fluid class="d-flex h-100">
+  <v-container fluid class="d-flex justify-content-around h-100">
     <!-- Sidebar -->
     <SideBar />
 
     <!-- Main Content Area -->
-    <v-container fluid class="flex-grow-1 py-4 bg-light ms-md-5">
+   <v-card class="expanded-card elevation-2 mx-3 " width="950">
 
 
         <!-- <v-card-text> -->
@@ -57,7 +57,7 @@
               </v-btn>
             </template>
           </v-data-table>
-    </v-container>
+    </v-card>
   </v-container>
 </template>
 

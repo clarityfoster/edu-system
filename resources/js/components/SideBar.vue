@@ -75,7 +75,7 @@
               </li>
               <li  class="nav-item" v-if="roleId == 1">
                 <a
-                  class="nav-link text-white"
+                  class="nav-link text-white" href="/addstudent"
                 >
                   <i class="mdi mdi-account-plus"></i>
                   Add Students
@@ -201,7 +201,7 @@
         </button>
       </div>
 
-      
+
 
     </aside>
 
