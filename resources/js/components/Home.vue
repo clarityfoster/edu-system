@@ -4,7 +4,7 @@
         <SideBar />
 
         <!-- Main Content Area -->
-        <v-container fluid class="flex-grow-1 py-4 bg-light ms-md-5">
+        <v-container fluid class="flex-grow-1 py-4 bg-light ms-md-5 ">
             <v-card
                 class="pa-5 d-flex flex-column"
                 max-width="100%"

@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="d-flex position-relative">
+  <div id="app" class="d-flex ">
     <!-- Sidebar -->
     <aside
       id="sidebar"
@@ -210,12 +210,12 @@
         <i class="mdi" :class="isCollapsed ? 'mdi-menu' : 'mdi-chevron-left'"></i>
       </button> -->
       <button
-    class="btn btn-light d-lg-none toggle-btn"
-    @click="toggleMobileSidebar"
-    aria-label="Toggle Sidebar"
-    >
-    <i class="mdi mdi-menu"></i>
-    </button>
+        class="btn btn-light toggle-btn"
+        @click="toggleSidebar"
+        aria-label="Toggle Sidebar"
+      >
+        <i class="mdi" :class="isCollapsed ? 'mdi-menu' : 'mdi-chevron-left'"></i>
+      </button>
 
     </aside>
 
@@ -270,17 +270,11 @@ watch: {
 </script>
 
 <style scoped>
-/* Styles for sidebar */
 #sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%; /* Full height */
-  width: 200px; /* Default width */
-  transition: width 0.3s, transform 0.3s ease-in-out;
-  background-color: #007bff;
-  z-index: 1050;
-  overflow-y: auto; 
+
+    position: fixed;
+  width: 200px;
+
 }
 #sidebar.collapsed {
   width: 70px;
