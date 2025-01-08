@@ -263,7 +263,7 @@
                         </div>
                     </div>
                     <div style="width: 400px; height: 400px">
-                        <h5 style="font-weight: 600">Current Activity</h5>
+                        <h5 style="font-weight: 600">Current Activities</h5>
                         <div class="mt-4 d-flex flex-column gap-3">
                             <div
                                 class="w-100 bg-primary rounded-4"

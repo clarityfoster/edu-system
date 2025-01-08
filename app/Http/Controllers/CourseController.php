@@ -11,12 +11,13 @@ class CourseController extends Controller
         $courses = Course::all();
         return response()->json([
             'status' => 'success',
-            'data' => $courses
+            'courses' => $courses,
         ]);
     }
     public function create() {
         $validator = validator(request()->all(), [
             'name' => 'required|string|max:255',
+            'semester_id' => 'nullable|integer'
         ]);
         if($validator->fails()) {
             return response()->json([
@@ -26,6 +27,7 @@ class CourseController extends Controller
         }
         $course = new Course();
         $course->name = request('name');
+        $course->semester_id = request('semester_id');
         $course->save();
         return response()->json([
             'status' => 'success',

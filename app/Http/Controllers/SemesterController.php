@@ -17,6 +17,7 @@ class SemesterController extends Controller
     public function create() {
         $validator = validator(request()->all(), [
             'name' => 'required|string|max:255',
+            'course_id' => 'required|integer',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
         ]);
@@ -30,6 +31,7 @@ class SemesterController extends Controller
         $semester->name = request('name');
         $semester->start_date = request('start_date');
         $semester->end_date = request('end_date');
+        $semester->course_id = request('course_id');
         $semester->save();
         return response()->json([
             'status' => 'success',
