@@ -16,9 +16,9 @@ class SemesterController extends Controller
     }
     public function create() {
         $validator = validator(request()->all(), [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:semesters',
             'course_id' => 'required|array',
-            'course_id.*' => 'required|integer|exists:courses,id',  // Validate that each course exists
+            'course_id.*' => 'required|integer|exists:courses,id',
             'start_date' => 'required|date',
             'end_date' => 'required|date',
         ]);
