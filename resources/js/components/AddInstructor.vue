@@ -6,10 +6,10 @@
   <SideBar />
     <v-card class="pa-5 elevation-12 rounded-lg" width="800">
       <v-card-title class="justify-center text-h5 font-weight-bold text-center">
-        Add Student
+        Add Instructor
       </v-card-title>
       <v-card-text>
-        <v-form ref="registerForm" v-model="valid" @submit.prevent="createStudent">
+        <v-form ref="registerForm" v-model="valid" @submit.prevent="createInstructor">
           <!-- Name Input -->
           <v-text-field
             v-model="name"
@@ -33,6 +33,8 @@
             required
           ></v-text-field>
 
+          <!-- Password Input -->
+          <!-- Confirm Password Input -->
             <v-text-field
             v-model="password"
             label=" Password"
@@ -54,20 +56,6 @@
             clearable
             required
           ></v-text-field>
-
-          <v-select
-            v-if="semesters && Array.isArray(semesters)"
-            v-model="semester"
-            :items="semesters"
-            item-value="id"
-            item-title="name"
-            label="Select Semester"
-            :rules="[rules.required, rules.semester]"
-            outlined
-            dense
-            clearable
-            required
-            ></v-select>
 
           <v-row class="justify-center">
         <v-col cols="12" sm="6" class="d-flex justify-center">
@@ -107,10 +95,9 @@
 <script>
 import axios from "axios";
 import SideBar from "./SideBar.vue";
-import { mapState, mapActions } from "vuex";
 
 export default {
-    name: "AddStudent",
+    name: "AddInstructor",
      components: {
     SideBar,
   },
@@ -120,7 +107,7 @@ export default {
       email: "",
         password: "",
         phone: "",
-      semester: "",
+
       valid: false,
       rules: {
         required: (value) => !!value || "This field is required.",
@@ -134,14 +121,10 @@ export default {
       },
     };
   },
-  computed: {
-  ...mapState(["semesters"]),
-},
 
   methods: {
-    ...mapActions(["fetchSemesters"]),
 
-      async createStudent() {
+      async createInstructor() {
         const token = localStorage.getItem("auth_token");
 
         if (!token) {
@@ -149,12 +132,12 @@ export default {
           return;
         }
             try {
-            await axios.post("http://127.0.0.1:8000/api/learners/create", {
+            await axios.post("http://127.0.0.1:8000/api/instructors/create", {
                 name: this.name,
                 email: this.email,
                 password: this.password,
                 phone: this.phone,
-                semester_id: this.semester
+
             },
             {
             headers: {
@@ -162,24 +145,19 @@ export default {
             }
             }
             );
-            alert("Student Create successful!");
+            alert("Instructor Create successful!");
            this.cancel();
             } catch (error) {
-            console.error("Error during create student:", error.response.data);
+            console.error("Error during create instructor:", error.response.data);
             }
 
         },
         cancel() {
             this.name = "";
-            this.email = "";
-            this.password = "";
-            this.phone = "";
-            this.semester= "";
+            
+
         },
 
-  },
-  mounted() {
-    this.fetchSemesters();
   },
 
 };

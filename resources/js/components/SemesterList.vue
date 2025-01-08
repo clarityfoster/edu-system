@@ -4,7 +4,7 @@
     <SideBar />
 
     <!-- Main Content Area -->
-    
+
         <v-card class="expanded-card elevation-2 mx-3 " width="950">
           <v-data-table
             :items="semesters"

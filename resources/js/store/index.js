@@ -11,6 +11,7 @@ export const store = createStore({
         filterstudents: [],
         filterinstructor: [],
         semesters: [],
+        courses: [],
     },
     mutations: {
         setRoleId(state, roleId) {
@@ -39,6 +40,9 @@ export const store = createStore({
         },
         fetchSemesters(state, semesters) {
             state.semesters = semesters;
+        },
+          fetchCourses(state, courses) {
+            state.courses = courses;
         }
 
     },
@@ -77,7 +81,7 @@ export const store = createStore({
                 const response = await axios.get("http://127.0.0.1:8000/api/semesters");
 
                 commit('fetchSemesters', response.data.semesters);
-                console.log('Semesters', response.data.semesters);
+                // console.log('Semesters', response.data.semesters);
 
             } catch (error) {
                 console.error("Error fetching semesters:", error);
@@ -134,7 +138,19 @@ export const store = createStore({
           console.error("Error fetching auth users:", error.message);
         }
       }
-    },
+        },
+
+        async fetchCourses({ commit }) {
+            try {
+
+                const response = await axios.get("http://127.0.0.1:8000/api/courses");
+
+                commit('fetchCourses', response.data.courses);
+
+            } catch (error) {
+                console.error("Error fetching courses:", error);
+            }
+        },
     }
 
 

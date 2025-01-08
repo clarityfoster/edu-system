@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Semester extends Model
 {
     use HasFactory;
+    
     public function user() {
         return $this->hasMany(User::class);
     }

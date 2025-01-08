@@ -33,7 +33,7 @@
                 data-bs-toggle="collapse"
                 href="#"
             >
-              <i class="mdi mdi-account-group"></i>
+              <i class="mdi mdi-account-group me-3"></i>
                 <span >User Lists</span>
                 <i class="bi bi-chevron-down ms-auto" style="color: white;"></i>
             </a>
@@ -59,7 +59,7 @@
                 data-bs-toggle="collapse"
                 href="#"
             >
-              <i class="mdi mdi-school"></i>
+              <i class="mdi mdi-school me-3"></i>
                 <span >Students</span>
                  <i class="bi bi-chevron-down ms-auto" style="color: white;"></i>
             </a>
@@ -92,7 +92,7 @@
                 data-bs-toggle="collapse"
                 href="#"
             >
-              <i class= "mdi mdi-shield-account"></i>
+              <i class= "mdi mdi-shield-account me-3"></i>
                 <span v-if="!isCollapsed">Instructors</span>
                 <i class="bi bi-chevron-down ms-auto" style="color: white;"></i>
             </a>
@@ -108,7 +108,7 @@
               </li>
                <li  class="nav-item" v-if="roleId == 1">
                 <a
-                  class="nav-link text-white"
+                  class="nav-link text-white" href="/addinstructor"
                 >
                   <i class="mdi mdi-account-plus"></i>
                  Add Instructor
@@ -127,7 +127,7 @@
                 data-bs-toggle="collapse"
                 href="#"
             >
-              <i class= "mdi mdi-calendar-month"></i>
+              <i class= "mdi mdi-calendar-month me-3"></i>
                 <span v-if="!isCollapsed">Semesters</span>
                  <i class="bi bi-chevron-down ms-auto" style="color: white;"></i>
             </a>
@@ -143,7 +143,7 @@
               </li>
                <li  class="nav-item" v-if="roleId == 1">
                 <a
-                  class="nav-link text-white"
+                  class="nav-link text-white" href="/addsemester"
                 >
                   <i class="mdi mdi-calendar-plus"></i>
                  Add Semester
@@ -161,7 +161,7 @@
                 data-bs-toggle="collapse"
                 href="#"
             >
-              <i class= "mdi mdi-book"></i>
+              <i class= "mdi mdi-book me-3"></i>
                 <span v-if="!isCollapsed">Courses</span>
                  <i class="bi bi-chevron-down ms-auto" style="color: white;"></i>
             </a>
@@ -177,7 +177,7 @@
               </li>
                <li  class="nav-item" v-if="roleId == 1">
                 <a
-                  class="nav-link text-white"
+                  class="nav-link text-white" href="/addcourse"
                 >
                   <i class="mdi mdi-book-plus"></i>
                  Add Course

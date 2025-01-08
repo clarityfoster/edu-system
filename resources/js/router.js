@@ -10,6 +10,9 @@ import InstructorList from './components/InstructorList.vue';
 import SemesterList from './components/SemesterList.vue';
 import CourseList from './components/CourseList.vue';
 import AddStudent from './components/AddStudent.vue';
+import AddInstructor from './components/AddInstructor.vue';
+import AddSemester from './components/AddSemester.vue';
+import AddCourse from './components/AddCourse.vue';
 const routes = [
     {
         path: '/home',
@@ -60,6 +63,21 @@ const routes = [
         path: '/addstudent',
         name: 'addstudent',
         component: AddStudent
+    },
+    {
+        path: '/addinstructor',
+        name: 'addinstructor',
+        component: AddInstructor
+    },
+    {
+        path: '/addsemester',
+        name: 'addsemester',
+        component: AddSemester
+    },
+    {
+        path: '/addcourse',
+        name: 'addcourse',
+        component: AddCourse
     },
 ];
 const router = createRouter({

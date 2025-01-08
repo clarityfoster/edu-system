@@ -7,7 +7,7 @@
 
         <v-card class="expanded-card elevation-2 mx-3 " width="950">
           <v-data-table
-            :items="semesters"
+            :items="courses"
              :headers="headers"
             class="elevation-1"
             item-value="id"
@@ -16,7 +16,7 @@
           >
             <template v-slot:top>
               <v-toolbar flat>
-                <v-toolbar-title class="text-center">Semester Lists</v-toolbar-title>
+                <v-toolbar-title class="text-center">Course Lists</v-toolbar-title>
               </v-toolbar>
             </template>
 
@@ -24,15 +24,18 @@
               {{ index + 1 }}
             </template>
 
-            <template v-slot:item.sname="{ item }">
-              {{ item.name }}
+            <template v-slot:item.name="{ item }">
+            {{ item.name }}
             </template>
 
-             <template v-slot:item.course="{ item }">
-            <div v-for="(course, index) in item.course" :key="index">
-                {{ course.name }}
+
+           <!-- <template v-slot:item.name="{ item }">
+            <div v-for="index in item" :key="index">
+                {{ item.name }}
             </div>
-            </template>
+            </template> -->
+
+
              <template v-slot:item.action="{ item, index }" >
 
               <v-btn v-if="index === 3"
@@ -45,7 +48,6 @@
               <v-btn v-else
                 small
                 color="danger"
-
               >
                 Empty
             </v-btn>
@@ -77,23 +79,22 @@ export default {
       loadingIndex: null,
       headers: [
         { title: "Id", value: "index", align: "center", width: "5%" },
-        { title: "Semester Name", value: "sname", align: "center", width: "20%" },
-        { title: "Course Name", value: "course", align: "center", width: "15%" },
+        { title: "Course Name", value: "name", align: "center", width: "15%" },
         { title: "Action", value: "action", align: "center", width: "15%" },
 
       ],
     };
   },
   computed: {
-      ...mapState(["semesters"]),
+      ...mapState(["courses"]),
 
   },
   methods: {
-    ...mapActions(["fetchSemesters"]),
+    ...mapActions(["fetchCourses"]),
 
   },
   mounted() {
-      this.fetchSemesters();
+      this.fetchCourses();
 
   },
 };
