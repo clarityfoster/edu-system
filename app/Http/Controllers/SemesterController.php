@@ -17,25 +17,29 @@ class SemesterController extends Controller
     public function create() {
         $validator = validator(request()->all(), [
             'name' => 'required|string|max:255',
-            'course_id' => 'required|integer',
+            'course_id' => 'required|array',
+            'course_id.*' => 'required|integer|exists:courses,id',  // Validate that each course exists
             'start_date' => 'required|date',
             'end_date' => 'required|date',
         ]);
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json([
                 'status' => 'error',
                 'errors' => $validator->errors(),
             ]);
         }
+
         $semester = new Semester();
         $semester->name = request('name');
         $semester->start_date = request('start_date');
         $semester->end_date = request('end_date');
-        $semester->course_id = request('course_id');
         $semester->save();
+
+        $semester->course()->attach(request('course_id'));
+
         return response()->json([
             'status' => 'success',
-            'semester' => $semester
+            'semester' => $semester->load('course'),
         ]);
     }
     public function read($id) {

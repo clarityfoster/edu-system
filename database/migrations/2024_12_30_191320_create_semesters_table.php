@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('semesters', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('course_id')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->timestamps();

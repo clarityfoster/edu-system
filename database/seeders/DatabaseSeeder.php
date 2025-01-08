@@ -38,19 +38,19 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         $semesters = [
-            ['name' => 'First Semester', 'start_date' => '2025-01-01', 'end_date' => '2025-06-30', 'course_id' => 1],
-            ['name' => 'Second Semester', 'start_date' => '2025-07-01', 'end_date' => '2025-12-31', 'course_id' => 2],
-            ['name' => 'Third Semester', 'start_date' => '2026-01-01', 'end_date' => '2026-06-30', 'course_id' => 3],
-            ['name' => 'Fourth Semester', 'start_date' => '2026-07-01', 'end_date' => '2026-12-31', 'course_id' => 4],
+            ['name' => 'First Semester', 'start_date' => '2025-01-01', 'end_date' => '2025-06-30'],
+            ['name' => 'Second Semester', 'start_date' => '2025-07-01', 'end_date' => '2025-12-31'],
+            ['name' => 'Third Semester', 'start_date' => '2026-01-01', 'end_date' => '2026-06-30'],
+            ['name' => 'Fourth Semester', 'start_date' => '2026-07-01', 'end_date' => '2026-12-31'],
         ];
         foreach ($semesters as $semester) {
             \App\Models\Semester::create($semester);
         }
         $courses = [
-            ['name' => 'Introduction to Programming', 'semester_id' => 1],
-            ['name' => 'Introduction to Web Development', 'semester_id' => 1],
-            ['name' => 'Object-Oriented Programming in Java', 'semester_id' => 1],
-            ['name' => 'Binary Tree Algorithms', 'semester_id' => 1],
+            ['name' => 'Introduction to Programming'],
+            ['name' => 'Introduction to Web Development'],
+            ['name' => 'Object-Oriented Programming in Java'],
+            ['name' => 'Binary Tree Algorithms'],
         ];
         foreach($courses as $course) {
             Course::create($course);

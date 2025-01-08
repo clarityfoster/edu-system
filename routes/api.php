@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\PermissionController;
 
@@ -19,6 +20,8 @@ Route::get('/instructors', [UserController::class, 'instructorsList']);
 
 Route::get('/semesters', [SemesterController::class, 'index']);
 Route::get('/courses', [CourseController::class, 'index']);
+
+Route::post('/search', [SearchController::class, 'search']);
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/auth-users', [UserController::class, 'authUser']);

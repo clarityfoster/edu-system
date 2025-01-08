@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class CourseController extends Controller
 {
     public function index() {
-        $courses = Course::all();
+        $courses = Course::with('semester')->get();
         return response()->json([
             'status' => 'success',
             'courses' => $courses,
@@ -27,7 +27,6 @@ class CourseController extends Controller
         }
         $course = new Course();
         $course->name = request('name');
-        $course->semester_id = request('semester_id');
         $course->save();
         return response()->json([
             'status' => 'success',
