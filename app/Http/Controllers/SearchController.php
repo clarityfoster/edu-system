@@ -38,9 +38,9 @@ class SearchController extends Controller
             'status' => 'success',
             'users' => $users->isEmpty() ? 'No users found for this query' : $users,
             'roles' => $roles->isEmpty() ? 'No roles found for this query' : $roles,
-            'permissions' => $permissions->isEmpty() ? 'No permi$permissions found for this query' : $permissions,
+            'permissions' => $permissions->isEmpty() ? 'No permissions found for this query' : $permissions,
             'semesters' => $semesters->isEmpty() ? 'No semesters found for this query' : $semesters,
-            'courses' => $courses->isEmpty() ? 'No coure$courses found for this query' : $courses,
+            'courses' => $courses->isEmpty() ? 'No courses found for this query' : $courses,
         ], 200);
     }
 }
