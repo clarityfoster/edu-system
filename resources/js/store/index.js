@@ -151,6 +151,16 @@ export const store = createStore({
                 console.error("Error fetching courses:", error);
             }
         },
+
+        // Search({ commit }, search) {
+        //     axios.post("http://127.0.0.1:8000/api/users/search", {
+        //         key: search
+        //     }).then(res => {
+        //         commit('searchUser', res.data.users);
+
+        //     })
+
+        // },
     }
 
 

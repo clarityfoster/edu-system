@@ -5,32 +5,72 @@
 
     <!-- Main Content Area -->
 
-        <v-card class="expanded-card elevation-2 mx-3 " width="950">
+        <v-card
+            class="home-dashboard expanded-card elevation-2"
+                elevation="0"
+                style="gap: 30px; width: 2300px; max-width: 80%; margin-left: 100px;"
+            >
+                <div class="input-group" style="max-width: 500px; margin-bottom: 30px; margin-top: 8px;">
+                    <input
+                        type="text"
+                        class="form-control rounded-5"
+                        placeholder="Search..."
+                        aria-label="Example text with button addon"
+                        aria-describedby="button-addon1"
+                    />
+                    <button
+                        class="btn btn-primary text-white rounded-circle ms-2"
+                        type="button"
+                        id="button-addon1"
+                    >
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
           <v-data-table
             :items="semesters"
              :headers="headers"
             class="elevation-1"
             item-value="id"
             dense
-            item-class="text-center align-middle"
+            item-class="text-center align-middle font-weight-bold"
           >
+
             <template v-slot:top>
               <v-toolbar flat>
                 <v-toolbar-title class="text-center">Semester Lists</v-toolbar-title>
               </v-toolbar>
             </template>
 
+            <!-- <template v-slot:headers="{ props }">
+            <thead>
+            <tr>
+                <th
+                v-for="header in props.headers"
+                :key="header.value"
+                :style="{ textAlign: header.align, width: header.width }"
+                class="bold-header"
+                >
+                {{ header.title }}
+                </th>
+            </tr>
+            </thead>
+        </template> -->
+
+
             <template v-slot:item.index="{ index }">
               {{ index + 1 }}
             </template>
 
-            <template v-slot:item.sname="{ item }">
-              {{ item.name }}
+            <template v-slot:item.sname="{ item }" >
+                <div class="text-center">
+                    {{ item.name }}
+                </div>
+
             </template>
 
-             <template v-slot:item.course="{ item }">
-            <div v-for="(course, index) in item.course" :key="index">
-                {{ course.name }}
+            <template v-slot:item.course="{ item }">
+            <div v-for="(course, index) in item.course" :key="index" class="text-start">
+                {{ index + 1 }}. {{ course.name }}
             </div>
             </template>
 

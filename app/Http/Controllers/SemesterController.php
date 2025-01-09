@@ -36,7 +36,7 @@ class SemesterController extends Controller
         $semester->save();
 
         $semester->course()->attach(request('course_id'));
-
+        
         return response()->json([
             'status' => 'success',
             'semester' => $semester->load('course'),

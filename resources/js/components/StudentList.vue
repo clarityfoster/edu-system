@@ -5,8 +5,29 @@
     <SideBar />
 
     <!-- Main Content Area -->
-    <!-- <v-container fluid class="flex-grow-1 py-4 bg-light ms-md-5 px-4"> -->
-        <v-card class="expanded-card elevation-2 mx-3" width="950">
+
+
+        <v-card
+            class="home-dashboard expanded-card elevation-2"
+                elevation="0"
+                style="gap: 30px; width: 2300px; max-width: 80%; margin-left: 100px;"
+            >
+                <div class="input-group" style="max-width: 500px; margin-bottom: 30px; margin-top: 8px;">
+                    <input
+                        type="text"
+                        class="form-control rounded-5"
+                        placeholder="Search..."
+                        aria-label="Example text with button addon"
+                        aria-describedby="button-addon1"
+                    />
+                    <button
+                        class="btn btn-primary text-white rounded-circle ms-2"
+                        type="button"
+                        id="button-addon1"
+                    >
+                        <i class="bi bi-search"></i>
+                    </button>
+                </div>
 
 
           <v-data-table

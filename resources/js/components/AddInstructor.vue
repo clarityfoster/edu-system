@@ -1,10 +1,11 @@
 <template>
   <v-container
-    class="d-flex justify-center align-center"
-    style="height: 100vh;"
+    class="d-flex justify-align-center"
+    style="height: 90vh;"
   >
   <SideBar />
-    <v-card class="pa-5 elevation-12 rounded-lg" width="800">
+   <v-card class="pa-5 elevation-12 rounded-lg mx-auto mt-3" width="800">
+
       <v-card-title class="justify-center text-h5 font-weight-bold text-center">
         Add Instructor
       </v-card-title>
@@ -154,7 +155,7 @@ export default {
         },
         cancel() {
             this.name = "";
-            
+
 
         },
 

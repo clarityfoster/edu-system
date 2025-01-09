@@ -1,7 +1,7 @@
 <template>
-  <v-container class="d-flex justify-center align-center" style="height: 100vh;">
+  <v-container class="d-flex justify-align-center" style="height: 50vh;">
     <SideBar />
-    <v-card class="pa-5 elevation-12 rounded-lg" width="800">
+    <v-card class="pa-5 elevation-12 rounded-lg mt-3 mx-auto" width="800">
       <v-card-title class="justify-center text-h5 font-weight-bold text-center">
         Add Course
       </v-card-title>

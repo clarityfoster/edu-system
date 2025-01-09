@@ -2,6 +2,7 @@
     <v-container fluid class="d-flex justify-content-around h-100">
         <!-- Sidebar -->
         <SideBar />
+        
 
         <!-- Main Content Area -->
             <v-card
