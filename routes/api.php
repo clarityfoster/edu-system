@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SemesterController;
+use App\Http\Controllers\BinaryTreeController;
 use App\Http\Controllers\PermissionController;
 
 Route::post('/register', [AuthController::class, 'register']);
@@ -22,6 +23,7 @@ Route::get('/semesters', [SemesterController::class, 'index']);
 Route::get('/courses', [CourseController::class, 'index']);
 
 Route::post('/search', [SearchController::class, 'search']);
+Route::post('/binary-tree', [BinaryTreeController::class, 'generateTree']);
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/auth-users', [UserController::class, 'authUser']);

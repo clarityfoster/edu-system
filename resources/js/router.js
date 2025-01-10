@@ -13,6 +13,10 @@ import AddStudent from './components/AddStudent.vue';
 import AddInstructor from './components/AddInstructor.vue';
 import AddSemester from './components/AddSemester.vue';
 import AddCourse from './components/AddCourse.vue';
+import BinaryTree from './components/BinaryTree.vue';
+import BinaryTreeGenerator from './components/binaryTreeGenerator.vue';
+import BinaryTreeNode from './components/BinaryTreeNode.vue';
+
 const routes = [
     {
         path: '/home',
@@ -78,6 +82,21 @@ const routes = [
         path: '/addcourse',
         name: 'addcourse',
         component: AddCourse
+    },
+    {
+        path: '/binarytree',
+        name: 'binarytree',
+        component: BinaryTree
+    },
+    {
+        path: '/binarytreegenerator',
+        name: 'binarytreegenerator',
+        component: BinaryTreeGenerator
+    },
+    {
+        path: '/binarytreenode',
+        name: 'binarytreenode',
+        component: BinaryTreeNode
     },
 ];
 const router = createRouter({

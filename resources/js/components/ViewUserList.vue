@@ -11,19 +11,32 @@
             >
                 <div class="input-group" style="max-width: 500px; margin-bottom: 30px; margin-top: 8px;">
                     <input
-                        type="text"
-                        class="form-control rounded-5"
-                        placeholder="Search..."
-                        aria-label="Example text with button addon"
-                        aria-describedby="button-addon1"
+                    type="text"
+                    v-model="searchKey"
+                    class="form-control rounded-5"
+                    placeholder="Search..."
+                    aria-label="Example text with button addon"
+                    aria-describedby="button-addon1"
                     />
+
                     <button
-                        class="btn btn-primary text-white rounded-circle ms-2"
+                        class="btn btn-primary text-white rounded-circle ms-2 "
                         type="button"
                         id="button-addon1"
+                         v-on:keyup.enter="search"
+                        @click="search"
                     >
                         <i class="bi bi-search"></i>
                     </button>
+                   <button
+                    class="btn btn-primary btn-sm text-white"
+                    type="button"
+                    id="button-addon1"
+                    style="margin-left: 1rem;"
+                >
+                    Filter
+                </button>
+
                 </div>
 
         <!-- <v-card-text> -->
@@ -91,7 +104,9 @@ export default {
     SideBar,
   },
   data() {
-    return {
+      return {
+        searchKey:"",
+        showFilter: false,
       loadingIndex: null,
       headers: [
         { title: "Id", value: "index", align: "center", width: "5%" },
@@ -107,7 +122,7 @@ export default {
     ...mapState(["users", "roles"]),
   },
   methods: {
-    ...mapActions(["fetchUsers", "fetchRoles"]),
+    ...mapActions(["fetchUsers", "fetchRoles", "Search"]),
     async approveUser(userId, index) {
       this.loadingIndex = index;
       try {
@@ -130,9 +145,25 @@ export default {
         this.loadingIndex = null;
       }
     },
+
+    search() {
+    if (this.searchKey.trim()) {
+        this.$store.dispatch("Search", this.searchKey);
+    } else {
+        this.fetchUsers();
+    }
+},
+
   },
   mounted() {
     this.fetchUsers();
+    },
+  watch: {
+    searchKey(newSearchKey) {
+      if (!newSearchKey.trim()) {
+        this.fetchUsers();
+      }
+    },
   },
 };
 </script>

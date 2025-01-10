@@ -63,8 +63,10 @@
                 color="primary"
 
               >
-                Study
+              <a href="/binarytreegenerator"> Study</a>
+
               </v-btn>
+
               <v-btn v-else
                 small
                 color="danger"
