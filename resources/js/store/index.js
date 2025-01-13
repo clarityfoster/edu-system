@@ -47,7 +47,7 @@ export const store = createStore({
         SearchUsers(state, users) {
             state.users = users ;
         },
-        
+
 
     },
     getters: {
@@ -113,6 +113,7 @@ export const store = createStore({
                 console.error("Error fetching filterinstructors:", error);
             }
         },
+
         async fetchAuthUsers({ commit }) {
       try {
         const token = localStorage.getItem("auth_token");

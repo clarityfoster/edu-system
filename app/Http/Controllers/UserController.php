@@ -69,12 +69,35 @@ class UserController extends Controller
             'user' => $user
         ], 200);
     }
-    public function update($id) {
+   public function update($id) {
+        $validate = Validator(request()->all(), [
+            'name' => 'nullable|string|max:255',
+            'email' => 'nullable|email',
+            'phone' => 'nullable',
+            'role_id' => 'nullable',
+            'semester_id' => 'nullable',
+        ]);
+        if($validate->fails()) {
+            return response()->json([
+                'errors' => $validate->errors(),
+            ], 422);
+        }
         $user = User::with('role')->findOrFail($id);
-        $user->name = request()->name;
-        $user->email = request()->email;
-        $user->password = request()->password;
-        $user->role_id = request()->role_id;
+        if(request()->has('name')) {
+            $user->name = request()->name;
+        }
+        if(request()->has('email')) {
+            $user->email = request()->email;
+        }
+        if(request()->has('role_id')) {
+            $user->role_id = request()->role_id;
+        }
+        if(request()->has('phone')) {
+            $user->phone = request()->phone;
+        }
+        if(request()->has('semester_id')) {
+            $user->semester_id = request()->semester_id;
+        }
         $user->save();
         return response()->json([
             'user' => $user
@@ -83,9 +106,10 @@ class UserController extends Controller
     public function delete($id) {
         $user = User::findOrFail($id);
         $user->delete();
-        return response()->json([
-            'user' => $user
-        ], 200);
+        return response()->json(['message' => 'User deleted successfully'], 200);
+        // return response()->json([
+        //     'user' => $user
+        // ], 200);
     }
     public function isApproved($id) {
         $user = User::findOrFail($id);

@@ -42,6 +42,7 @@
         </div>
       </div>
 
+
       <v-data-table
         :items="filteredInstructors"
         :headers="filteredHeaders"
@@ -60,7 +61,14 @@
           {{ index + 1 }}
         </template>
 
-        <template v-slot:item.action="{ item, index }">
+         <template v-slot:item.action="{ item }">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <v-btn small color="primary" @click="editItem(item)">Edit</v-btn>
+            <v-btn small color="error" @click="deleteItem(item)">Delete</v-btn>
+          </div>
+        </template>
+
+        <template v-slot:item.action2="{ item, index }">
           <v-btn
             small
             color="primary"
@@ -79,6 +87,35 @@
         </template>
       </v-data-table>
     </v-card>
+     <v-dialog v-model="editDialog" max-width="500px">
+      <v-card>
+        <v-card-title>Edit Instructor</v-card-title>
+        <v-card-text>
+          <v-form ref="editForm">
+            <v-text-field
+              v-model="editInstructor.name"
+              label="Name"
+              required
+            ></v-text-field>
+            <v-text-field
+              v-model="editInstructor.phone"
+              label="Phone"
+              required
+            ></v-text-field>
+            <v-text-field
+              v-model="editInstructor.email"
+              label="Email"
+              required
+            ></v-text-field>
+
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary" text @click="updateInstructor">Save</v-btn>
+          <v-btn color="grey" text @click="editDialog = false">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -94,7 +131,8 @@ export default {
   },
   data() {
     return {
-      showFilter: false,
+        showFilter: false,
+      editDialog: false,
       selectedName: "",
       loadingIndex: null,
       headers: [
@@ -111,7 +149,9 @@ export default {
     filteredHeaders() {
       const isAdmin = this.authUsers?.role?.name === "Admin";
       return isAdmin
-        ? [...this.headers, { title: "Action", value: "action", align: "center", width: "10%" }]
+          ? [...this.headers,
+            { title: "Action", value: "action", align: "center", width: "10%" },
+           { title: "Action", value: "action2", align: "center", width: "5%" },]
         : this.headers;
     },
   },
@@ -121,9 +161,10 @@ export default {
       this.showFilter = !this.showFilter;
       if (!this.showFilter) {
         this.selectedName = "";
-        this.filteredInstructors = [...this.filterinstructors]; 
+        this.filteredInstructors = [...this.filterinstructors];
       }
     },
+    
     filterInstructors() {
       this.filteredInstructors = this.filterinstructors.filter((instructor) => {
         const nameMatch = this.selectedName ? instructor.name === this.selectedName : true;
@@ -150,7 +191,56 @@ export default {
       } finally {
         this.loadingIndex = null;
       }
+      },
+     async deleteItem(item) {
+        if (!confirm(`Are you sure you want to delete ${item.name}?`)) {
+            return;
+        }
+
+        try {
+            await axios.delete(`http://127.0.0.1:8000/api/users/${item.id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+            },
+            });
+
+            this.filteredInstructors = this.filteredInstructors.filter(
+            (instructor) => instructor.id !== item.id
+            );
+
+            alert("Instructor deleted successfully.");
+        } catch (error) {
+            console.error("Error deleting Instructor:", error.response?.data || error);
+            alert("Failed to delete the item. Please try again.");
+        }
+      },
+      editItem(item) {
+      this.editInstructor = { ...item };
+      this.editDialog = true;
     },
+    async updateInstructor() {
+  try {
+    await axios.post(
+      `http://127.0.0.1:8000/api/users/${this.editInstructor.id}/update`,
+      this.editInstructor, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        },
+      }
+    );
+
+    await this.fetchFilterInstructors();
+    this.filteredInstructors = this.filterInstructors;
+
+      alert("Instructor updated successfully!");
+      this.editDialog = false;
+  } catch (error) {
+    console.error("Error updating instructor:", error.response?.data || error);
+    alert("Failed to update the instructor. Please try again.");
+  }
+}
+
+
   },
   mounted() {
     this.fetchFilterInstructors().then(() => {

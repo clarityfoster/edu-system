@@ -76,7 +76,16 @@
           {{ item.semester.name }}
         </template>
 
-        <template v-slot:item.action="{ item, index }">
+        <template v-slot:item.action="{ item }">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <v-btn small color="primary" @click="editItem(item)">Edit</v-btn>
+            <v-btn small color="error" @click="deleteItem(item)">Delete</v-btn>
+          </div>
+        </template>
+
+
+
+        <template v-slot:item.action2="{ item, index }">
           <v-btn
             small
             color="primary"
@@ -95,6 +104,42 @@
         </template>
       </v-data-table>
     </v-card>
+    <v-dialog v-model="editDialog" max-width="500px">
+      <v-card>
+        <v-card-title>Edit Student</v-card-title>
+        <v-card-text>
+          <v-form ref="editForm">
+            <v-text-field
+              v-model="editStudent.name"
+              label="Name"
+              required
+            ></v-text-field>
+            <v-text-field
+              v-model="editStudent.phone"
+              label="Phone"
+              required
+            ></v-text-field>
+            <v-text-field
+              v-model="editStudent.email"
+              label="Email"
+              required
+            ></v-text-field>
+            <v-select
+              v-model="editStudent.semester_id"
+              :items="semesters"
+              item-value="id"
+              item-title="name"
+              label="Semester"
+              required
+            ></v-select>
+          </v-form>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn color="primary" text @click="updateStudent">Save</v-btn>
+          <v-btn color="grey" text @click="editDialog = false">Cancel</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -112,6 +157,14 @@ export default {
     return {
       showFilter: false,
       loadingIndex: null,
+      editDialog: false,
+      editStudent: {
+        id: null,
+        name: "",
+        phone: "",
+        email: "",
+        semester_id: null,
+      },
       selectedName: "",
       selectedSemester: "",
       headers: [
@@ -122,25 +175,29 @@ export default {
         { title: "Semester", value: "semester", align: "center", width: "15%" },
       ],
       filteredStudents: [],
-      semesters: [],
+
     };
   },
   computed: {
-    ...mapState(["filterstudents", "roles", "authUsers"]),
+    ...mapState(["filterstudents", "roles", "authUsers","semesters"]),
     filteredHeaders() {
       const isAdmin = this.authUsers?.role?.name === "Admin";
       return isAdmin
-        ? [...this.headers, { title: "Action", value: "action", align: "center", width: "5%" }]
+        ? [
+            ...this.headers,
+            { title: "Action", value: "action", align: "center", width: "10%" },
+            { title: "Action", value: "action2", align: "center", width: "5%" },
+          ]
         : this.headers;
     },
   },
   methods: {
-    ...mapActions(["fetchFilterStudents", "fetchRoles", "fetchAuthUsers"]),
+    ...mapActions(["fetchFilterStudents", "fetchRoles", "fetchAuthUsers", "fetchSemesters"]),
     toggleFilter() {
       this.showFilter = !this.showFilter;
     },
     filterStudents() {
-      this.filteredStudents = this.filterstudents.filter(student => {
+      this.filteredStudents = this.filterstudents.filter((student) => {
         const nameMatch = this.selectedName ? student.name === this.selectedName : true;
         const semesterMatch = this.selectedSemester
           ? student.semester?.name === this.selectedSemester
@@ -152,7 +209,7 @@ export default {
     async approveUser(userId, index) {
       this.loadingIndex = index;
       try {
-        const response = await axios.post(
+        await axios.post(
           `http://127.0.0.1:8000/api/users/${userId}/approve`,
           {},
           {
@@ -163,7 +220,6 @@ export default {
         );
 
         this.filteredStudents[index].is_approved = 1;
-        // console.log(response.data.message);
       } catch (error) {
         console.error("Error approving user:", error.response?.data || error);
         alert("Failed to approve the user. Please try again.");
@@ -171,17 +227,73 @@ export default {
         this.loadingIndex = null;
       }
     },
+
+   async deleteItem(item) {
+  if (!confirm(`Are you sure you want to delete ${item.name}?`)) {
+    return;
+  }
+
+  try {
+    await axios.delete(`http://127.0.0.1:8000/api/users/${item.id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+      },
+    });
+
+    this.filteredStudents = this.filteredStudents.filter(
+      (student) => student.id !== item.id
+    );
+
+    alert("Student deleted successfully.");
+  } catch (error) {
+    console.error("Error deleting student:", error.response?.data || error);
+    alert("Failed to delete the student. Please try again.");
+  }
+      },
+
+      editItem(item) {
+      this.editStudent = { ...item };
+      this.editDialog = true;
+    },
+    async updateStudent() {
+  try {
+    await axios.post(
+      `http://127.0.0.1:8000/api/users/${this.editStudent.id}/update`,
+      this.editStudent, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        },
+      }
+    );
+
+    await this.fetchFilterStudents();
+    this.filteredStudents = this.filterstudents;
+
+      alert("Student updated successfully!");
+      this.editDialog = false;
+  } catch (error) {
+    console.error("Error updating student:", error.response?.data || error);
+    alert("Failed to update the student. Please try again.");
+  }
+}
+
+
+
   },
   mounted() {
     this.fetchFilterStudents().then(() => {
       this.filteredStudents = this.filterstudents;
-      this.semesters = [...new Set(this.filterstudents.map(student => student.semester))]; 
+      this.semesters = [
+        ...new Set(this.filterstudents.map((student) => student.semester)),
+      ];
     });
     this.fetchRoles();
-    this.fetchAuthUsers();
+      this.fetchAuthUsers();
+      this.fetchSemesters();
   },
 };
 </script>
+
 
 <style scoped>
 .primary {

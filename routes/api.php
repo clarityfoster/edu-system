@@ -23,7 +23,7 @@ Route::get('/semesters', [SemesterController::class, 'index']);
 Route::get('/courses', [CourseController::class, 'index']);
 
 Route::post('/search', [SearchController::class, 'search']);
-Route::post('/binary-tree', [BinaryTreeController::class, 'generateTree']);
+
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/auth-users', [UserController::class, 'authUser']);
@@ -31,7 +31,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/users/{id}/read', [UserController::class, 'read']);
     Route::get('/users/{id}/edit', [UserController::class, 'edit']);
     Route::post('/users/{id}/update', [UserController::class, 'update']);
-    Route::post('/users/{id}/delete', [UserController::class, 'delete']);
+    Route::delete('/users/{id}', [UserController::class, 'delete']);
     Route::post('/users/{id}/approve', [UserController::class, 'isApproved']);
     Route::post('/users/{id}/approve-pending', [UserController::class, 'approvePending']);
 
