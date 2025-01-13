@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TreeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SearchController;
@@ -23,6 +24,7 @@ Route::get('/semesters', [SemesterController::class, 'index']);
 Route::get('/courses', [CourseController::class, 'index']);
 
 Route::post('/search', [SearchController::class, 'search']);
+
 Route::post('/binary-tree', [BinaryTreeController::class, 'generateTree']);
 
 Route::middleware('auth:sanctum')->group(function() {
