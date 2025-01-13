@@ -44,10 +44,10 @@ export const store = createStore({
           fetchCourses(state, courses) {
             state.courses = courses;
           },
-        Search(state, users) {
+        SearchUsers(state, users) {
             state.users = users ;
         },
-
+        
 
     },
     getters: {
@@ -156,22 +156,21 @@ export const store = createStore({
             }
         },
 
-        Search({ commit }, search) {
-            axios
-                .get(`http://127.0.0.1:8000/api/search`, {
-                    params: { query: search },
-                })
-                .then(response => {
 
-                    // console.log('Response',response);
+        async Search({ commit }, query) {
+            try {
 
-                    commit('Search', response.data.users);
-
-
-                })
-                .catch(error => {
-                    console.error("Error during search:", error);
+                const response = await axios.post('http://127.0.0.1:8000/api/search', {
+                     query
                 });
+
+                // console.log('SearchUser',response.data.users);
+
+                commit('SearchUsers', response.data.users);
+
+            } catch (error) {
+                console.error(error.response.data);
+            }
         },
     }
 

@@ -14,8 +14,7 @@ import AddInstructor from './components/AddInstructor.vue';
 import AddSemester from './components/AddSemester.vue';
 import AddCourse from './components/AddCourse.vue';
 import BinaryTree from './components/BinaryTree.vue';
-import BinaryTreeGenerator from './components/binaryTreeGenerator.vue';
-import BinaryTreeNode from './components/BinaryTreeNode.vue';
+import BinaryTreeChild from './components/BinaryTreeChild.vue';
 
 const routes = [
     {
@@ -83,21 +82,19 @@ const routes = [
         name: 'addcourse',
         component: AddCourse
     },
+
+
     {
         path: '/binarytree',
         name: 'binarytree',
         component: BinaryTree
     },
     {
-        path: '/binarytreegenerator',
-        name: 'binarytreegenerator',
-        component: BinaryTreeGenerator
+        path: '/binarytreechild',
+        name: 'binarytreechild',
+        component: BinaryTreeChild
     },
-    {
-        path: '/binarytreenode',
-        name: 'binarytreenode',
-        component: BinaryTreeNode
-    },
+
 ];
 const router = createRouter({
     history: createWebHistory(),

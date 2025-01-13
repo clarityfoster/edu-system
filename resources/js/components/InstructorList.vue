@@ -1,33 +1,49 @@
 <template>
-  <v-container fluid class="d-flex justify-content-around  h-100">
+  <v-container fluid class="d-flex justify-content-around h-100">
     <!-- Sidebar -->
     <SideBar />
 
     <!-- Main Content Area -->
+    <v-card
+      class="home-dashboard expanded-card elevation-2"
+      elevation="0"
+      style="gap: 30px; width: 2300px; max-width: 80%; margin-left: 100px;"
+    >
+      <div
+        class="input-group"
+        style="max-width: 500px; margin-bottom: 20px; margin-top: 8px; margin-left: 900px;"
+      >
+        <button
+          class="btn btn-primary text-white ms-2 btn-sm"
+          type="button"
+          id="button-addon1"
+          @click="toggleFilter"
+        >
+          <v-icon left size="small">mdi-filter</v-icon> Filter
+        </button>
+      </div>
 
-          <v-card
-            class="home-dashboard expanded-card elevation-2"
-                elevation="0"
-                style="gap: 30px; width: 2300px; max-width: 80%; margin-left: 100px;"
+      <div v-if="showFilter" class="mb-3 p-3">
+        <div class="row">
+          <div class="col-md-6">
+            <label for="nameFilter">Name</label>
+            <select
+              id="nameFilter"
+              class="form-control"
+              v-model="selectedName"
+              @change="filterInstructors"
             >
-                <div class="input-group" style="max-width: 500px; margin-bottom: 30px; margin-top: 8px;">
-                    <input
-                        type="text"
-                        class="form-control rounded-5"
-                        placeholder="Search..."
-                        aria-label="Example text with button addon"
-                        aria-describedby="button-addon1"
-                    />
-                    <button
-                        class="btn btn-primary text-white rounded-circle ms-2"
-                        type="button"
-                        id="button-addon1"
-                    >
-                        <i class="bi bi-search"></i>
-                    </button>
-                </div>
+              <option value="">Select Name</option>
+              <option v-for="instructor in filterinstructors" :key="instructor.id" :value="instructor.name">
+                {{ instructor.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+
       <v-data-table
-        :items="filterinstructors"
+        :items="filteredInstructors"
         :headers="filteredHeaders"
         class="elevation-1"
         item-value="id"
@@ -43,8 +59,6 @@
         <template v-slot:item.index="{ index }">
           {{ index + 1 }}
         </template>
-
-
 
         <template v-slot:item.action="{ item, index }">
           <v-btn
@@ -64,8 +78,7 @@
           </v-btn>
         </template>
       </v-data-table>
-      </v-card>
-
+    </v-card>
   </v-container>
 </template>
 
@@ -81,20 +94,20 @@ export default {
   },
   data() {
     return {
+      showFilter: false,
+      selectedName: "",
       loadingIndex: null,
       headers: [
         { title: "Id", value: "index", align: "center", width: "5%" },
         { title: "Name", value: "name", align: "center", width: "20%" },
         { title: "Phone", value: "phone", align: "center", width: "15%" },
         { title: "Email", value: "email", align: "center", width: "20%" },
-
       ],
+      filteredInstructors: [],
     };
   },
   computed: {
     ...mapState(["filterinstructors", "roles", "authUsers"]),
-
-
     filteredHeaders() {
       const isAdmin = this.authUsers?.role?.name === "Admin";
       return isAdmin
@@ -104,6 +117,19 @@ export default {
   },
   methods: {
     ...mapActions(["fetchFilterInstructors", "fetchRoles", "fetchAuthUsers"]),
+    toggleFilter() {
+      this.showFilter = !this.showFilter;
+      if (!this.showFilter) {
+        this.selectedName = "";
+        this.filteredInstructors = [...this.filterinstructors]; 
+      }
+    },
+    filterInstructors() {
+      this.filteredInstructors = this.filterinstructors.filter((instructor) => {
+        const nameMatch = this.selectedName ? instructor.name === this.selectedName : true;
+        return nameMatch;
+      });
+    },
     async approveUser(userId, index) {
       this.loadingIndex = index;
       try {
@@ -116,7 +142,6 @@ export default {
             },
           }
         );
-
         this.filterinstructors[index].is_approved = 1;
         console.log(response.data.message);
       } catch (error) {
@@ -128,9 +153,11 @@ export default {
     },
   },
   mounted() {
-    this.fetchFilterInstructors();
-      this.fetchRoles();
-     this.fetchAuthUsers();
+    this.fetchFilterInstructors().then(() => {
+      this.filteredInstructors = this.filterinstructors;
+    });
+    this.fetchRoles();
+    this.fetchAuthUsers();
   },
 };
 </script>

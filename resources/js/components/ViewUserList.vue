@@ -17,25 +17,19 @@
                     placeholder="Search..."
                     aria-label="Example text with button addon"
                     aria-describedby="button-addon1"
+                     v-on:keyup.enter="search"
                     />
 
                     <button
                         class="btn btn-primary text-white rounded-circle ms-2 "
                         type="button"
                         id="button-addon1"
-                         v-on:keyup.enter="search"
+
                         @click="search"
                     >
                         <i class="bi bi-search"></i>
                     </button>
-                   <button
-                    class="btn btn-primary btn-sm text-white"
-                    type="button"
-                    id="button-addon1"
-                    style="margin-left: 1rem;"
-                >
-                    Filter
-                </button>
+                  
 
                 </div>
 
@@ -119,7 +113,8 @@ export default {
     };
   },
   computed: {
-    ...mapState(["users", "roles"]),
+      ...mapState(["users", "roles"]),
+
   },
   methods: {
     ...mapActions(["fetchUsers", "fetchRoles", "Search"]),
@@ -146,13 +141,9 @@ export default {
       }
     },
 
-    search() {
-    if (this.searchKey.trim()) {
-        this.$store.dispatch("Search", this.searchKey);
-    } else {
-        this.fetchUsers();
-    }
-},
+     search() {
+    this.Search(this.searchKey);
+  },
 
   },
   mounted() {

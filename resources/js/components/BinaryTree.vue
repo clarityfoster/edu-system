@@ -1,97 +1,177 @@
 <template>
-  <div class="tree-node">
-    <!-- Node Value -->
-    <div class="tree-node-value">{{ node.value }}</div>
+  <SideBar />
 
-    <!-- Children Nodes -->
-    <div v-if="node.left || node.right" class="tree-children">
-      <div class="tree-child" v-if="node.left">
-        <BinaryTreeNode :node="node.left" />
-      </div>
-      <div class="tree-child" v-if="node.right">
-        <BinaryTreeNode :node="node.right" />
-      </div>
-    </div>
-  </div>
+  <v-container>
+    <v-row justify="center">
+      <v-col cols="12" md="8">
+        <v-card class="pa-5" outlined>
+          <v-card-title>
+            <h1 class="text-center">Binary Search Tree</h1>
+          </v-card-title>
+          <v-card-text>
+            <v-form ref="generateForm" v-model="valid" @submit.prevent="generateTree">
+              <v-text-field
+                v-model="numberSeries"
+                :rules="[validateNumbers, required]"
+                label="Enter Numbers (comma-separated)"
+                placeholder="e.g., 5,3,8,1,4"
+                outlined
+              ></v-text-field>
+              <v-btn :disabled="!valid" color="primary" type="submit" block>Generate Tree</v-btn>
+            </v-form>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- Search Section -->
+    <v-row justify="center" v-if="binaryTree">
+      <v-col cols="12" md="8">
+        <v-card class="pa-5" outlined>
+          <v-card-title>
+            <h2 class="text-center">Search Tree</h2>
+          </v-card-title>
+          <v-card-text>
+            <v-form ref="searchForm" v-model="searchValid" @submit.prevent="searchValue">
+              <v-text-field
+                v-model="searchKey"
+                :rules="[required, validateNumber]"
+                label="Enter Value to Search"
+                type="number"
+                outlined
+              ></v-text-field>
+              <v-btn :disabled="!searchValid" color="secondary" type="submit" block>Search</v-btn>
+            </v-form>
+            <div v-if="searchResult !== null" class="mt-3 text-center">
+              <p v-if="searchResult">Value Found in the Tree!</p>
+              <p v-else>Value Not Found in the Tree.</p>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- Display Binary Search Tree -->
+    <v-row justify="center" v-if="binaryTree">
+      <v-col cols="12" md="10">
+        <v-card class="pa-5" outlined>
+          <v-card-title>
+            <h2 class="text-center">Binary Search Tree</h2>
+          </v-card-title>
+          <v-card-text>
+            <div class="tree-container">
+              <BinaryTreeChild :node="binaryTree" :searchKey="searchResult ? searchKey : null" />
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-export default {
+import BinaryTreeChild from "./BinaryTreeChild.vue";
+import SideBar from "./SideBar.vue";
 
-  props: {
-    node: {
-      type: Object,
-      required: true,
+export default {
+  components: {
+    SideBar,
+    BinaryTreeChild,
+  },
+  data() {
+    return {
+      numberSeries: "",
+      binaryTree: null,
+      searchKey: null,
+      searchResult: null,
+      valid: false,
+      searchValid: false,
+      rules: {
+        required: (value) => !!value || "Field is required.",
+        validateNumbers: (value) => {
+          const regex = /^(\s*\d+\s*,)*\s*\d+\s*$/;
+          return regex.test(value) || "Enter valid comma-separated numbers.";
+        },
+        validateNumber: (value) => !isNaN(value) || "Enter a valid number.",
+      },
+    };
+  },
+  computed: {
+    required() {
+      return this.rules.required;
+    },
+    validateNumbers() {
+      return this.rules.validateNumbers;
+    },
+    validateNumber() {
+      return this.rules.validateNumber;
+    },
+  },
+  methods: {
+    generateTree() {
+      if (!this.$refs.generateForm.validate()) return;
+
+      const numbers = this.numberSeries
+        .split(",")
+        .map((num) => parseInt(num.trim()))
+        .filter((num) => !isNaN(num));
+
+      this.binaryTree = this.buildTree(numbers);
+    },
+
+    buildTree(numbers) {
+      class TreeNode {
+        constructor(value) {
+          this.value = value;
+          this.left = null;
+          this.right = null;
+        }
+      }
+
+      const insertNode = (root, value) => {
+        if (!root) return new TreeNode(value);
+        if (value < root.value) root.left = insertNode(root.left, value);
+        else if (value > root.value) root.right = insertNode(root.right, value);
+        return root;
+      };
+
+      let root = null;
+      numbers.forEach((num) => {
+        root = insertNode(root, num);
+      });
+
+      return root;
+    },
+
+    searchValue() {
+      if (!this.$refs.searchForm.validate()) return;
+
+      const searchTree = (node, value) => {
+        if (!node) return false;
+        if (node.value === value) return true;
+        return value < node.value
+          ? searchTree(node.left, value)
+          : searchTree(node.right, value);
+      };
+
+      const key = parseInt(this.searchKey);
+      this.searchResult = searchTree(this.binaryTree, key);
+      if (this.searchResult) {
+        this.$nextTick(() => {
+          this.searchKey = key;
+        });
+      }
     },
   },
 };
 </script>
 
 <style scoped>
-.tree-node {
+.tree-container {
+  margin-top: 2rem;
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
-  align-items: center;
-  position: relative;
-}
-
-.tree-node-value {
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
-  border-radius: 50%;
-  border: 2px solid #0056b3;
-  text-align: center;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-}
-
-.tree-children {
-  display: flex;
-  justify-content: space-evenly;
-  margin-top: 20px;
-  position: relative;
-  width: 100%;
-}
-
-.tree-child {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  position: relative;
-}
-
-/* Lines between nodes */
-.tree-child::before {
-  content: '';
-  position: absolute;
-  top: -20px;
-  width: 50%;
-  height: 20px;
-  border-top: 2px solid #555;
-}
-
-.tree-child:first-child::before {
-  left: 50%;
-  border-right: 2px solid #555;
-}
-
-.tree-child:last-child::before {
-  right: 50%;
-  border-left: 2px solid #555;
-}
-
-/* Additional styling for the container */
-.tree-children {
-  gap: 20px;
-}
-
-.tree-node-value {
-  position: relative;
-  z-index: 10;
 }
 </style>
