@@ -51,6 +51,58 @@
       </v-col>
     </v-row>
 
+    <!-- Insert Section -->
+    <v-row justify="center" v-if="binaryTree">
+      <v-col cols="12" md="8">
+        <v-card class="pa-5" outlined>
+          <v-card-title>
+            <h2 class="text-center">Insert Key</h2>
+          </v-card-title>
+          <v-card-text>
+            <v-form ref="insertForm" v-model="insertValid" @submit.prevent="insertValue">
+              <v-text-field
+                v-model="insertKey"
+                :rules="[required, validateNumber]"
+                label="Enter Value to Insert"
+                type="number"
+                outlined
+              ></v-text-field>
+              <v-btn :disabled="!insertValid" color="success" type="submit" block>Insert</v-btn>
+            </v-form>
+            <div v-if="insertMessage" class="mt-3 text-center">
+              <p>{{ insertMessage }}</p>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- Delete Section -->
+    <v-row justify="center" v-if="binaryTree">
+      <v-col cols="12" md="8">
+        <v-card class="pa-5" outlined>
+          <v-card-title>
+            <h2 class="text-center">Delete Key</h2>
+          </v-card-title>
+          <v-card-text>
+            <v-form ref="deleteForm" v-model="deleteValid" @submit.prevent="deleteValue">
+              <v-text-field
+                v-model="deleteKey"
+                :rules="[required, validateNumber]"
+                label="Enter Value to Delete"
+                type="number"
+                outlined
+              ></v-text-field>
+              <v-btn :disabled="!deleteValid" color="error" type="submit" block>Delete</v-btn>
+            </v-form>
+            <div v-if="deleteMessage" class="mt-3 text-center">
+              <p>{{ deleteMessage }}</p>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
     <!-- Display Binary Search Tree -->
     <v-row justify="center" v-if="binaryTree">
       <v-col cols="12" md="10">
@@ -68,7 +120,6 @@
     </v-row>
   </v-container>
 </template>
-
 <script>
 import BinaryTreeChild from "./BinaryTreeChild.vue";
 import SideBar from "./SideBar.vue";
@@ -84,8 +135,14 @@ export default {
       binaryTree: null,
       searchKey: null,
       searchResult: null,
+      insertKey: null,
+      insertMessage: null,
+      deleteKey: null,
+      deleteMessage: null,
       valid: false,
       searchValid: false,
+      insertValid: false,
+      deleteValid: false,
       rules: {
         required: (value) => !!value || "Field is required.",
         validateNumbers: (value) => {
@@ -143,6 +200,30 @@ export default {
       return root;
     },
 
+    // Insert Value into the tree
+    insertValue() {
+      if (!this.$refs.insertForm.validate()) return;
+
+      const key = parseInt(this.insertKey);
+      if (!this.binaryTree) {
+        this.binaryTree = this.buildTree([key]);
+        this.insertMessage = `Inserted ${key} as the root node.`;
+        return;
+      }
+
+      const insertNode = (root, value) => {
+        if (!root) return { value, left: null, right: null };
+        if (value < root.value) root.left = insertNode(root.left, value);
+        else if (value > root.value) root.right = insertNode(root.right, value);
+        return root;
+      };
+
+      this.binaryTree = insertNode(this.binaryTree, key);
+      this.insertMessage = `Inserted ${key} successfully.`;
+      this.insertKey = null;
+    },
+
+    // Search Value in the tree
     searchValue() {
       if (!this.$refs.searchForm.validate()) return;
 
@@ -162,10 +243,65 @@ export default {
         });
       }
     },
+
+
+   deleteValue() {
+        if (!this.$refs.deleteForm.validate()) return;
+
+        const key = parseInt(this.deleteKey);
+
+        const deleteNode = (root, value) => {
+            if (!root) return { node: null, found: false };
+
+            if (value < root.value) {
+            const result = deleteNode(root.left, value);
+            root.left = result.node;
+            return { node: root, found: result.found };
+            } else if (value > root.value) {
+            const result = deleteNode(root.right, value);
+            root.right = result.node;
+            return { node: root, found: result.found };
+            } else {
+
+            if (!root.left && !root.right) {
+                return { node: null, found: true };
+            }
+            if (!root.left) {
+                return { node: root.right, found: true };
+            }
+            if (!root.right) {
+                return { node: root.left, found: true };
+            }
+            // Case 3: Node has two children
+            let minNode = this.findMinNode(root.right);
+            root.value = minNode.value;
+            const result = deleteNode(root.right, minNode.value);
+            root.right = result.node;
+            return { node: root, found: true };
+            }
+        };
+
+        const result = deleteNode(this.binaryTree, key);
+
+        if (result.found) {
+            this.binaryTree = result.node;
+            this.deleteMessage = `Deleted ${key} successfully.`;
+        } else {
+            this.deleteMessage = `Error: ${key} not found in the tree.`;
+        }
+
+        this.deleteKey = null;
+        },
+
+    findMinNode(root) {
+      while (root.left) {
+        root = root.left;
+      }
+      return root;
+    },
   },
 };
 </script>
-
 <style scoped>
 .tree-container {
   margin-top: 2rem;

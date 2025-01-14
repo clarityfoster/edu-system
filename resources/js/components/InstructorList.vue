@@ -164,7 +164,7 @@ export default {
         this.filteredInstructors = [...this.filterinstructors];
       }
     },
-    
+
     filterInstructors() {
       this.filteredInstructors = this.filterinstructors.filter((instructor) => {
         const nameMatch = this.selectedName ? instructor.name === this.selectedName : true;
@@ -219,29 +219,33 @@ export default {
       this.editDialog = true;
     },
     async updateInstructor() {
-  try {
-    await axios.post(
-      `http://127.0.0.1:8000/api/users/${this.editInstructor.id}/update`,
-      this.editInstructor, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
-        },
-      }
-    );
+        try {
+            await axios.post(
+            `http://127.0.0.1:8000/api/users/${this.editInstructor.id}/update`,
+            this.editInstructor,
+            {
+                headers: {
+                Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+                },
+            }
+            );
 
-    await this.fetchFilterInstructors();
-    this.filteredInstructors = this.filterInstructors;
+            await this.fetchFilterInstructors();
+            this.filteredInstructors = this.filterinstructors.filter((instructor) => {
+            const nameMatch = this.selectedName ? instructor.name === this.selectedName : true;
+            return nameMatch;
+            });
 
-      alert("Instructor updated successfully!");
-      this.editDialog = false;
-  } catch (error) {
-    console.error("Error updating instructor:", error.response?.data || error);
-    alert("Failed to update the instructor. Please try again.");
-  }
-}
+            alert("Instructor updated successfully!");
+            this.editDialog = false;
+        } catch (error) {
+            console.error("Error updating instructor:", error.response?.data || error);
+            alert("Failed to update the instructor. Please try again.");
+        }
+        }
 
 
-  },
+    },
   mounted() {
     this.fetchFilterInstructors().then(() => {
       this.filteredInstructors = this.filterinstructors;

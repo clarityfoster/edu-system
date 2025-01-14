@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TreeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SearchController;
@@ -42,7 +43,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/semesters/{id}/read', [SemesterController::class, 'read']);
     Route::get('/semesters/{id}/edit', [SemesterController::class, 'edit']);
     Route::post('/semesters/{id}/update', [SemesterController::class, 'update']);
-    Route::post('/semesters/{id}/delete', [SemesterController::class, 'delete']);
+    Route::delete('/semesters/{id}/delete', [SemesterController::class, 'delete']);
     Route::get('/semesters/ongoing', [SemesterController::class, 'getOngoingSemester']);
     Route::get('/semesters/completed', [SemesterController::class, 'completedSemester']);
 
@@ -50,7 +51,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/courses/{id}/read', [CourseController::class, 'read']);
     Route::get('/courses/{id}/edit', [CourseController::class, 'edit']);
     Route::post('/courses/{id}/update', [CourseController::class, 'update']);
-    Route::post('/courses/{id}/delete', [CourseController::class, 'delete']);
+    Route::delete('/courses/{id}/delete', [CourseController::class, 'delete']);
 
     Route::post('/roles/create', [RoleController::class, 'create']);
     Route::get('/roles/{id}/read', [RoleController::class, 'read']);
