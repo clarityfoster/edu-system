@@ -22,8 +22,6 @@
                 </div>
 
                 <hr class="text-white" />
-<<<<<<< HEAD
-
                 <!-- Menu Items -->
                  <ul class="nav flex-column">
                     <li class="nav-item">
@@ -34,9 +32,6 @@
                     </li>
 
                  </ul>
-
-=======
->>>>>>> 4e307fb (update routes)
                 <ul class="nav flex-column" v-if="roleId == 1">
                     <li class="nav-item">
                         <a
