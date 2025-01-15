@@ -73,7 +73,6 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         }
-
         $permissions = [
             'user' => ['create-user', 'view-user', 'update-user', 'delete-user'],
             'role' => ['create-role', 'view-role', 'update-role', 'delete-role'],
@@ -104,7 +103,6 @@ class DatabaseSeeder extends Seeder
         if($instructorRole) {
             $instructorRole->permission()->attach($instructorPermissions->pluck('id'));
         }
-
         $learnerRole = Role::where('name', 'Learner')->first();
         $learnerPermissions = Permission::whereIn('name', [
                                                 'view-user', 'update-user', 'delete-user',

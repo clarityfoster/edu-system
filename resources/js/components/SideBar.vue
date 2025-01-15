@@ -22,7 +22,6 @@
                 </div>
 
                 <hr class="text-white" />
-                <!-- Menu Items -->
                  <ul class="nav flex-column">
                     <li class="nav-item">
                     <a class="nav-link text-white" href="/home">
