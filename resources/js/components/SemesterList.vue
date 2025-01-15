@@ -64,6 +64,18 @@
             <v-btn small color="error" @click="deleteSemester(item)">Delete</v-btn>
           </div>
         </template>
+
+        <template v-slot:item.sdate="{ item }">
+           <div class="text-center">
+            {{ item.start_date }}
+          </div>
+        </template>
+
+        <template v-slot:item.edate="{ item }">
+           <div class="text-center">
+            {{ item.end_date }}
+          </div>
+        </template>
       </v-data-table>
 
       <!-- Edit Dialog -->
@@ -86,6 +98,21 @@
                 multiple
                 required
                 ></v-select>
+               <v-text-field
+                v-model="editItem.start_date"
+                label="Start Date"
+                type="date"
+                required
+                ></v-text-field>
+
+            <v-text-field
+            v-model="editItem.end_date"
+            label="End Date"
+            type="date"
+            required
+            ></v-text-field>
+
+
 
             </v-form>
           </v-card-text>
@@ -112,13 +139,16 @@ export default {
   data() {
       return {
         course_id: null,
-      loadingIndex: null,
+        loadingIndex: null,
         editDialog: false,
-          editItem: { name: "", course_id: null },
+
+          editItem: { name: "", course_id: null, start_date: null, end_date:null, },
           headers: [
         { title: "Id", value: "index", align: "center", width: "5%" },
         { title: "Semester Name", value: "sname", align: "center", width: "20%" },
-        { title: "Course Name", value: "course", align: "center", width: "15%" },
+         { title: "Course Name", value: "course", align: "center", width: "15%" },
+        { title: "Start Date", value: "sdate", align: "center", width: "15%" },
+          { title: "End Date", value: "edate", align: "center", width: "15%" },
       ],
     };
   },
@@ -142,26 +172,23 @@ export default {
         id: item.id,
         name: item.name,
         course_ids: item.course.map((course) => course.id),
+         start_date: item.start_date,
+        end_date: item.end_date,
     };
     this.editDialog = true;
     },
 
 
 
-    // Close Dialog
-    // closeDialog() {
-    //   this.editDialog = false;
-    //   this.editItem = null;
-      // },
+
     closeDialog() {
     this.editDialog = false;
-    this.editItem = { name: "", course_id: null }; // Reset to default state
+    this.editItem = { name: "", course_id: null };
     },
 
 
-    // Save Edited Semester
       async saveSemester() {
-        console.log("Payload being sent:", this.editItem); // Debug payload
+        // console.log("Payload being sent:", this.editItem);
       try {
         await axios.post(
           `http://127.0.0.1:8000/api/semesters/${this.editItem.id}/update`,

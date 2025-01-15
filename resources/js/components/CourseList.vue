@@ -9,19 +9,6 @@
       elevation="0"
       style="gap: 30px; width: 2300px; max-width: 80%; margin-left: 100px;"
     >
-      <!-- Search Input -->
-      <!-- <div class="input-group" style="max-width: 500px; margin-bottom: 30px; margin-top: 8px;">
-        <input
-          type="text"
-          class="form-control rounded-5"
-          placeholder="Search..."
-          aria-label="Example text with button addon"
-          aria-describedby="button-addon1"
-        />
-        <button class="btn btn-primary text-white rounded-circle ms-2" type="button" id="button-addon1">
-          <i class="bi bi-search"></i>
-        </button>
-      </div> -->
 
       <!-- Data Table -->
       <v-data-table
@@ -39,17 +26,17 @@
           </v-toolbar>
         </template>
 
-        <!-- Index Column -->
+
         <template v-slot:item.index="{ index }">
           {{ index + 1 }}
         </template>
 
-        <!-- Course Name Column -->
+
         <template v-slot:item.name="{ item }">
           {{ item.name }}
         </template>
 
-        <!-- Learning Column -->
+
         <template v-slot:item.learn="{ index }">
           <v-btn
             v-if="index === 3"
@@ -69,7 +56,7 @@
           </v-btn>
         </template>
 
-        <!-- Action Column -->
+
         <template v-slot:item.action="{ item }">
           <div style="display: flex; align-items: center; gap: 8px;">
             <v-btn small color="primary" @click="editCourse(item)">Edit</v-btn>
@@ -78,7 +65,7 @@
         </template>
       </v-data-table>
 
-      <!-- Edit Dialog -->
+
       <v-dialog v-model="editDialog" persistent max-width="500px">
         <v-card>
           <v-card-title>Edit Course</v-card-title>
@@ -137,7 +124,6 @@ export default {
   methods: {
     ...mapActions(["fetchCourses", "fetchAuthUsers"]),
 
-    // Open Edit Dialog
     editCourse(item) {
       this.editItem = { id: item.id, name: item.name };
       this.editDialog = true;
@@ -170,7 +156,6 @@ export default {
       }
     },
 
-    // Delete Course
     async deleteCourse(item) {
       if (!confirm(`Are you sure you want to delete ${item.name}?`)) {
         return;
