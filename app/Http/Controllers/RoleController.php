@@ -25,7 +25,6 @@ class RoleController extends Controller
     public function rolesForRegister()
     {
         try {
-
             $roles = Role::where('name', '!=', 'admin')->get();
             return response()->json([
                 'roles' => $roles,
@@ -64,7 +63,6 @@ class RoleController extends Controller
     public function read($id)
     {
         try {
-
             $role = Role::findOrFail($id);
             return response()->json([
                 'status' => 'success',
@@ -76,11 +74,9 @@ class RoleController extends Controller
             ]);
         }
     }
-
     public function edit($id)
     {
         try {
-
             $role = Role::findOrFail($id);
             return response()->json([
                 'status' => 'success',
@@ -95,7 +91,6 @@ class RoleController extends Controller
     public function update($id)
     {
         try {
-
             $validator = validator(request()->all(), [
                 'name' => 'required|string|max:255',
             ]);
@@ -121,7 +116,6 @@ class RoleController extends Controller
     public function delete($id)
     {
         try {
-
             $role = Role::findOrFail($id);
             $role->delete();
             return response()->json([

@@ -26,10 +26,9 @@ class CourseController extends Controller
     public function create()
     {
         try {
-
             $validator = validator(request()->all(), [
-                'name' => 'required|string|max:255',
-                'semester_id' => 'nullable|integer'
+                'name' => 'required|string|unique|max:255',
+                'semester_id' => 'nullable|integer',
             ]);
             if ($validator->fails()) {
                 return response()->json([

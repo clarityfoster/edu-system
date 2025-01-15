@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "vue-router";
-
 import Home from "./components/Home.vue";
 import Login from "./components/Login.vue";
 import Register from "./components/Register.vue";
@@ -44,9 +43,9 @@ const routes = [
     },
     {
         path: "/viewuserlist",
-        name: "ViewUserList",
+        name: "viewUserList",
         component: ViewUserList,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, allowedRoles: ["Admin"] },
     },
     {
         path: "/studentlist",

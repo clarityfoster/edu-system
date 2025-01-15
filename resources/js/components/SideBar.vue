@@ -2,7 +2,7 @@
     <div id="app" class="d-flex">
         <aside
             id="sidebar"
-            class="sidebar bg-primary text-light vh-100 shadow-sm "
+            class="sidebar bg-primary text-light vh-100 shadow-sm"
             :class="{ collapsed: isCollapsed }"
         >
             <div class="nav flex-column pt-3">
@@ -18,31 +18,30 @@
                         <h5>{{ authUsers.name }}</h5>
                         <p class="mb-0">{{ authUsers.role?.name }}</p>
                     </div>
-
                 </div>
 
                 <hr class="text-white" />
-                 <ul class="nav flex-column">
+                <ul class="nav flex-column">
                     <li class="nav-item">
-                    <a class="nav-link text-white" href="/home">
-                    <i class="mdi mdi-home  me-3" style="color: white"></i>
-                    <span>Home</span>
-                    </a>
+                        <a class="nav-link text-white" href="/home">
+                            <i
+                                class="mdi mdi-home me-3"
+                                style="color: white"
+                            ></i>
+                            <span>Home</span>
+                        </a>
                     </li>
-
-                 </ul>
+                </ul>
                 <ul class="nav flex-column" v-if="roleId == 1">
                     <li class="nav-item">
                         <a
-                            class="nav-link text-white "
-
+                            class="nav-link text-white"
                             @click="navigateToViewUserList"
                         >
                             <i class="mdi mdi-account-group me-3"></i>
-                            <span>User Lists</span>
+                            <span>Users List</span>
                         </a>
                         <!-- Submenu -->
-                       
                     </li>
                 </ul>
                 <ul class="nav flex-column">
@@ -127,7 +126,6 @@
                         </ul>
                     </li>
                 </ul>
-
                 <ul class="nav flex-column">
                     <li class="nav-item">
                         <a
@@ -238,7 +236,7 @@ export default {
     name: "SideBar",
     data() {
         return {
-            isCollapsed: false,  // Sidebar initially not collapsed
+            isCollapsed: false, // Sidebar initially not collapsed
         };
     },
     computed: {
@@ -286,8 +284,7 @@ export default {
         },
         navigateToViewUserList() {
             this.$router.push({
-                name: "viewuserlist",
-                query: { allowOverride: "true" },
+                name: "viewUserList",
             });
         },
         navigateToViewStudents() {
