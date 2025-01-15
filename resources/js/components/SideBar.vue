@@ -283,9 +283,7 @@ export default {
             });
         },
         navigateToViewUserList() {
-            this.$router.push({
-                name: "viewUserList",
-            });
+            this.$router.push({ name: "viewUserList", query: { allowOverride: "true"}});
         },
         navigateToViewStudents() {
             this.$router.push({ name: "studentlist" });

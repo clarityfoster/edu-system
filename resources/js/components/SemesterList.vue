@@ -90,7 +90,7 @@
                 required
               ></v-text-field>
               <v-select
-                v-model="editItem.course_ids"
+                v-model="editItem.course_id"
                 :items="courses"
                 item-value="id"
                 item-title="name"
@@ -171,7 +171,7 @@ export default {
     this.editItem = {
         id: item.id,
         name: item.name,
-        course_ids: item.course.map((course) => course.id),
+        course_id: item.course.map((course) => course.id),
          start_date: item.start_date,
         end_date: item.end_date,
     };
