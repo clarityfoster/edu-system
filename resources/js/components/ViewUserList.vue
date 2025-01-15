@@ -5,84 +5,88 @@
 
     <!-- Main Content Area -->
     <v-card
-            class="home-dashboard expanded-card elevation-2"
-                elevation="0"
-                style="gap: 30px; width: 2300px; max-width: 80%; margin-left: 100px;"
-            >
-                <div class="input-group" style="max-width: 500px; margin-bottom: 30px; margin-top: 8px;">
-                    <input
-                    type="text"
-                    v-model="searchKey"
-                    class="form-control rounded-5"
-                    placeholder="Search..."
-                    aria-label="Example text with button addon"
-                    aria-describedby="button-addon1"
-                     v-on:keyup.enter="search"
-                    />
+      class="home-dashboard expanded-card elevation-2"
+      elevation="0"
+      style="gap: 30px; width: 2300px; max-width: 80%; margin-left: 100px;"
+    >
+      <div class="input-group" style="max-width: 500px; margin-bottom: 30px; margin-top: 8px;">
+        <input
+          type="text"
+          v-model="searchKey"
+          class="form-control rounded-5"
+          placeholder="Search..."
+          aria-label="Example text with button addon"
+          aria-describedby="button-addon1"
+          v-on:keyup.enter="search"
+        />
+        <button
+          class="btn btn-primary text-white rounded-circle ms-2 "
+          type="button"
+          id="button-addon1"
+          @click="search"
+        >
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
 
-                    <button
-                        class="btn btn-primary text-white rounded-circle ms-2 "
-                        type="button"
-                        id="button-addon1"
+      
+      <v-alert
+        v-if="errorMessage"
+        type="error"
+        class="mt-3"
+        dense
+      >
+        {{ errorMessage }}
+      </v-alert>
 
-                        @click="search"
-                    >
-                        <i class="bi bi-search"></i>
-                    </button>
-                  
+      <v-data-table
+        :items="Array.isArray(users) ? users : []"
+        :headers="headers"
+        class="elevation-1"
+        item-value="id"
+        dense
+        item-class="text-center align-middle"
+        >
+        <template v-slot:top>
+          <v-toolbar flat>
+            <v-toolbar-title class="text-center ">User Management</v-toolbar-title>
+          </v-toolbar>
+        </template>
 
-                </div>
+        <template v-slot:item.index="{ index }">
+          {{ index + 1 }}
+        </template>
 
-        <!-- <v-card-text> -->
-          <v-data-table
-            :items="users"
-            :headers="headers"
-            class="elevation-1"
-            item-value="id"
-            dense
-            item-class="text-center align-middle"
+        <template v-slot:item.role="{ item }">
+          <v-chip
+            v-if="item.role"
+            color="success"
+            text-color="white"
+            small
           >
-            <template v-slot:top>
-              <v-toolbar flat>
-                <v-toolbar-title class="text-center ">User Management</v-toolbar-title>
-              </v-toolbar>
-            </template>
+            {{ item.role.name }}
+          </v-chip>
+          <span v-else class="text-muted">No Role</span>
+        </template>
 
-            <template v-slot:item.index="{ index }">
-              {{ index + 1 }}
-            </template>
-
-
-            <template v-slot:item.role="{ item }">
-              <v-chip
-                v-if="item.role"
-                color="success"
-                text-color="white"
-                small
-              >
-                {{ item.role.name }}
-              </v-chip>
-              <span v-else class="text-muted">No Role</span>
-            </template>
-
-            <template v-slot:item.action="{ item, index }">
-              <v-btn
-                small
-                color="primary"
-                :loading="loadingIndex === index"
-                :disabled="item.is_approved"
-                @click="approveUser(item.id, index)"
-              >
-                {{
-                  item.is_approved
-                    ? "Approved"
-                    : loadingIndex === index
-                    ? "Approving..."
-                    : "Accept"
-                }}
-              </v-btn>
-            </template>
-          </v-data-table>
+        <template v-slot:item.action="{ item, index }">
+          <v-btn
+            small
+            color="primary"
+            :loading="loadingIndex === index"
+            :disabled="item.is_approved"
+            @click="approveUser(item.id, index)"
+          >
+            {{
+              item.is_approved
+                ? "Approved"
+                : loadingIndex === index
+                ? "Approving..."
+                : "Accept"
+            }}
+          </v-btn>
+        </template>
+      </v-data-table>
     </v-card>
   </v-container>
 </template>
@@ -98,9 +102,9 @@ export default {
     SideBar,
   },
   data() {
-      return {
-        searchKey:"",
-        showFilter: false,
+    return {
+      searchKey: "",
+      errorMessage: "",
       loadingIndex: null,
       headers: [
         { title: "Id", value: "index", align: "center", width: "5%" },
@@ -113,8 +117,7 @@ export default {
     };
   },
   computed: {
-      ...mapState(["users", "roles"]),
-
+    ...mapState(["users", "roles"]),
   },
   methods: {
     ...mapActions(["fetchUsers", "fetchRoles", "Search"]),
@@ -141,14 +144,25 @@ export default {
       }
     },
 
-     search() {
-    this.Search(this.searchKey);
-  },
+    search() {
+      if (!this.searchKey.trim()) {
+        this.errorMessage = "Please enter a search key to proceed.";
+        return;
+      }
 
+      this.errorMessage = "";
+
+
+      this.Search(this.searchKey);
+
+      if (this.users.length === 0) {
+        this.errorMessage = "No users found matching the search criteria.";
+      }
+    },
   },
   mounted() {
     this.fetchUsers();
-    },
+  },
   watch: {
     searchKey(newSearchKey) {
       if (!newSearchKey.trim()) {

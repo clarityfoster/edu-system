@@ -44,7 +44,12 @@
                         Login
                     </v-btn>
                 </v-form>
-
+                 <div class="card-footer text-center">
+                <p class="text-muted mt-3">
+                    Don't have an account?
+                    <router-link class="text-primary" to="/register">Register</router-link>.
+                </p>
+            </div>
                 <!-- Display messages -->
                 <v-alert v-if="message.text" :type="message.type" class="mt-4">
                     {{ message.text }}
@@ -121,7 +126,7 @@ export default {
                     this.email = "";
                     this.password = "";
 
-                    this.$router.push("/viewuserlist");
+                    this.$router.push("/home");
                 } else {
                     console.log("User");
                     this.message.text = "Login successful!";

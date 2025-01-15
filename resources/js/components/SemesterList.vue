@@ -10,7 +10,7 @@
       style="gap: 30px; width: 2300px; max-width: 80%; margin-left: 100px;"
     >
       <!-- Search Input -->
-      <div class="input-group" style="max-width: 500px; margin-bottom: 30px; margin-top: 8px;">
+      <!-- <div class="input-group" style="max-width: 500px; margin-bottom: 30px; margin-top: 8px;">
         <input
           type="text"
           class="form-control rounded-5"
@@ -25,7 +25,7 @@
         >
           <i class="bi bi-search"></i>
         </button>
-      </div>
+      </div> -->
 
       <!-- Data Table -->
       <v-data-table

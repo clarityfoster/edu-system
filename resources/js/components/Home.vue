@@ -2,7 +2,7 @@
     <v-container fluid class="d-flex justify-content-around h-100">
         <!-- Sidebar -->
         <SideBar />
-        
+
 
         <!-- Main Content Area -->
             <v-card
@@ -119,7 +119,9 @@
                                     font-size: 12px;
                                 "
                             >
+                            <router-link to="/courselist" class="text-white" style="text-decoration: none;">
                                 All Courses
+                            </router-link>
                             </button>
                         </div>
                         <div
@@ -155,7 +157,9 @@
                                             font-weight: bold;
                                         "
                                     >
+                                    <router-link to="/binarytree" class="text-white" style="text-decoration: none;">
                                         View
+                                    </router-link>
                                     </button>
                                 </div>
                             </div>
