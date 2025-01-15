@@ -3,7 +3,7 @@
         <!-- Sidebar -->
         <aside
             id="sidebar"
-            class="sidebar bg-primary text-light vh-100 shadow-sm d-none d-lg-block"
+            class="sidebar bg-primary text-light vh-100 shadow-sm "
             :class="{ collapsed: isCollapsed }"
         >
             <!-- Header -->
@@ -39,35 +39,15 @@
                 <ul class="nav flex-column" v-if="roleId == 1">
                     <li class="nav-item">
                         <a
-                            class="nav-link text-white d-flex align-items-center collapsed"
-                            data-bs-target="#userListsNav"
-                            data-bs-toggle="collapse"
-                            href="#"
+                            class="nav-link text-white "
+
+                            href="/viewuserlist"
                         >
                             <i class="mdi mdi-account-group me-3"></i>
                             <span>User Lists</span>
-                            <i
-                                class="bi bi-chevron-down ms-auto"
-                                style="color: white"
-                            ></i>
+
                         </a>
-                        <!-- Submenu -->
-                        <!-- <ul  class="nav flex-column ms-3" id="userListsNav"> -->
-                        <ul
-                            class="nav flex-column ms-3"
-                            data-bs-parent="#sidebar-nav"
-                            id="userListsNav"
-                        >
-                            <li class="nav-item">
-                                <a
-                                    class="nav-link text-white"
-                                    href="/viewuserlist"
-                                >
-                                    <i class="mdi mdi-account-multiple"></i>
-                                    View User
-                                </a>
-                            </li>
-                        </ul>
+
                     </li>
                 </ul>
                 <ul class="nav flex-column">
@@ -252,6 +232,13 @@
                 </button>
             </div>
         </aside>
+        <button
+            id="toggle-sidebar"
+            class="btn btn-primary d-lg-none"
+            @click="toggleSidebar"
+        >
+            <i class="mdi mdi-menu"></i>
+        </button>
     </div>
 </template>
 
@@ -262,7 +249,7 @@ export default {
     name: "SideBar",
     data() {
         return {
-            isCollapsed: false,
+            isCollapsed: false,  // Sidebar initially not collapsed
         };
     },
     computed: {
@@ -277,15 +264,18 @@ export default {
         ...mapActions(["fetchUsers", "fetchAuthUsers"]),
         async logout() {
             try {
-                const token =  localStorage.getItem("auth_token");
+                const token = localStorage.getItem("auth_token");
                 localStorage.removeItem("auth_token");
                 this.$router.push("/");
             } catch (error) {
                 console.error("Logout failed:", error);
             }
         },
+        toggleSidebar() {
+            // Toggle the collapsed state of the sidebar
+            this.isCollapsed = !this.isCollapsed;
+        },
     },
-
     mounted() {
         this.fetchUsers();
         this.fetchAuthUsers();
@@ -311,24 +301,41 @@ export default {
     height: 100%;
     width: 200px;
 }
+
 #sidebar.collapsed {
     width: 70px;
 }
+
 .sidebar {
     position: sticky;
     top: 0;
     overflow-y: auto;
 }
-.toggle-btn {
-    position: absolute;
-    top: 10px;
-    right: -20px;
-    z-index: 1000;
-}
+
 .nav-link {
     cursor: pointer;
 }
+
 .nav-link.active {
     background-color: rgba(255, 255, 255, 0.2);
+}
+
+#toggle-sidebar {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1100;
+}
+
+@media (max-width: 992px) {
+    #sidebar {
+        transform: translateX(-100%);
+    }
+    #sidebar.collapsed {
+        transform: translateX(0);
+    }
+    #toggle-sidebar {
+        display: block;
+    }
 }
 </style>
