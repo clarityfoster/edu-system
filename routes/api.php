@@ -4,12 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\TreeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SemesterController;
-use App\Http\Controllers\BinaryTreeController;
 use App\Http\Controllers\PermissionController;
 
 Route::post('/register', [AuthController::class, 'register']);

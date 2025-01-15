@@ -40,7 +40,7 @@ const routes = [
         path: "/sidebar",
         name: "sidebar",
         component: SideBar,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, allowedRoles: ["Admin"] },
     },
     {
         path: "/viewuserlist",
@@ -76,25 +76,25 @@ const routes = [
         path: "/addstudent",
         name: "addstudent",
         component: AddStudent,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, allowedRoles: ["Admin"] },
     },
     {
         path: "/addinstructor",
         name: "addinstructor",
         component: AddInstructor,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, allowedRoles: ["Admin"] },
     },
     {
         path: "/addsemester",
         name: "addsemester",
         component: AddSemester,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, allowedRoles: ["Admin"] },
     },
     {
         path: "/addcourse",
         name: "addcourse",
         component: AddCourse,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, allowedRoles: ["Admin"] },
     },
     {
         path: "/binarytree",
@@ -120,18 +120,29 @@ const router = createRouter({
 });
 router.beforeEach((to, from, next) => {
     let token = null;
+    let userRole = null;
+
     try {
         token = localStorage.getItem("auth_token");
+        userRole = localStorage.getItem("user_role");
     } catch (error) {
-        console.log(error);
+        console.error("Error accessing localStorage:", error);
     }
     if (to.meta.requiresAuth && !token) {
         next({ name: "login" });
-    } else if ((to.name === "login" || to.name === "register") && token) {
+    }
+    else if (to.meta.allowedRoles && !to.meta.allowedRoles.includes(userRole)) {
+        if (to.query.allowOverride === "true") {
+            next();
+        } else {
+            next({ name: "home" });
+        }
+    }
+    else if ((to.name === "login" || to.name === "register") && token) {
         next({ name: "home" });
-    } else {
+    }
+    else {
         next();
     }
 });
-
 export default router;
