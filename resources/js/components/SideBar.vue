@@ -1,12 +1,10 @@
 <template>
     <div id="app" class="d-flex">
-        <!-- Sidebar -->
         <aside
             id="sidebar"
             class="sidebar bg-primary text-light vh-100 shadow-sm d-none d-lg-block"
             :class="{ collapsed: isCollapsed }"
         >
-            <!-- Header -->
             <div class="nav flex-column pt-3">
                 <div class="d-flex align-items-center mb-4">
                     <img
@@ -24,6 +22,7 @@
                 </div>
 
                 <hr class="text-white" />
+<<<<<<< HEAD
 
                 <!-- Menu Items -->
                  <ul class="nav flex-column">
@@ -36,6 +35,8 @@
 
                  </ul>
 
+=======
+>>>>>>> 4e307fb (update routes)
                 <ul class="nav flex-column" v-if="roleId == 1">
                     <li class="nav-item">
                         <a
@@ -52,7 +53,6 @@
                             ></i>
                         </a>
                         <!-- Submenu -->
-                        <!-- <ul  class="nav flex-column ms-3" id="userListsNav"> -->
                         <ul
                             class="nav flex-column ms-3"
                             data-bs-parent="#sidebar-nav"
@@ -61,7 +61,7 @@
                             <li class="nav-item">
                                 <a
                                     class="nav-link text-white"
-                                    href="/viewuserlist"
+                                    @click="navigateToViewUserList"
                                 >
                                     <i class="mdi mdi-account-multiple"></i>
                                     View User
@@ -85,7 +85,6 @@
                                 style="color: white"
                             ></i>
                         </a>
-                        <!-- Submenu -->
                         <ul
                             class="nav ms-3 nav-content collapse"
                             data-bs-parent="#sidebar-nav"
@@ -94,7 +93,7 @@
                             <li class="nav-item">
                                 <a
                                     class="nav-link text-white"
-                                    href="/studentlist"
+                                    @click="navigateToViewStudents"
                                 >
                                     <i class="mdi mdi-account-multiple"></i>
                                     View Student
@@ -103,7 +102,7 @@
                             <li class="nav-item" v-if="roleId == 1">
                                 <a
                                     class="nav-link text-white"
-                                    href="/addstudent"
+                                    @click="navigateToAddStudents"
                                 >
                                     <i class="mdi mdi-account-plus"></i>
                                     Add Students
@@ -127,7 +126,6 @@
                                 style="color: white"
                             ></i>
                         </a>
-                        <!-- Submenu -->
                         <ul
                             class="nav ms-3 nav-content collapse"
                             data-bs-parent="#sidebar-nav"
@@ -136,7 +134,7 @@
                             <li class="nav-item">
                                 <a
                                     class="nav-link text-white"
-                                    href="/instructorlist"
+                                    @click="navigateToViewInstructors"
                                 >
                                     <i class="mdi mdi-account-multiple"></i>
                                     View Instructors
@@ -145,7 +143,7 @@
                             <li class="nav-item" v-if="roleId == 1">
                                 <a
                                     class="nav-link text-white"
-                                    href="/addinstructor"
+                                    @click="navigateToAddInstructor"
                                 >
                                     <i class="mdi mdi-account-plus"></i>
                                     Add Instructor
@@ -179,7 +177,7 @@
                             <li class="nav-item">
                                 <a
                                     class="nav-link text-white"
-                                    href="/semesterlist"
+                                    @click="navigateToViewSemesters"
                                 >
                                     <i class="mdi mdi-calendar"></i>
                                     View Semesters
@@ -188,7 +186,7 @@
                             <li class="nav-item" v-if="roleId == 1">
                                 <a
                                     class="nav-link text-white"
-                                    href="/addsemester"
+                                    @click="navigateToAddSemester"
                                 >
                                     <i class="mdi mdi-calendar-plus"></i>
                                     Add Semester
@@ -212,7 +210,6 @@
                                 style="color: white"
                             ></i>
                         </a>
-                        <!-- Submenu -->
                         <ul
                             class="nav ms-3 nav-content collapse"
                             data-bs-parent="#sidebar-nav"
@@ -221,7 +218,7 @@
                             <li class="nav-item">
                                 <a
                                     class="nav-link text-white"
-                                    href="/courselist"
+                                    @click="navigateToViewCourses"
                                 >
                                     <i class="mdi mdi-book-open"></i>
                                     View Courses
@@ -230,7 +227,7 @@
                             <li class="nav-item" v-if="roleId == 1">
                                 <a
                                     class="nav-link text-white"
-                                    href="/addcourse"
+                                    @click="navigateToAddCourse"
                                 >
                                     <i class="mdi mdi-book-plus"></i>
                                     Add Course
@@ -239,10 +236,7 @@
                         </ul>
                     </li>
                 </ul>
-
                 <hr class="text-white" />
-
-                <!-- Logout -->
                 <button
                     class="btn btn-link text-white d-flex align-items-center"
                     @click="logout"
@@ -277,12 +271,54 @@ export default {
         ...mapActions(["fetchUsers", "fetchAuthUsers"]),
         async logout() {
             try {
-                const token =  localStorage.getItem("auth_token");
+                const token = localStorage.getItem("auth_token");
                 localStorage.removeItem("auth_token");
                 this.$router.push("/");
             } catch (error) {
                 console.error("Logout failed:", error);
             }
+        },
+        navigateToAddCourse() {
+            this.$router.push({
+                name: "addcourse",
+                query: { allowOverride: "true" },
+            });
+        },
+        navigateToAddSemester() {
+            this.$router.push({
+                name: "addsemester",
+                query: { allowOverride: "true" },
+            });
+        },
+        navigateToAddStudents() {
+            this.$router.push({
+                name: "addstudent",
+                query: { allowOverride: "true" },
+            });
+        },
+        navigateToAddInstructor() {
+            this.$router.push({
+                name: "addinstructor",
+                query: { allowOverride: "true" },
+            });
+        },
+        navigateToViewUserList() {
+            this.$router.push({
+                name: "viewuserlist",
+                query: { allowOverride: "true" },
+            });
+        },
+        navigateToViewStudents() {
+            this.$router.push({ name: "studentlist" });
+        },
+        navigateToViewInstructors() {
+            this.$router.push({ name: "instructorlist" });
+        },
+        navigateToViewSemesters() {
+            this.$router.push({ name: "semesterlist" });
+        },
+        navigateToViewCourses() {
+            this.$router.push({ name: "courselist" });
         },
     },
 

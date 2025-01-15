@@ -81,28 +81,39 @@ class SemesterController extends Controller
     public function update($id) {
         try {
             $validator = validator(request()->all(), [
-                'name' => 'required|string|max:255',
-                'start_date' => 'required|date',
-                'end_date' => 'required|date',
+                'name' => 'nullable|string|max:255',
+                'course_id' => 'nullable|array',
+                'course_id.*' => 'nullable|integer|exists:courses,id',
+                'start_date' => 'nullable|date',
+                'end_date' => 'nullable|date',
             ]);
-            if($validator->fails()) {
+
+            if ($validator->fails()) {
                 return response()->json([
                     'status' => 'error',
                     'errors' => $validator->errors(),
                 ]);
             }
+
             $semester = Semester::findOrFail($id);
             $semester->name = request()->name;
             $semester->start_date = request()->start_date;
             $semester->end_date = request()->end_date;
             $semester->save();
+
+            $semester->course()->sync(request('course_id'));
+
             return response()->json([
                 'status' => 'success',
-                'semester' => $semester
+                'semester' => $semester->load('course'),
             ]);
-        } catch(Exception $e) {
+        } catch (ModelNotFoundException $e) {
             return response()->json([
                 'error' => 'Semester not found',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
             ]);
         }
     }

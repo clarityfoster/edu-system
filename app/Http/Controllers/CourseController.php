@@ -11,7 +11,6 @@ class CourseController extends Controller
     public function index()
     {
         try {
-
             $courses = Course::with('semester')->get();
             return response()->json([
                 'status' => 'success',

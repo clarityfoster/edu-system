@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Fourth Semester', 'start_date' => '2026-07-01', 'end_date' => '2026-12-31'],
         ];
         foreach ($semesters as $semester) {
-            \App\Models\Semester::create($semester);
+            Semester::create($semester);
         }
         $courses = [
             ['name' => 'Introduction to Programming'],
@@ -73,6 +73,7 @@ class DatabaseSeeder extends Seeder
                 ]);
             }
         }
+
         $permissions = [
             'user' => ['create-user', 'view-user', 'update-user', 'delete-user'],
             'role' => ['create-role', 'view-role', 'update-role', 'delete-role'],
