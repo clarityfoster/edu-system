@@ -48,9 +48,9 @@
 
           <!-- Role Select -->
           <v-select
-            v-if="roles && Array.isArray(roles)"
-            v-model="role"
-            :items="roles"
+            v-if="role_register && Array.isArray(role_register)"
+            v-model="roles_register"
+            :items="role_register"
             item-value="id"
             item-title="name"
             label="Select Role"
@@ -94,7 +94,7 @@ export default {
       name: "",
       email: "",
       password: "",
-      role: "",
+      roles_register: "",
       valid: false,
       rules: {
         required: (value) => !!value || "This field is required.",
@@ -105,11 +105,11 @@ export default {
     };
   },
   computed: {
-  ...mapState(["roles"]),
+  ...mapState(["role_register"]),
 },
 
   methods: {
-    ...mapActions(["fetchRoles"]),
+    ...mapActions(["fetchRoleRegister"]),
 
       async register() {
         // alert("Registering...");
@@ -120,14 +120,14 @@ export default {
                 name: this.name,
                 email: this.email,
                 password: this.password,
-                role_id: this.role,
+                role_id: this.roles_register,
             });
             alert("Registration successful!");
             this.name = "";
             this.email = "";
             this.password = "";
             this.role = null;
-            this.$router.push("/login");
+            this.$router.push("/");
             } catch (error) {
             console.error("Error during registration:", error.response.data);
             }
@@ -136,10 +136,10 @@ export default {
 
   },
   mounted() {
-    this.fetchRoles();
+    this.fetchRoleRegister();
   },
   watch: {
-    roles(newRoles) {
+    role_register(newRoles) {
       console.log("Roles updated in component:", newRoles);
     },
   },

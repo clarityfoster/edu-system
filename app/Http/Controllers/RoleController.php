@@ -25,9 +25,9 @@ class RoleController extends Controller
     public function rolesForRegister()
     {
         try {
-            $roles = Role::where('name', '!=', 'admin')->get();
+            $role_register = Role::where('name', '!=', 'admin')->get();
             return response()->json([
-                'roles' => $roles,
+                'role_register' => $role_register,
             ], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json([

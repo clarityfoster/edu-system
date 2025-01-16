@@ -5,6 +5,7 @@ import axios from "axios";
 export const store = createStore({
     state: {
         roleId: parseInt(localStorage.getItem("role_id")) || null,
+        role_register: [],
         roles: [],
         users: [],
         authUsers: [],
@@ -18,9 +19,14 @@ export const store = createStore({
 
             state.roleId = roleId;
         },
+        fetchRoleRegister(state, role_register) {
+            state.role_register = role_register;
+            // console.log('RoleRegisters', state.role_register);
+
+        },
         setRoles(state, roles) {
             state.roles = roles;
-            console.log('Roles', state.roles);
+            // console.log('Roles', state.roles);
         },
         fetchUsers(state, users) {
             state.users = users;
@@ -54,13 +60,28 @@ export const store = createStore({
         roles: (state) => state.roles,
     },
     actions: {
+        async fetchRoleRegister({ commit }) {
+            try {
+                const response = await axios.get("http://127.0.0.1:8000/api/register-roles");
+
+
+                if (response.data && Array.isArray(response.data.role_register)) {
+                    // console.log('Role_Register', response.data.role_register);
+                    commit("fetchRoleRegister", response.data.role_register);
+                } else {
+                    console.error("Fetched roles are not in the expected array format.");
+                }
+            } catch (error) {
+                console.error("Error fetching roles:", error.response?.data || error);
+            }
+        },
         async fetchRoles({ commit }) {
             try {
                 const response = await axios.get("http://127.0.0.1:8000/api/roles");
 
 
                 if (response.data && Array.isArray(response.data.roles)) {
-                    console.log('Roles', response.data.roles);
+                    // console.log('Roles', response.data.roles);
                     commit("setRoles", response.data.roles);
                 } else {
                     console.error("Fetched roles are not in the expected array format.");

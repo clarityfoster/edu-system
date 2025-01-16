@@ -78,10 +78,10 @@ class SemesterController extends Controller
             ]);
         }
     }
-    public function update($id) {
+   public function update($id) {
         try {
             $validator = validator(request()->all(), [
-                'name' => 'nullable|string|max:255|unique:semesters',
+                'name' => 'nullable|string|max:255',
                 'course_id' => 'nullable|array',
                 'course_id.*' => 'nullable|integer|exists:courses,id',
                 'start_date' => 'nullable|date',
@@ -99,8 +99,8 @@ class SemesterController extends Controller
             $semester->name = request()->name;
             $semester->start_date = request()->start_date;
             $semester->end_date = request()->end_date;
+            $semester->course()->sync(request('course_id'));
             $semester->save();
-            $semester->course()->synac(request('course_id'));
 
             return response()->json([
                 'status' => 'success',
