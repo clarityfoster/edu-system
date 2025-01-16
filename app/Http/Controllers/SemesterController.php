@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Semester;
-use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SemesterController extends Controller

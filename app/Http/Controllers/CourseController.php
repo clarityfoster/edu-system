@@ -27,8 +27,7 @@ class CourseController extends Controller
     {
         try {
             $validator = validator(request()->all(), [
-                'name' => 'required|string|unique|max:255',
-                'semester_id' => 'nullable|integer',
+                'name' => 'required|string|unique:courses|max:255',
             ]);
             if ($validator->fails()) {
                 return response()->json([
