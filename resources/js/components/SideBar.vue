@@ -7,13 +7,10 @@
         >
             <div class="nav flex-column pt-3">
                 <div class="d-flex align-items-center mb-4">
-                    <img
-                        src="https://via.placeholder.com/150"
-                        alt="Admin Avatar"
-                        class="rounded-circle"
-                        width="50"
-                        height="50"
-                    />
+                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="currentColor">
+                    <circle cx="12" cy="7" r="4" />
+                    <path d="M12 12c-5 0-9 3-9 6v2h18v-2c0-3-4-6-9-6z" />
+                    </svg>
                     <div v-if="!isCollapsed" class="ms-3">
                         <h5>{{ authUsers.name }}</h5>
                         <p class="mb-0">{{ authUsers.role?.name }}</p>
@@ -283,14 +280,10 @@ export default {
             });
         },
         navigateToViewUserList() {
-<<<<<<< HEAD
             this.$router.push({
                 name: "viewUserList",
                 query: { allowOverride: "true" },
             });
-=======
-            this.$router.push({ name: "viewUserList", query: { allowOverride: "true"}});
->>>>>>> 34d80775b1ca70123a531f2984dba8ed65c6b386
         },
         navigateToViewStudents() {
             this.$router.push({ name: "studentlist" });
