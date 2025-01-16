@@ -283,10 +283,14 @@ export default {
             });
         },
         navigateToViewUserList() {
+<<<<<<< HEAD
             this.$router.push({
                 name: "viewUserList",
                 query: { allowOverride: "true" },
             });
+=======
+            this.$router.push({ name: "viewUserList", query: { allowOverride: "true"}});
+>>>>>>> 34d80775b1ca70123a531f2984dba8ed65c6b386
         },
         navigateToViewStudents() {
             this.$router.push({ name: "studentlist" });
