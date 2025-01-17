@@ -41,7 +41,7 @@
                                         Instructors
                                     </h5>
                                     <router-link
-                                        to="/studentlist"
+                                        to="/instructorlist"
                                         class="text-decoration-none"
                                         style="
                                             color: #ffc726;
@@ -49,7 +49,12 @@
                                             font-size: 15px;
                                         "
                                     >
-                                        {{ totalInstructors - 1 }}+
+                                        <span v-if="totalInstructors > 1">
+                                            {{ totalInstructors - 1 }}+
+                                        </span>
+                                        <span v-else>
+                                            {{ totalInstructors }}
+                                        </span>
                                     </router-link>
                                 </div>
                             </div>
@@ -70,7 +75,7 @@
                                         Students
                                     </h5>
                                     <router-link
-                                        to="/instructorlist"
+                                        to="/studentlist"
                                         class="text-decoration-none"
                                         style="
                                             font-weight: bold;
@@ -78,7 +83,12 @@
                                             color: #ffc726;
                                         "
                                     >
-                                        {{ totalLearners - 1 }}+
+                                        <span v-if="totalLearners > 1">
+                                            {{ totalLearners - 1 }}+
+                                        </span>
+                                        <span v-else>
+                                            {{ totalLearners }}
+                                        </span>
                                     </router-link>
                                 </div>
                             </div>
@@ -180,6 +190,7 @@
                                     >
                                 </div>
                                 <button
+                                    disabled="true"
                                     class="btn btn-sm rounded-5 text-white"
                                     style="
                                         width: 70px;
@@ -214,6 +225,7 @@
                                     >
                                 </div>
                                 <button
+                                    disabled="true"
                                     class="btn btn-sm rounded-5 text-white"
                                     style="
                                         width: 70px;
@@ -248,6 +260,7 @@
                                     >
                                 </div>
                                 <button
+                                    disabled="true"
                                     class="btn btn-sm rounded-5 text-white"
                                     style="
                                         width: 70px;
@@ -268,7 +281,8 @@
                         <div
                             class="w-100 bg-primary rounded-4"
                             style="height: 170px"
-                        ></div>
+                        >
+                        </div>
                         <div class="d-flex gap-3">
                             <div
                                 class="rounded-4 d-flex flex-column gap-3 p-4 align-items-center justify-content-center"

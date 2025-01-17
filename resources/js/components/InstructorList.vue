@@ -10,8 +10,8 @@
       style="gap: 30px; width: 2300px; max-width: 80%; margin-left: 100px;"
     >
       <div
-        class="input-group"
-        style="max-width: 500px; margin-bottom: 20px; margin-top: 8px; margin-left: 900px;"
+        class="input-group d-flex justify-content-end"
+        style="max-width: 100%; margin-bottom: 20px;"
       >
         <button
           class="btn btn-primary text-white ms-2 btn-sm"

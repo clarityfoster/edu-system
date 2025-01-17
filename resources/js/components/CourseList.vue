@@ -49,6 +49,7 @@
           <v-btn
             v-else
             small
+            disabled
             color="error"
             class="text-white"
           >
