@@ -31,6 +31,7 @@
                         dense
                         clearable
                         required
+                        v-on:keyup.enter="login"
                     ></v-text-field>
 
                     <!-- Login Button -->

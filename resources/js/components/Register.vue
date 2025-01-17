@@ -59,6 +59,7 @@
             dense
             clearable
             required
+             v-on:keyup.enter="register"
             ></v-select>
 
           <!-- Register Button -->
