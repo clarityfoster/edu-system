@@ -292,7 +292,8 @@
                                 "
                             >
                                 <div>
-                                    <h3 v-if="totalcompletedSemesters > 0"
+                                    <h3
+                                        v-if="totalcompletedSemesters > 0"
                                         class="text-white"
                                         style="
                                             font-weight: bold;
@@ -300,9 +301,10 @@
                                             margin: 0;
                                         "
                                     >
-                                     {{ totalcompletedSemesters - 1 }}
+                                        {{ totalcompletedSemesters - 1  }}+
                                     </h3>
-                                    <h3 else
+                                    <h3
+                                        else
                                         class="text-white"
                                         style="
                                             font-weight: bold;
@@ -310,7 +312,7 @@
                                             margin: 0;
                                         "
                                     >
-                                     {{ totalcompletedSemesters }}
+                                        {{ totalcompletedSemesters  }}
                                     </h3>
                                     <span
                                         class="text-white"
@@ -353,9 +355,8 @@
                                             margin: 0;
                                         "
                                     >
-                                        0+
+                                        {{ totalOngoingSemesters }}
                                     </h3>
-
                                     <span
                                         class="text-white"
                                         style="padding: 0; font-weight: bold"
@@ -376,7 +377,7 @@
                     <div
                         class="d-flex flex-column gap-2 align-items-start justify-content-center mt-4"
                     >
-                        <div class="card rounded-4 w-100">
+                        <div v-for="users in bestLearnersList" :key="users.id" class="card rounded-4 w-100">
                             <div
                                 class="card-body d-flex justify-content-start align-items-start gap-3"
                                 style="padding: 14.5px"
@@ -391,7 +392,7 @@
                                         font-size: 20px;
                                     "
                                 >
-                                    B
+                                    {{ users.name.charAt(0).toUpperCase() }}
                                 </div>
                                 <div>
                                     <p
@@ -402,120 +403,14 @@
                                         "
                                         class="card-title"
                                     >
-                                        Bella Smith
+                                        {{ users.name }}
                                     </p>
                                     <span
                                         style="font-size: 14px"
                                         class="text-muted"
-                                        >Semester 4</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card rounded-4 w-100">
-                            <div
-                                class="card-body d-flex justify-content-start align-items-start gap-3"
-                                style="padding: 14.5px"
-                            >
-                                <div
-                                    class="d-flex align-items-center justify-content-center text-white rounded-circle"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        background-color: #ffc726;
-                                        font-weight: bold;
-                                        font-size: 20px;
-                                    "
-                                >
-                                    B
-                                </div>
-                                <div>
-                                    <p
-                                        style="
-                                            font-size: 15px;
-                                            margin: 0;
-                                            font-weight: bold;
-                                        "
-                                        class="card-title"
-                                    >
-                                        Bella Smith
-                                    </p>
-                                    <span
-                                        style="font-size: 14px"
-                                        class="text-muted"
-                                        >Semester 4</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card rounded-4 w-100">
-                            <div
-                                class="card-body d-flex justify-content-start align-items-start gap-3"
-                                style="padding: 14.5px"
-                            >
-                                <div
-                                    class="d-flex align-items-center justify-content-center text-white rounded-circle"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        background-color: #ffc726;
-                                        font-weight: bold;
-                                        font-size: 20px;
-                                    "
-                                >
-                                    B
-                                </div>
-                                <div>
-                                    <p
-                                        style="
-                                            font-size: 15px;
-                                            margin: 0;
-                                            font-weight: bold;
-                                        "
-                                        class="card-title"
-                                    >
-                                        Bella Smith
-                                    </p>
-                                    <span
-                                        style="font-size: 14px"
-                                        class="text-muted"
-                                        >Semester 4</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card rounded-4 w-100">
-                            <div
-                                class="card-body d-flex justify-content-start align-items-start gap-3"
-                                style="padding: 14.5px"
-                            >
-                                <div
-                                    class="d-flex align-items-center justify-content-center text-white rounded-circle"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        background-color: #ffc726;
-                                        font-weight: bold;
-                                        font-size: 20px;
-                                    "
-                                >
-                                    B
-                                </div>
-                                <div>
-                                    <p
-                                        style="
-                                            font-size: 15px;
-                                            margin: 0;
-                                            font-weight: bold;
-                                        "
-                                        class="card-title"
-                                    >
-                                        Bella Smith
-                                    </p>
-                                    <span
-                                        style="font-size: 14px"
-                                        class="text-muted"
-                                        >Semester 4</span
+                                        >
+                                            {{ users.semester.name }}
+                                        </span
                                     >
                                 </div>
                             </div>
@@ -544,6 +439,8 @@ export default {
             totalOngoingSemesters: 0,
             completedSemestersList: [],
             totalcompletedSemesters: 0,
+            usersList: [],
+            bestLearnersList: [],
         };
     },
     mounted() {
@@ -551,6 +448,7 @@ export default {
         this.fetchLearnersList();
         this.fetchOngoingSemestersList();
         this.fetchCompletedSemestersList();
+        this.fetchBestLearners();
     },
     methods: {
         async fetchInstructorsList() {
@@ -593,10 +491,12 @@ export default {
                 );
                 if (
                     data.status === "success" &&
-                    Array.isArray(data.semesters)
+                    Array.isArray(data.ongoingsemesters)
                 ) {
-                    this.ongoingSemestersList = data.semesters;
-                    this.totalOngoingSemesters = data.semesters.length;
+                    this.ongoingSemestersList = data.ongoingsemesters;
+                    this.totalOngoingSemesters = data.ongoingsemesters.length;
+                    console.log("Ongoing semesters list:", this.ongoingSemestersList);
+
                 } else {
                     console.error("Unexpected API response:", data);
                 }
@@ -622,12 +522,40 @@ export default {
                 ) {
                     this.completedSemestersList = data.semesters;
                     this.totalcompletedSemesters = data.semesters.length;
-                    console.log("completed list:", this.completedSemestersList);
                 } else {
                     console.error("Unexpected API response:", data);
                 }
             } catch (error) {
                 console.error("Error fetching ongoing semesters list:", error);
+            }
+        },
+        async fetchBestLearners() {
+            try {
+                const token = localStorage.getItem("auth_token");
+                if (!token) {
+                    console.error("Auth token is missing!");
+                    return;
+                }
+                const { data } = await axios.get(
+                    "http://127.0.0.1:8000/api/users",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                if (data.users && Array.isArray(data.users)) {
+                    this.usersList = data.users;
+                    this.bestLearnersList = this.usersList.slice(0, 4);
+                    console.log("Best Learners:", this.bestLearnersList);
+                } else {
+                    console.error(
+                        "Unexpected API response: Users array missing."
+                    );
+                }
+            } catch (error) {
+                console.error("Error fetching users list:", error);
             }
         },
     },
