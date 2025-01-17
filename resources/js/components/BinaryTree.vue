@@ -35,12 +35,12 @@
       </v-row>
       <v-row justify="center" v-if="binaryTree">
           <v-col cols="12" md="10">
-              <v-card class="pa-5" outlined>
+              <v-card class="pa-5" outlined style=" margin-left: 100px;">
                   <v-card-title>
                       <h2 class="text-center">Tree Operations</h2>
                   </v-card-title>
                   <v-card-text>
-                      <v-row>
+                      <v-row justify="center"  >
                           <!-- Search -->
                           <v-col cols="12" sm="4">
                               <v-form

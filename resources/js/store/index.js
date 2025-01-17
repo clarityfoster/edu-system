@@ -13,6 +13,7 @@ export const store = createStore({
         filterinstructor: [],
         semesters: [],
         courses: [],
+        ongoingsemesters:[],
     },
     mutations: {
         setRoleId(state, roleId) {
@@ -46,6 +47,9 @@ export const store = createStore({
         },
         fetchSemesters(state, semesters) {
             state.semesters = semesters;
+        },
+        fetchOngoingSemesters(state, ongoingsemesters) {
+            state.ongoingsemesters = ongoingsemesters;
         },
           fetchCourses(state, courses) {
             state.courses = courses;
@@ -112,6 +116,31 @@ export const store = createStore({
                 console.error("Error fetching semesters:", error);
             }
         },
+        async fetchOngoingSemesters({ commit }) {
+            try {
+                const token = localStorage.getItem("auth_token"); // Fetch the token from localStorage
+                if (!token) {
+                    console.error("No authentication token found.");
+                    return;
+                }
+
+                const response = await axios.get("http://127.0.0.1:8000/api/semesters/ongoing", {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                commit('fetchOngoingSemesters', response.data.ongoingsemesters);
+                // console.log('Ongoing Semesters', response.data.ongoingsemesters);
+            } catch (error) {
+                if (error.response && error.response.status === 401) {
+                    console.error("Unauthorized: Please check the token or login again.");
+                } else {
+                    console.error("Error fetching ongoing semesters:", error.message);
+                }
+            }
+        },
+
         async fetchFilterStudents({ commit }) {
             try {
 

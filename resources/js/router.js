@@ -15,6 +15,7 @@ import AddCourse from "./components/AddCourse.vue";
 import BinaryTree from "./components/BinaryTree.vue";
 import BinaryTreeChild from "./components/BinaryTreeChild.vue";
 import Forbidden from "./components/Forbidden.vue";
+import OngoingSemester from "./components/OngoingSemester.vue";
 
 const routes = [
     {
@@ -112,6 +113,13 @@ const routes = [
         name: "forbidden",
         component: Forbidden,
     },
+    {
+        path: "/ongoingsemester",
+        name: "ongoingsemester",
+        component: OngoingSemester,
+        meta: { requiresAuth: true },
+    },
+
 ];
 const router = createRouter({
     history: createWebHistory(),

@@ -305,7 +305,7 @@
                                         <h3 class="text-white" style="font-weight: bold; padding: 0; margin: 0;">2K+</h3>
                                         <span class="text-white" style="padding: 0; font-weight: bold;">Ongoing Semesters</span>
                                     </div>
-                                    <router-link class="w-100 text-end">
+                                    <router-link class="w-100 text-end" to="/ongoingsemester">
                                         <i class="bi bi-arrow-up-right-circle-fill fs-3 text-white"></i>
                                     </router-link>
                                 </div>

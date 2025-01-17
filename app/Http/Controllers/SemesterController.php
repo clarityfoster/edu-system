@@ -125,7 +125,7 @@ class SemesterController extends Controller
     }
     public function getOngoingSemester() {
         try {
-            $semesters = Semester::where('start_date', '<=', now())
+            $ongoingsemesters = Semester::where('start_date', '<=', now())
                                 ->where('end_date', '>=', now())
                                 ->with('course')
                                 ->with('user')
@@ -133,7 +133,7 @@ class SemesterController extends Controller
                                 ->get();
             return response()->json([
                 'status' => 'success',
-                'semesters' => $semesters
+                'ongoingsemesters' => $ongoingsemesters
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json([
