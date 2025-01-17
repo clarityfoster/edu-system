@@ -150,6 +150,7 @@
                             <BinaryTreeChild
                                 :node="binaryTree"
                                 :searchKey="searchResult ? searchKey : null"
+                                :insertKey="insertKey"
                             />
                         </div>
                     </v-card-text>
@@ -185,12 +186,12 @@ export default {
             rules: {
                 required: (value) => !!value || "Field is required.",
                 validateNumbers: (value) => {
-                    const regex = /^(\s*\d+\s*,)*\s*\d+\s*$/;
+                    const regex = /^(\s*[+-]?\d+\s*,)*\s*[+-]?\d+\s*$/;
                     return (
-                        regex.test(value) ||
-                        "Enter valid comma-separated numbers."
+                        regex.test(value) || "Enter valid comma-separated numbers, including positive or negative values."
                     );
                 },
+
                 validateNumber: (value) =>
                     !isNaN(value) || "Enter a valid number.",
             },
@@ -224,6 +225,7 @@ export default {
                     this.value = value;
                     this.left = null;
                     this.right = null;
+
                 }
             }
             const insertNode = (root, value) => {
@@ -267,7 +269,7 @@ export default {
             }
 
             const insertNode = (root, value) => {
-                if (!root) return { value, left: null, right: null };
+                if (!root) return { value, left: null, right: null, };
                 if (value < root.value)
                     root.left = insertNode(root.left, value);
                 else if (value > root.value)

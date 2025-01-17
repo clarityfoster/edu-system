@@ -110,7 +110,7 @@ export default {
 
                 if (user.is_approved !== 1) {
                     this.message.text =
-                        "Your account has not been approved yet.";
+                        "Your account has not been approved yet. Please wait for a moment.";
                     this.message.type = "error";
                     return;
                 }
