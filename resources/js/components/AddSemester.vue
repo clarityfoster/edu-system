@@ -67,6 +67,16 @@
                         </v-col>
                     </v-row>
 
+                    <!-- Warning Message -->
+                    <v-alert
+                        v-if="endDate && startDate && new Date(endDate) < new Date(startDate)"
+                        type="warning"
+                        class="mt-4"
+                        :value="true"
+                    >
+                        The end date cannot be earlier than the start date.
+                    </v-alert>
+
                     <v-row class="justify-center">
                         <v-col cols="12" sm="6" class="d-flex justify-center">
                             <v-btn
@@ -81,7 +91,7 @@
                         </v-col>
                         <v-col cols="12" sm="6" class="d-flex justify-center">
                             <v-btn
-                                :disabled="!valid"
+                                :disabled="!valid || endDate && startDate && new Date(endDate) < new Date(startDate)"
                                 color="primary"
                                 class="mt-4 py-3 font-weight-bold"
                                 type="submit"
@@ -92,6 +102,19 @@
                         </v-col>
                     </v-row>
                 </v-form>
+
+                <v-alert
+                    v-if="errorMessages.length"
+                    type="error"
+                    class="mt-4"
+                    :value="true"
+                >
+                    <ul>
+                        <li v-for="(error, index) in errorMessages" :key="index">
+                            {{ error }}
+                        </li>
+                    </ul>
+                </v-alert>
             </v-card-text>
         </v-card>
     </v-container>
@@ -112,6 +135,7 @@ export default {
             startDate: null,
             endDate: null,
             valid: false,
+            errorMessages: [],
             rules: {
                 required: (value) => !!value || "This field is required.",
                 min: (length) => (value) =>
@@ -131,8 +155,14 @@ export default {
                 console.error("No token found. Redirecting to login...");
                 return;
             }
+
+            if (new Date(this.endDate) < new Date(this.startDate)) {
+                this.errorMessages = ["The end date cannot be earlier than the start date."];
+                return;
+            }
+
             try {
-                await axios.post(
+                const response = await axios.post(
                     "http://127.0.0.1:8000/api/semesters/create",
                     {
                         name: this.name,
@@ -144,13 +174,18 @@ export default {
                         headers: { Authorization: `Bearer ${token}` },
                     }
                 );
-                alert("Semester created successfully!");
-                this.cancel();
+
+                if (response.data.status === "success") {
+                    alert("Semester created successfully!");
+                    this.cancel();
+                }
+
             } catch (error) {
-                console.error(
-                    "Error during semester creation:",
-                    error.response.data
-                );
+                if (error.response && error.response.data.errors) {
+                    this.errorMessages = Object.values(error.response.data.errors).flat();
+                } else {
+                    console.error("Error during semester creation:", error);
+                }
             }
         },
         cancel() {
@@ -158,6 +193,7 @@ export default {
             this.course = [];
             this.startDate = null;
             this.endDate = null;
+            this.errorMessages = [];
         },
     },
     mounted() {

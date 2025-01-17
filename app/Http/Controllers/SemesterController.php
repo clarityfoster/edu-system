@@ -26,8 +26,14 @@ class SemesterController extends Controller
                 'name' => 'required|string|max:255|unique:semesters',
                 'course_id' => 'required|array',
                 'course_id.*' => 'required|integer|exists:courses,id',
-                'start_date' => 'required|date',
-                'end_date' => 'required|date',
+                'start_date' => 'required|date|before:end_date',
+                'end_date' => 'required|date|after:start_date',
+            ],[
+                'start_date.before' => 'The start date must be before the end date.',
+                'end_date.after' => 'The end date must be after the start date.',
+            ],[
+                'start_date.before' => 'The start date must be before the end date.',
+                'end_date.after' => 'The end date must be after the start date.',
             ]);
             if ($validator->fails()) {
                 return response()->json([
@@ -83,8 +89,8 @@ class SemesterController extends Controller
                 'name' => 'nullable|string|max:255',
                 'course_id' => 'nullable|array',
                 'course_id.*' => 'nullable|integer|exists:courses,id',
-                'start_date' => 'nullable|date',
-                'end_date' => 'nullable|date',
+                'start_date' => 'required|date|before:end_date',
+                'end_date' => 'required|date|after:start_date',
             ]);
 
             if ($validator->fails()) {

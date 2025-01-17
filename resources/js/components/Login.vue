@@ -4,7 +4,7 @@
         style="height: 100vh"
     >
         <v-card class="pa-5 elevation-12 rounded-lg" max-width="400">
-            <v-card-title class="justify-center text-h5 font-weight-bold">
+            <v-card-title class="justify-center text-h5 font-weighat-bold">
                 Login to Your Account
             </v-card-title>
             <v-card-text>
