@@ -16,6 +16,7 @@ import BinaryTree from "./components/BinaryTree.vue";
 import BinaryTreeChild from "./components/BinaryTreeChild.vue";
 import Forbidden from "./components/Forbidden.vue";
 import OngoingSemester from "./components/OngoingSemester.vue";
+import CompletedSemester from "./components/CompletedSemester.vue";
 
 const routes = [
     {
@@ -119,6 +120,13 @@ const routes = [
         component: OngoingSemester,
         meta: { requiresAuth: true },
     },
+    {
+        path: "/completedsemester",
+        name: "completedsemester",
+        component: CompletedSemester,
+        meta: { requiresAuth: true },
+    },
+
 
 ];
 const router = createRouter({

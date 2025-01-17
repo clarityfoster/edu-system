@@ -13,7 +13,7 @@
 
       <!-- Data Table -->
       <v-data-table
-        :items="ongoingsemesters"
+        :items="completedsemesters"
         :headers="headers"
         class="elevation-1"
         item-value="id"
@@ -22,7 +22,7 @@
       >
         <template v-slot:top>
           <v-toolbar flat>
-            <v-toolbar-title class="text-center">Ongoing Semester Lists</v-toolbar-title>
+            <v-toolbar-title class="text-center">Completed Semester Lists</v-toolbar-title>
           </v-toolbar>
         </template>
 
@@ -74,7 +74,6 @@ export default {
   data() {
       return {
 
-       
           headers: [
         { title: "Id", value: "index", align: "center", width: "5%" },
         { title: "Semester Name", value: "sname", align: "center", width: "20%" },
@@ -85,14 +84,14 @@ export default {
     };
   },
   computed: {
-    ...mapState(["ongoingsemesters", "authUsers"]),
+    ...mapState(["completedsemesters", "authUsers"]),
 
   },
   methods: {
-    ...mapActions(["fetchOngoingSemesters", "fetchAuthUsers"]),
+    ...mapActions(["fetchCompletedSemesters", "fetchAuthUsers"]),
   },
   mounted() {
-    this.fetchOngoingSemesters();
+    this.fetchCompletedSemesters();
       this.fetchAuthUsers();
 
   },

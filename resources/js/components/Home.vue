@@ -318,7 +318,7 @@
                                         >Completed Semesters</span
                                     >
                                 </div>
-                                <router-link class="w-100 text-end">
+                                <router-link class="w-100 text-end" to="/completedsemester">
                                     <i
                                         class="bi bi-arrow-up-right-circle-fill fs-3 text-white"
                                     ></i>

@@ -13,7 +13,8 @@ export const store = createStore({
         filterinstructor: [],
         semesters: [],
         courses: [],
-        ongoingsemesters:[],
+        ongoingsemesters: [],
+        completedsemesters:[]
     },
     mutations: {
         setRoleId(state, roleId) {
@@ -50,6 +51,9 @@ export const store = createStore({
         },
         fetchOngoingSemesters(state, ongoingsemesters) {
             state.ongoingsemesters = ongoingsemesters;
+        },
+        fetchCompletedSemesters(state, completedsemesters) {
+            state.semesters = completedsemesters;
         },
           fetchCourses(state, courses) {
             state.courses = courses;
@@ -118,7 +122,7 @@ export const store = createStore({
         },
         async fetchOngoingSemesters({ commit }) {
             try {
-                const token = localStorage.getItem("auth_token"); // Fetch the token from localStorage
+                const token = localStorage.getItem("auth_token");
                 if (!token) {
                     console.error("No authentication token found.");
                     return;
@@ -138,6 +142,29 @@ export const store = createStore({
                 } else {
                     console.error("Error fetching ongoing semesters:", error.message);
                 }
+            }
+        },
+
+        async fetchCompletedSemesters({ commit }) {
+            try {
+                const token = localStorage.getItem("auth_token");
+                if (!token) {
+                    console.error("No authentication token found.");
+                    return;
+                }
+
+                const response = await axios.get("http://127.0.0.1:8000/api/semesters/completed", {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                commit('fetchCompletedSemesters', response.data.semesters);
+
+            } catch (error) {
+
+                    console.error("Error fetching completed semesters:", error.message);
+
             }
         },
 
