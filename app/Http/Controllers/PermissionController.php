@@ -6,7 +6,6 @@ use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-
 class PermissionController extends Controller
 {
     public function index()

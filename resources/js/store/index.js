@@ -14,7 +14,7 @@ export const store = createStore({
         semesters: [],
         courses: [],
         ongoingsemesters: [],
-        completedsemesters:[]
+        completedSemesters:[]
     },
     mutations: {
         setRoleId(state, roleId) {
@@ -23,12 +23,9 @@ export const store = createStore({
         },
         fetchRoleRegister(state, role_register) {
             state.role_register = role_register;
-            // console.log('RoleRegisters', state.role_register);
-
         },
         setRoles(state, roles) {
             state.roles = roles;
-            // console.log('Roles', state.roles);
         },
         fetchUsers(state, users) {
             state.users = users;
@@ -52,8 +49,8 @@ export const store = createStore({
         fetchOngoingSemesters(state, ongoingsemesters) {
             state.ongoingsemesters = ongoingsemesters;
         },
-        fetchCompletedSemesters(state, completedsemesters) {
-            state.semesters = completedsemesters;
+        fetchCompletedSemesters(state, completedSemesters) {
+            state.completedSemesters = completedSemesters;
         },
           fetchCourses(state, courses) {
             state.courses = courses;
@@ -159,7 +156,7 @@ export const store = createStore({
                     },
                 });
 
-                commit('fetchCompletedSemesters', response.data.semesters);
+                commit('fetchCompletedSemesters', response.data.completedSemesters);
 
             } catch (error) {
 
@@ -205,11 +202,8 @@ export const store = createStore({
             Authorization: `Bearer ${token}`,
           },
         });
-
         if (response.data && response.data.authUser) {
             commit("fetchAuthUsers", response.data.authUser);
-            console.log('Auth Users', response.data.authUser);
-
         } else {
           console.error("authUsers key not found in the response.");
         }

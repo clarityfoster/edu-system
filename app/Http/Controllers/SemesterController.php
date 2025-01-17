@@ -139,14 +139,14 @@ class SemesterController extends Controller
     }
     public function completedSemester() {
         try {
-            $semesters = Semester::where('end_date', '<', now())
+            $completedSemesters = Semester::where('end_date', '<', now())
                                 ->with('course')
                                 ->with('user')
                                 ->withCount('user')
                                 ->get();
             return response()->json([
                 'status' => 'success',
-                'semesters' => $semesters
+                'completedSemesters' => $completedSemesters
             ]);
         } catch(ModelNotFoundException $e) {
             return response()->json([

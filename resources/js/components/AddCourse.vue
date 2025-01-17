@@ -13,7 +13,6 @@
                     v-model="valid"
                     @submit.prevent="createCourse"
                 >
-                    <!-- Name Input -->
                     <v-text-field
                         v-model="name"
                         label="Enter Course Name"
@@ -27,18 +26,6 @@
                     <v-row class="justify-center">
                         <v-col cols="12" sm="6" class="d-flex justify-center">
                             <v-btn
-                                :disabled="!valid"
-                                color="primary"
-                                class="mt-4 py-3 font-weight-bold"
-                                type="submit"
-                                block
-                            >
-                                Create
-                            </v-btn>
-                        </v-col>
-
-                        <v-col cols="12" sm="6" class="d-flex justify-center">
-                            <v-btn
                                 color="secondary"
                                 class="mt-4 py-3 font-weight-bold"
                                 type="button"
@@ -46,6 +33,17 @@
                                 block
                             >
                                 Cancel
+                            </v-btn>
+                        </v-col>
+                        <v-col cols="12" sm="6" class="d-flex justify-center">
+                            <v-btn
+                                :disabled="!valid"
+                                color="primary"
+                                class="mt-4 py-3 font-weight-bold"
+                                type="submit"
+                                block
+                            >
+                                Create
                             </v-btn>
                         </v-col>
                     </v-row>

@@ -7,7 +7,12 @@
         <v-card
             class="home-dashboard expanded-card elevation-2"
             elevation="0"
-            style="width: 2300px; max-width: 80%; margin-left: 100px; margin-top: 45px;"
+            style="
+                width: 2300px;
+                max-width: 80%;
+                margin-left: 100px;
+                margin-top: 45px;
+            "
         >
             <div style="margin-bottom: 50px">
                 <h4 style="font-weight: 600">Analytsics Overview</h4>
@@ -281,8 +286,7 @@
                         <div
                             class="w-100 bg-primary rounded-4"
                             style="height: 170px"
-                        >
-                        </div>
+                        ></div>
                         <div class="d-flex gap-3">
                             <div
                                 class="rounded-4 d-flex flex-column gap-3 p-4 align-items-center justify-content-center"
@@ -302,7 +306,7 @@
                                             margin: 0;
                                         "
                                     >
-                                        {{ totalcompletedSemesters - 1  }}+
+                                        {{ totalcompletedSemesters - 1 }}+
                                     </h3>
                                     <h3
                                         v-else
@@ -313,7 +317,7 @@
                                             margin: 0;
                                         "
                                     >
-                                        {{ totalcompletedSemesters  }}
+                                        {{ totalcompletedSemesters }}
                                     </h3>
                                     <span
                                         class="text-white"
@@ -321,7 +325,10 @@
                                         >Completed Semesters</span
                                     >
                                 </div>
-                                <router-link class="w-100 text-end" to="/completedsemester">
+                                <router-link
+                                    class="w-100 text-end"
+                                    to="/completedsemester"
+                                >
                                     <i
                                         class="bi bi-arrow-up-right-circle-fill fs-3 text-white"
                                     ></i>
@@ -364,7 +371,10 @@
                                         >Ongoing Semesters</span
                                     >
                                 </div>
-                                <router-link class="w-100 text-end" to="/ongoingsemester">
+                                <router-link
+                                    class="w-100 text-end"
+                                    to="/ongoingsemester"
+                                >
                                     <i
                                         class="bi bi-arrow-up-right-circle-fill fs-3 text-white"
                                     ></i>
@@ -378,7 +388,11 @@
                     <div
                         class="d-flex flex-column gap-2 align-items-start justify-content-center mt-4"
                     >
-                        <div v-for="users in bestLearnersList" :key="users.id" class="card rounded-4 w-100">
+                        <div
+                            v-for="users in bestLearnersList"
+                            :key="users.id"
+                            class="card rounded-4 w-100"
+                        >
                             <div
                                 class="card-body d-flex justify-content-start align-items-start gap-3"
                                 style="padding: 14.5px"
@@ -409,10 +423,9 @@
                                     <span
                                         style="font-size: 14px"
                                         class="text-muted"
-                                        >
-                                            {{ users.semester.name }}
-                                        </span
                                     >
+                                        {{ users.semester.name }}
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -496,8 +509,6 @@ export default {
                 ) {
                     this.ongoingSemestersList = data.ongoingsemesters;
                     this.totalOngoingSemesters = data.ongoingsemesters.length;
-                    console.log("Ongoing semesters list:", this.ongoingSemestersList);
-
                 } else {
                     console.error("Unexpected API response:", data);
                 }
@@ -517,17 +528,22 @@ export default {
                         },
                     }
                 );
+
                 if (
                     data.status === "success" &&
-                    Array.isArray(data.semesters)
+                    Array.isArray(data.completedSemesters)
                 ) {
-                    this.completedSemestersList = data.semesters;
-                    this.totalcompletedSemesters = data.semesters.length;
+                    this.completedSemestersList = data.completedSemesters;
+                    this.totalcompletedSemesters =
+                        data.completedSemesters.length;
                 } else {
                     console.error("Unexpected API response:", data);
                 }
             } catch (error) {
-                console.error("Error fetching ongoing semesters list:", error);
+                console.error(
+                    "Error fetching completed semesters list:",
+                    error
+                );
             }
         },
         async fetchBestLearners() {
@@ -549,7 +565,6 @@ export default {
                 if (data.users && Array.isArray(data.users)) {
                     this.usersList = data.users;
                     this.bestLearnersList = this.usersList.slice(0, 4);
-                    console.log("Best Learners:", this.bestLearnersList);
                 } else {
                     console.error(
                         "Unexpected API response: Users array missing."
