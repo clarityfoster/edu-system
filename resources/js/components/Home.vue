@@ -7,27 +7,8 @@
         <v-card
             class="home-dashboard expanded-card elevation-2"
             elevation="0"
-            style="gap: 30px; width: 2300px; max-width: 80%; margin-left: 100px"
+            style="width: 2300px; max-width: 80%; margin-left: 100px; margin-top: 45px;"
         >
-            <div
-                class="input-group"
-                style="max-width: 500px; margin-bottom: 30px; margin-top: 8px"
-            >
-                <input
-                    type="text"
-                    class="form-control rounded-5"
-                    placeholder="Search..."
-                    aria-label="Example text with button addon"
-                    aria-describedby="button-addon1"
-                />
-                <button
-                    class="btn btn-primary text-white rounded-circle ms-2"
-                    type="button"
-                    id="button-addon1"
-                >
-                    <i class="bi bi-search"></i>
-                </button>
-            </div>
             <div style="margin-bottom: 50px">
                 <h4 style="font-weight: 600">Analytsics Overview</h4>
                 <div
@@ -46,19 +27,22 @@
                             <div
                                 class="content1 d-flex align-items-center gap-2"
                             >
-                                <div
+                                <router-link
+                                    to="/instructorlist"
                                     class="rounded-circle bg-white d-flex align-items-center justify-content-center"
                                     style="width: 50px; height: 50px"
                                 >
                                     <i
                                         class="bi bi-mortarboard-fill text-primary fs-4"
                                     ></i>
-                                </div>
+                                </router-link>
                                 <div class="text">
                                     <h5 style="font-size: 17px; margin: 0">
                                         Instructors
                                     </h5>
-                                    <span
+                                    <router-link
+                                        to="/studentlist"
+                                        class="text-decoration-none"
                                         style="
                                             color: #ffc726;
                                             font-weight: bold;
@@ -66,25 +50,28 @@
                                         "
                                     >
                                         {{ totalInstructors - 1 }}+
-                                    </span>
+                                    </router-link>
                                 </div>
                             </div>
                             <div
                                 class="content1 d-flex align-items-center gap-2"
                             >
-                                <div
+                                <router-link
+                                    to="/studentlist"
                                     class="rounded-circle bg-white d-flex align-items-center justify-content-center"
                                     style="width: 50px; height: 50px"
                                 >
                                     <i
                                         class="bi bi-people-fill text-primary fs-4"
                                     ></i>
-                                </div>
+                                </router-link>
                                 <div class="text">
                                     <h5 style="font-size: 17px; margin: 0">
-                                        Learners
+                                        Students
                                     </h5>
-                                    <span
+                                    <router-link
+                                        to="/instructorlist"
+                                        class="text-decoration-none"
                                         style="
                                             font-weight: bold;
                                             font-size: 15px;
@@ -92,7 +79,7 @@
                                         "
                                     >
                                         {{ totalLearners - 1 }}+
-                                    </span>
+                                    </router-link>
                                 </div>
                             </div>
                         </div>
@@ -304,7 +291,7 @@
                                         {{ totalcompletedSemesters - 1  }}+
                                     </h3>
                                     <h3
-                                        else
+                                        v-else
                                         class="text-white"
                                         style="
                                             font-weight: bold;
@@ -373,7 +360,7 @@
                     </div>
                 </div>
                 <div style="width: 400px">
-                    <h5 style="font-weight: 600">Best Learners</h5>
+                    <h5 style="font-weight: 600">Best Students</h5>
                     <div
                         class="d-flex flex-column gap-2 align-items-start justify-content-center mt-4"
                     >

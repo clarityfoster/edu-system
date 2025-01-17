@@ -6,12 +6,9 @@
             :class="{ collapsed: isCollapsed }"
         >
             <div class="nav flex-column pt-3">
-                <div class="d-flex align-items-center mb-4">
-                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="currentColor">
-                    <circle cx="12" cy="7" r="4" />
-                    <path d="M12 12c-5 0-9 3-9 6v2h18v-2c0-3-4-6-9-6z" />
-                    </svg>
-                    <div v-if="!isCollapsed" class="ms-3">
+                <div class="d-flex align-items-center mb-4" style="padding-left: 16px;">
+                    <i class="bi bi-person-circle fs-1"></i>
+                    <div v-if="!isCollapsed" class="ms-4">
                         <h5>{{ authUsers.name }}</h5>
                         <p class="mb-0">{{ authUsers.role?.name }}</p>
                     </div>
