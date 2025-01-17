@@ -7,27 +7,8 @@
         <v-card
             class="home-dashboard expanded-card elevation-2"
             elevation="0"
-            style="gap: 30px; width: 2300px; max-width: 80%; margin-left: 100px"
+            style="width: 2300px; max-width: 80%; margin-left: 100px; margin-top: 45px;"
         >
-            <div
-                class="input-group"
-                style="max-width: 500px; margin-bottom: 30px; margin-top: 8px"
-            >
-                <input
-                    type="text"
-                    class="form-control rounded-5"
-                    placeholder="Search..."
-                    aria-label="Example text with button addon"
-                    aria-describedby="button-addon1"
-                />
-                <button
-                    class="btn btn-primary text-white rounded-circle ms-2"
-                    type="button"
-                    id="button-addon1"
-                >
-                    <i class="bi bi-search"></i>
-                </button>
-            </div>
             <div style="margin-bottom: 50px">
                 <h4 style="font-weight: 600">Analytsics Overview</h4>
                 <div
@@ -46,19 +27,22 @@
                             <div
                                 class="content1 d-flex align-items-center gap-2"
                             >
-                                <div
+                                <router-link
+                                    to="/instructorlist"
                                     class="rounded-circle bg-white d-flex align-items-center justify-content-center"
                                     style="width: 50px; height: 50px"
                                 >
                                     <i
                                         class="bi bi-mortarboard-fill text-primary fs-4"
                                     ></i>
-                                </div>
+                                </router-link>
                                 <div class="text">
                                     <h5 style="font-size: 17px; margin: 0">
                                         Instructors
                                     </h5>
-                                    <span
+                                    <router-link
+                                        to="/studentlist"
+                                        class="text-decoration-none"
                                         style="
                                             color: #ffc726;
                                             font-weight: bold;
@@ -66,25 +50,28 @@
                                         "
                                     >
                                         {{ totalInstructors - 1 }}+
-                                    </span>
+                                    </router-link>
                                 </div>
                             </div>
                             <div
                                 class="content1 d-flex align-items-center gap-2"
                             >
-                                <div
+                                <router-link
+                                    to="/studentlist"
                                     class="rounded-circle bg-white d-flex align-items-center justify-content-center"
                                     style="width: 50px; height: 50px"
                                 >
                                     <i
                                         class="bi bi-people-fill text-primary fs-4"
                                     ></i>
-                                </div>
+                                </router-link>
                                 <div class="text">
                                     <h5 style="font-size: 17px; margin: 0">
-                                        Learners
+                                        Students
                                     </h5>
-                                    <span
+                                    <router-link
+                                        to="/instructorlist"
+                                        class="text-decoration-none"
                                         style="
                                             font-weight: bold;
                                             font-size: 15px;
@@ -92,7 +79,7 @@
                                         "
                                     >
                                         {{ totalLearners - 1 }}+
-                                    </span>
+                                    </router-link>
                                 </div>
                             </div>
                         </div>
@@ -292,7 +279,8 @@
                                 "
                             >
                                 <div>
-                                    <h3 v-if="totalcompletedSemesters > 0"
+                                    <h3
+                                        v-if="totalcompletedSemesters > 0"
                                         class="text-white"
                                         style="
                                             font-weight: bold;
@@ -300,9 +288,10 @@
                                             margin: 0;
                                         "
                                     >
-                                     {{ totalcompletedSemesters - 1 }}
+                                        {{ totalcompletedSemesters - 1  }}+
                                     </h3>
-                                    <h3 else
+                                    <h3
+                                        v-else
                                         class="text-white"
                                         style="
                                             font-weight: bold;
@@ -310,7 +299,7 @@
                                             margin: 0;
                                         "
                                     >
-                                     {{ totalcompletedSemesters }}
+                                        {{ totalcompletedSemesters  }}
                                     </h3>
                                     <span
                                         class="text-white"
@@ -353,9 +342,8 @@
                                             margin: 0;
                                         "
                                     >
-                                        0+
+                                        {{ totalOngoingSemesters }}
                                     </h3>
-
                                     <span
                                         class="text-white"
                                         style="padding: 0; font-weight: bold"
@@ -372,11 +360,11 @@
                     </div>
                 </div>
                 <div style="width: 400px">
-                    <h5 style="font-weight: 600">Best Learners</h5>
+                    <h5 style="font-weight: 600">Best Students</h5>
                     <div
                         class="d-flex flex-column gap-2 align-items-start justify-content-center mt-4"
                     >
-                        <div class="card rounded-4 w-100">
+                        <div v-for="users in bestLearnersList" :key="users.id" class="card rounded-4 w-100">
                             <div
                                 class="card-body d-flex justify-content-start align-items-start gap-3"
                                 style="padding: 14.5px"
@@ -391,7 +379,7 @@
                                         font-size: 20px;
                                     "
                                 >
-                                    B
+                                    {{ users.name.charAt(0).toUpperCase() }}
                                 </div>
                                 <div>
                                     <p
@@ -402,120 +390,14 @@
                                         "
                                         class="card-title"
                                     >
-                                        Bella Smith
+                                        {{ users.name }}
                                     </p>
                                     <span
                                         style="font-size: 14px"
                                         class="text-muted"
-                                        >Semester 4</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card rounded-4 w-100">
-                            <div
-                                class="card-body d-flex justify-content-start align-items-start gap-3"
-                                style="padding: 14.5px"
-                            >
-                                <div
-                                    class="d-flex align-items-center justify-content-center text-white rounded-circle"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        background-color: #ffc726;
-                                        font-weight: bold;
-                                        font-size: 20px;
-                                    "
-                                >
-                                    B
-                                </div>
-                                <div>
-                                    <p
-                                        style="
-                                            font-size: 15px;
-                                            margin: 0;
-                                            font-weight: bold;
-                                        "
-                                        class="card-title"
-                                    >
-                                        Bella Smith
-                                    </p>
-                                    <span
-                                        style="font-size: 14px"
-                                        class="text-muted"
-                                        >Semester 4</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card rounded-4 w-100">
-                            <div
-                                class="card-body d-flex justify-content-start align-items-start gap-3"
-                                style="padding: 14.5px"
-                            >
-                                <div
-                                    class="d-flex align-items-center justify-content-center text-white rounded-circle"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        background-color: #ffc726;
-                                        font-weight: bold;
-                                        font-size: 20px;
-                                    "
-                                >
-                                    B
-                                </div>
-                                <div>
-                                    <p
-                                        style="
-                                            font-size: 15px;
-                                            margin: 0;
-                                            font-weight: bold;
-                                        "
-                                        class="card-title"
-                                    >
-                                        Bella Smith
-                                    </p>
-                                    <span
-                                        style="font-size: 14px"
-                                        class="text-muted"
-                                        >Semester 4</span
-                                    >
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card rounded-4 w-100">
-                            <div
-                                class="card-body d-flex justify-content-start align-items-start gap-3"
-                                style="padding: 14.5px"
-                            >
-                                <div
-                                    class="d-flex align-items-center justify-content-center text-white rounded-circle"
-                                    style="
-                                        width: 50px;
-                                        height: 50px;
-                                        background-color: #ffc726;
-                                        font-weight: bold;
-                                        font-size: 20px;
-                                    "
-                                >
-                                    B
-                                </div>
-                                <div>
-                                    <p
-                                        style="
-                                            font-size: 15px;
-                                            margin: 0;
-                                            font-weight: bold;
-                                        "
-                                        class="card-title"
-                                    >
-                                        Bella Smith
-                                    </p>
-                                    <span
-                                        style="font-size: 14px"
-                                        class="text-muted"
-                                        >Semester 4</span
+                                        >
+                                            {{ users.semester.name }}
+                                        </span
                                     >
                                 </div>
                             </div>
@@ -544,6 +426,8 @@ export default {
             totalOngoingSemesters: 0,
             completedSemestersList: [],
             totalcompletedSemesters: 0,
+            usersList: [],
+            bestLearnersList: [],
         };
     },
     mounted() {
@@ -551,6 +435,7 @@ export default {
         this.fetchLearnersList();
         this.fetchOngoingSemestersList();
         this.fetchCompletedSemestersList();
+        this.fetchBestLearners();
     },
     methods: {
         async fetchInstructorsList() {
@@ -593,10 +478,12 @@ export default {
                 );
                 if (
                     data.status === "success" &&
-                    Array.isArray(data.semesters)
+                    Array.isArray(data.ongoingsemesters)
                 ) {
-                    this.ongoingSemestersList = data.semesters;
-                    this.totalOngoingSemesters = data.semesters.length;
+                    this.ongoingSemestersList = data.ongoingsemesters;
+                    this.totalOngoingSemesters = data.ongoingsemesters.length;
+                    console.log("Ongoing semesters list:", this.ongoingSemestersList);
+
                 } else {
                     console.error("Unexpected API response:", data);
                 }
@@ -622,12 +509,40 @@ export default {
                 ) {
                     this.completedSemestersList = data.semesters;
                     this.totalcompletedSemesters = data.semesters.length;
-                    console.log("completed list:", this.completedSemestersList);
                 } else {
                     console.error("Unexpected API response:", data);
                 }
             } catch (error) {
                 console.error("Error fetching ongoing semesters list:", error);
+            }
+        },
+        async fetchBestLearners() {
+            try {
+                const token = localStorage.getItem("auth_token");
+                if (!token) {
+                    console.error("Auth token is missing!");
+                    return;
+                }
+                const { data } = await axios.get(
+                    "http://127.0.0.1:8000/api/users",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                if (data.users && Array.isArray(data.users)) {
+                    this.usersList = data.users;
+                    this.bestLearnersList = this.usersList.slice(0, 4);
+                    console.log("Best Learners:", this.bestLearnersList);
+                } else {
+                    console.error(
+                        "Unexpected API response: Users array missing."
+                    );
+                }
+            } catch (error) {
+                console.error("Error fetching users list:", error);
             }
         },
     },

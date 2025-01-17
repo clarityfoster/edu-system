@@ -139,8 +139,7 @@ class SemesterController extends Controller
     }
     public function completedSemester() {
         try {
-            $semesters = Semester::where('start_date', '>=', now())
-                                ->where('end_date', '<=', now())
+            $semesters = Semester::where('end_date', '<', now())
                                 ->with('course')
                                 ->with('user')
                                 ->withCount('user')
