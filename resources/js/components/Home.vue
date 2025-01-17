@@ -280,7 +280,7 @@
                             >
                                 <div>
                                     <h3
-                                        v-if="totalcompletedSemesters > 0"
+                                        v-if="totalcompletedSemesters > 1"
                                         class="text-white"
                                         style="
                                             font-weight: bold;
@@ -323,7 +323,7 @@
                             >
                                 <div>
                                     <h3
-                                        v-if="totalOngoingSemesters > 0"
+                                        v-if="totalOngoingSemesters > 1"
                                         class="text-white"
                                         style="
                                             font-weight: bold;
