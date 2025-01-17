@@ -23,7 +23,6 @@ Route::get('/courses', [CourseController::class, 'index']);
 
 Route::post('/search', [SearchController::class, 'search']);
 
-
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/auth-users', [UserController::class, 'authUser']);
     Route::post('/users/create', [UserController::class, 'create']);

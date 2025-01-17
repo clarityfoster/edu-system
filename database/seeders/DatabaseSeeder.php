@@ -31,6 +31,27 @@ class DatabaseSeeder extends Seeder
             'semester_id' => null,
             'is_approved' => 1,
         ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Bob',
+            'email' => 'bob@gmail.com',
+            'role_id' => 2,
+            'semester_id' => null,
+            'is_approved' => 1,
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Oliver',
+            'email' => 'oliver@gmail.com',
+            'role_id' => 3,
+            'semester_id' => null,
+            'is_approved' => 1,
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'May',
+            'email' => 'may@gmail.com',
+            'role_id' => 3,
+            'semester_id' => null,
+            'is_approved' => 1,
+        ]);
         $roles = ['Admin', 'Instructor', 'Learner'];
         foreach ($roles as $role) {
             \App\Models\Role::create([
@@ -38,10 +59,10 @@ class DatabaseSeeder extends Seeder
             ]);
         }
         $semesters = [
-            ['name' => 'First Semester', 'start_date' => '2025-01-01', 'end_date' => '2025-06-30'],
-            ['name' => 'Second Semester', 'start_date' => '2025-07-01', 'end_date' => '2025-12-31'],
-            ['name' => 'Third Semester', 'start_date' => '2026-01-01', 'end_date' => '2026-06-30'],
-            ['name' => 'Fourth Semester', 'start_date' => '2026-07-01', 'end_date' => '2026-12-31'],
+            ['name' => 'First Semester', 'start_date' => '2024-01-01', 'end_date' => '2024-06-30'],
+            ['name' => 'Second Semester', 'start_date' => '2025-01-01', 'end_date' => '2025-3-31'],
+            ['name' => 'Third Semester', 'start_date' => '2025-01-01', 'end_date' => '2025-06-30'],
+            ['name' => 'Fourth Semester', 'start_date' => '2024-07-01', 'end_date' => '2024-12-31'],
         ];
         foreach ($semesters as $semester) {
             Semester::create($semester);

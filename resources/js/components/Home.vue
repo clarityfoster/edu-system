@@ -3,482 +3,636 @@
         <!-- Sidebar -->
         <SideBar />
 
-
         <!-- Main Content Area -->
-            <v-card
+        <v-card
             class="home-dashboard expanded-card elevation-2"
-                elevation="0"
-                style="gap: 30px; width: 2300px; max-width: 80%; margin-left: 100px;"
+            elevation="0"
+            style="gap: 30px; width: 2300px; max-width: 80%; margin-left: 100px"
+        >
+            <div
+                class="input-group"
+                style="max-width: 500px; margin-bottom: 30px; margin-top: 8px"
             >
-                <div class="input-group" style="max-width: 500px; margin-bottom: 30px; margin-top: 8px;">
-                    <input
-                        type="text"
-                        class="form-control rounded-5"
-                        placeholder="Search..."
-                        aria-label="Example text with button addon"
-                        aria-describedby="button-addon1"
-                    />
-                    <button
-                        class="btn btn-primary text-white rounded-circle ms-2"
-                        type="button"
-                        id="button-addon1"
-                    >
-                        <i class="bi bi-search"></i>
-                    </button>
-                </div>
-                <div style="margin-bottom: 50px;">
-                    <h4 style="font-weight: 600">Analytsics Overview</h4>
-                    <div
-                        class="education-poster bg-primary rounded-4 d-flex align-items-center justify-content-evenly gap-3 mt-4"
-                    >
-                        <div class="text-content d-flex flex-column gap-4">
-                            <div class="title">
-                                <h3 style="font-weight: bold; color: #ffc726">
-                                    Learn Effectively With Us!
-                                </h3>
-                                <span style="font-size: 15px">
-                                    Urean ilora lordo tis amte seconyort.
-                                </span>
-                            </div>
-                            <div class="content d-flex gap-5 mt-5">
+                <input
+                    type="text"
+                    class="form-control rounded-5"
+                    placeholder="Search..."
+                    aria-label="Example text with button addon"
+                    aria-describedby="button-addon1"
+                />
+                <button
+                    class="btn btn-primary text-white rounded-circle ms-2"
+                    type="button"
+                    id="button-addon1"
+                >
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+            <div style="margin-bottom: 50px">
+                <h4 style="font-weight: 600">Analytsics Overview</h4>
+                <div
+                    class="education-poster bg-primary rounded-4 d-flex align-items-center justify-content-evenly gap-3 mt-4"
+                >
+                    <div class="text-content d-flex flex-column gap-4">
+                        <div class="title">
+                            <h3 style="font-weight: bold; color: #ffc726">
+                                Learn Effectively With Us!
+                            </h3>
+                            <span style="font-size: 15px">
+                                Urean ilora lordo tis amte seconyort.
+                            </span>
+                        </div>
+                        <div class="content d-flex gap-5 mt-5">
+                            <div
+                                class="content1 d-flex align-items-center gap-2"
+                            >
                                 <div
-                                    class="content1 d-flex align-items-center gap-2"
+                                    class="rounded-circle bg-white d-flex align-items-center justify-content-center"
+                                    style="width: 50px; height: 50px"
                                 >
-                                    <div
-                                        class="rounded-circle bg-white d-flex align-items-center justify-content-center"
-                                        style="width: 50px; height: 50px"
-                                    >
-                                        <i
-                                            class="bi bi-mortarboard-fill text-primary fs-4"
-                                        ></i>
-                                    </div>
-                                    <div class="text">
-                                        <h5 style="font-size: 17px; margin: 0">
-                                            Instructors
-                                        </h5>
-                                        <span
-                                            style="
-                                                color: #ffc726;
-                                                font-weight: bold;
-                                                font-size: 15px;
-                                            "
-                                        >
-                                            30+
-                                        </span>
-                                    </div>
+                                    <i
+                                        class="bi bi-mortarboard-fill text-primary fs-4"
+                                    ></i>
                                 </div>
-                                <div
-                                    class="content1 d-flex align-items-center gap-2"
-                                >
-                                    <div
-                                        class="rounded-circle bg-white d-flex align-items-center justify-content-center"
-                                        style="width: 50px; height: 50px"
+                                <div class="text">
+                                    <h5 style="font-size: 17px; margin: 0">
+                                        Instructors
+                                    </h5>
+                                    <span
+                                        style="
+                                            color: #ffc726;
+                                            font-weight: bold;
+                                            font-size: 15px;
+                                        "
                                     >
-                                        <i
-                                            class="bi bi-people-fill text-primary fs-4"
-                                        ></i>
-                                    </div>
-                                    <div class="text">
-                                        <h5 style="font-size: 17px; margin: 0">
-                                            Learners
-                                        </h5>
-                                        <span
-                                            style="
-                                                font-weight: bold;
-                                                font-size: 15px;
-                                                color: #ffc726;
-                                            "
-                                        >
-                                            100+
-                                        </span>
-                                    </div>
+                                        {{ totalInstructors - 1 }}+
+                                    </span>
+                                </div>
+                            </div>
+                            <div
+                                class="content1 d-flex align-items-center gap-2"
+                            >
+                                <div
+                                    class="rounded-circle bg-white d-flex align-items-center justify-content-center"
+                                    style="width: 50px; height: 50px"
+                                >
+                                    <i
+                                        class="bi bi-people-fill text-primary fs-4"
+                                    ></i>
+                                </div>
+                                <div class="text">
+                                    <h5 style="font-size: 17px; margin: 0">
+                                        Learners
+                                    </h5>
+                                    <span
+                                        style="
+                                            font-weight: bold;
+                                            font-size: 15px;
+                                            color: #ffc726;
+                                        "
+                                    >
+                                        {{ totalLearners - 1 }}+
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                        <img
-                            src="../../../public/img/education.svg"
-                            alt=""
-                            style="width: 35%"
-                        />
                     </div>
+                    <img
+                        src="../../../public/img/education.svg"
+                        alt=""
+                        style="width: 35%"
+                    />
                 </div>
-                <div
-                    class="d-flex justify-content-between align-items-start gap-5"
-                >
-                    <div style="width: 480px; height: 400px">
-                        <div
-                            class="d-flex align-items-center justify-content-between"
+            </div>
+            <div class="d-flex justify-content-between align-items-start gap-5">
+                <div style="width: 480px; height: 400px">
+                    <div
+                        class="d-flex align-items-center justify-content-between"
+                    >
+                        <h5 style="font-weight: 600">Popular Courses</h5>
+                        <button
+                            class="btn btn-secondary btn-sm rounded-5 text-white"
+                            style="
+                                width: 95px;
+                                height: 25px;
+                                font-weight: bold;
+                                font-size: 12px;
+                            "
                         >
-                            <h5 style="font-weight: 600">Popular Courses</h5>
-                            <button
-                                class="btn btn-secondary btn-sm rounded-5 text-white"
-                                style="
-                                    width: 95px;
-                                    height: 25px;
-                                    font-weight: bold;
-                                    font-size: 12px;
-                                "
+                            <router-link
+                                to="/courselist"
+                                class="text-white"
+                                style="text-decoration: none"
                             >
-                            <router-link to="/courselist" class="text-white" style="text-decoration: none;">
                                 All Courses
                             </router-link>
-                            </button>
-                        </div>
-                        <div
-                            class="d-flex flex-column align-items-start gap-2 mt-4"
-                        >
-                            <div class="card rounded-4 w-100">
-                                <div
-                                    class="popular-courses card-body d-flex justify-content-between align-items-center gap-3"
-                                >
-                                    <div>
-                                        <p
-                                            style="
-                                                font-size: 15px;
-                                                margin: 0;
-                                                font-weight: bold;
-                                            "
-                                            class="card-title"
-                                        >
-                                            Binary Tree Algorithms
-                                        </p>
-                                        <span
-                                            style="font-size: 14px"
-                                            class="text-muted"
-                                            >Semester 4</span
-                                        >
-                                    </div>
-                                    <button
-                                        class="btn btn-sm rounded-5 text-white"
-                                        style="
-                                            width: 70px;
-                                            height: 30px;
-                                            background-color: #ffc726;
-                                            font-weight: bold;
-                                        "
-                                    >
-                                    <router-link to="/binarytree" class="text-white" style="text-decoration: none;">
-                                        View
-                                    </router-link>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card rounded-4 w-100">
-                                <div
-                                    class="popular-courses card-body d-flex justify-content-between align-items-center gap-3"
-                                >
-                                    <div>
-                                        <p
-                                            style="
-                                                font-size: 15px;
-                                                margin: 0;
-                                                font-weight: bold;
-                                            "
-                                            class="card-title"
-                                        >
-                                            Introduction to Programming
-                                        </p>
-                                        <span
-                                            style="font-size: 14px"
-                                            class="text-muted"
-                                            >Semester 1</span
-                                        >
-                                    </div>
-                                    <button
-                                        class="btn btn-sm rounded-5 text-white"
-                                        style="
-                                            width: 70px;
-                                            height: 30px;
-                                            background-color: #ffc726;
-                                            font-weight: bold;
-                                        "
-                                    >
-                                        View
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card rounded-4 w-100">
-                                <div
-                                    class="popular-courses card-body d-flex justify-content-between align-items-center gap-3"
-                                >
-                                    <div>
-                                        <p
-                                            style="
-                                                font-size: 15px;
-                                                margin: 0;
-                                                font-weight: bold;
-                                            "
-                                            class="card-title"
-                                        >
-                                            Introduction to Web Development
-                                        </p>
-                                        <span
-                                            style="font-size: 14px"
-                                            class="text-muted"
-                                            >Semester 2</span
-                                        >
-                                    </div>
-                                    <button
-                                        class="btn btn-sm rounded-5 text-white"
-                                        style="
-                                            width: 70px;
-                                            height: 30px;
-                                            background-color: #ffc726;
-                                            font-weight: bold;
-                                        "
-                                    >
-                                        View
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card rounded-4 w-100">
-                                <div
-                                    class="popular-courses card-body d-flex justify-content-between align-items-center gap-3"
-                                >
-                                    <div>
-                                        <p
-                                            style="
-                                                font-size: 15px;
-                                                margin: 0;
-                                                font-weight: bold;
-                                            "
-                                            class="card-title"
-                                        >
-                                            Introduction to Web Development
-                                        </p>
-                                        <span
-                                            style="font-size: 14px"
-                                            class="text-muted"
-                                            >Semester 2</span
-                                        >
-                                    </div>
-                                    <button
-                                        class="btn btn-sm rounded-5 text-white"
-                                        style="
-                                            width: 70px;
-                                            height: 30px;
-                                            background-color: #ffc726;
-                                            font-weight: bold;
-                                        "
-                                    >
-                                        View
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        </button>
                     </div>
-                    <div style="width: 400px; height: 400px">
-                        <h5 style="font-weight: 600">Current Activities</h5>
-                        <div class="mt-4 d-flex flex-column gap-3">
+                    <div
+                        class="d-flex flex-column align-items-start gap-2 mt-4"
+                    >
+                        <div class="card rounded-4 w-100">
                             <div
-                                class="w-100 bg-primary rounded-4"
-                                style="height: 170px"
+                                class="popular-courses card-body d-flex justify-content-between align-items-center gap-3"
                             >
-
-                            </div>
-                            <div class="d-flex gap-3">
-                                <div
-                                    class="rounded-4 d-flex flex-column gap-3 p-4 align-items-center justify-content-center "
+                                <div>
+                                    <p
+                                        style="
+                                            font-size: 15px;
+                                            margin: 0;
+                                            font-weight: bold;
+                                        "
+                                        class="card-title"
+                                    >
+                                        Binary Tree Algorithms
+                                    </p>
+                                    <span
+                                        style="font-size: 14px"
+                                        class="text-muted"
+                                        >Semester 4</span
+                                    >
+                                </div>
+                                <button
+                                    class="btn btn-sm rounded-5 text-white"
                                     style="
-                                        width: 200px;
-                                        height: 170px;
+                                        width: 70px;
+                                        height: 30px;
                                         background-color: #ffc726;
+                                        font-weight: bold;
                                     "
                                 >
-                                    <div>
-                                        <h3 class="text-white" style="font-weight: bold; padding: 0; margin: 0;">7K+</h3>
-                                        <span class="text-white" style="padding: 0; font-weight: bold;">Completed Semesters</span>
-                                    </div>
-                                    <router-link class="w-100 text-end">
-                                        <i class="bi bi-arrow-up-right-circle-fill fs-3 text-white"></i>
+                                    <router-link
+                                        to="/binarytree"
+                                        class="text-white"
+                                        style="text-decoration: none"
+                                    >
+                                        View
                                     </router-link>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card rounded-4 w-100">
+                            <div
+                                class="popular-courses card-body d-flex justify-content-between align-items-center gap-3"
+                            >
+                                <div>
+                                    <p
+                                        style="
+                                            font-size: 15px;
+                                            margin: 0;
+                                            font-weight: bold;
+                                        "
+                                        class="card-title"
+                                    >
+                                        Introduction to Programming
+                                    </p>
+                                    <span
+                                        style="font-size: 14px"
+                                        class="text-muted"
+                                        >Semester 1</span
+                                    >
                                 </div>
-                                <div
-                                    class="rounded-4 d-flex flex-column gap-3 p-4 align-items-center justify-content-center "
+                                <button
+                                    class="btn btn-sm rounded-5 text-white"
                                     style="
-                                        width: 200px;
-                                        height: 170px;
-                                        background-color: #455a64;
+                                        width: 70px;
+                                        height: 30px;
+                                        background-color: #ffc726;
+                                        font-weight: bold;
                                     "
                                 >
-                                    <div>
-                                        <h3 class="text-white" style="font-weight: bold; padding: 0; margin: 0;">2K+</h3>
-                                        <span class="text-white" style="padding: 0; font-weight: bold;">Ongoing Semesters</span>
-                                    </div>
-                                    <router-link class="w-100 text-end" to="/ongoingsemester">
-                                        <i class="bi bi-arrow-up-right-circle-fill fs-3 text-white"></i>
-                                    </router-link>
+                                    View
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card rounded-4 w-100">
+                            <div
+                                class="popular-courses card-body d-flex justify-content-between align-items-center gap-3"
+                            >
+                                <div>
+                                    <p
+                                        style="
+                                            font-size: 15px;
+                                            margin: 0;
+                                            font-weight: bold;
+                                        "
+                                        class="card-title"
+                                    >
+                                        Introduction to Web Development
+                                    </p>
+                                    <span
+                                        style="font-size: 14px"
+                                        class="text-muted"
+                                        >Semester 2</span
+                                    >
                                 </div>
+                                <button
+                                    class="btn btn-sm rounded-5 text-white"
+                                    style="
+                                        width: 70px;
+                                        height: 30px;
+                                        background-color: #ffc726;
+                                        font-weight: bold;
+                                    "
+                                >
+                                    View
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card rounded-4 w-100">
+                            <div
+                                class="popular-courses card-body d-flex justify-content-between align-items-center gap-3"
+                            >
+                                <div>
+                                    <p
+                                        style="
+                                            font-size: 15px;
+                                            margin: 0;
+                                            font-weight: bold;
+                                        "
+                                        class="card-title"
+                                    >
+                                        Introduction to Web Development
+                                    </p>
+                                    <span
+                                        style="font-size: 14px"
+                                        class="text-muted"
+                                        >Semester 2</span
+                                    >
+                                </div>
+                                <button
+                                    class="btn btn-sm rounded-5 text-white"
+                                    style="
+                                        width: 70px;
+                                        height: 30px;
+                                        background-color: #ffc726;
+                                        font-weight: bold;
+                                    "
+                                >
+                                    View
+                                </button>
                             </div>
                         </div>
                     </div>
-                    <div style="width: 400px">
-                        <h5 style="font-weight: 600">Best Learners</h5>
-                        <div class="d-flex flex-column gap-2 align-items-start justify-content-center mt-4">
-                            <div class="card rounded-4 w-100">
-                                <div
-                                    class="card-body d-flex justify-content-start align-items-start gap-3" style="padding: 14.5px;"
-                                >
-                                    <div
-                                        class="d-flex align-items-center justify-content-center text-white rounded-circle"
+                </div>
+                <div style="width: 400px; height: 400px">
+                    <h5 style="font-weight: 600">Current Activities</h5>
+                    <div class="mt-4 d-flex flex-column gap-3">
+                        <div
+                            class="w-100 bg-primary rounded-4"
+                            style="height: 170px"
+                        ></div>
+                        <div class="d-flex gap-3">
+                            <div
+                                class="rounded-4 d-flex flex-column gap-3 p-4 align-items-center justify-content-center"
+                                style="
+                                    width: 200px;
+                                    height: 170px;
+                                    background-color: #ffc726;
+                                "
+                            >
+                                <div>
+                                    <h3 v-if="totalcompletedSemesters > 0"
+                                        class="text-white"
                                         style="
-                                            width: 50px;
-                                            height: 50px;
-                                            background-color: #ffc726;
                                             font-weight: bold;
-                                            font-size: 20px;
+                                            padding: 0;
+                                            margin: 0;
                                         "
                                     >
-                                        B
-                                    </div>
-                                    <div>
-                                        <p
-                                            style="
-                                                font-size: 15px;
-                                                margin: 0;
-                                                font-weight: bold;
-                                            "
-                                            class="card-title"
-                                        >
-                                            Bella Smith
-                                        </p>
-                                        <span
-                                            style="font-size: 14px"
-                                            class="text-muted"
-                                            >Semester 4</span
-                                        >
-                                    </div>
+                                     {{ totalcompletedSemesters - 1 }}
+                                    </h3>
+                                    <h3 else
+                                        class="text-white"
+                                        style="
+                                            font-weight: bold;
+                                            padding: 0;
+                                            margin: 0;
+                                        "
+                                    >
+                                     {{ totalcompletedSemesters }}
+                                    </h3>
+                                    <span
+                                        class="text-white"
+                                        style="padding: 0; font-weight: bold"
+                                        >Completed Semesters</span
+                                    >
+                                </div>
+                                <router-link class="w-100 text-end">
+                                    <i
+                                        class="bi bi-arrow-up-right-circle-fill fs-3 text-white"
+                                    ></i>
+                                </router-link>
+                            </div>
+                            <div
+                                class="rounded-4 d-flex flex-column gap-3 p-4 align-items-center justify-content-center"
+                                style="
+                                    width: 200px;
+                                    height: 170px;
+                                    background-color: #455a64;
+                                "
+                            >
+                                <div>
+                                    <h3
+                                        v-if="totalOngoingSemesters > 0"
+                                        class="text-white"
+                                        style="
+                                            font-weight: bold;
+                                            padding: 0;
+                                            margin: 0;
+                                        "
+                                    >
+                                        {{ totalOngoingSemesters - 1 }}+
+                                    </h3>
+                                    <h3
+                                        v-else
+                                        class="text-white"
+                                        style="
+                                            font-weight: bold;
+                                            padding: 0;
+                                            margin: 0;
+                                        "
+                                    >
+                                        0+
+                                    </h3>
+
+                                    <span
+                                        class="text-white"
+                                        style="padding: 0; font-weight: bold"
+                                        >Ongoing Semesters</span
+                                    >
+                                </div>
+                                <router-link class="w-100 text-end" to="/ongoingsemester">
+                                    <i
+                                        class="bi bi-arrow-up-right-circle-fill fs-3 text-white"
+                                    ></i>
+                                </router-link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="width: 400px">
+                    <h5 style="font-weight: 600">Best Learners</h5>
+                    <div
+                        class="d-flex flex-column gap-2 align-items-start justify-content-center mt-4"
+                    >
+                        <div class="card rounded-4 w-100">
+                            <div
+                                class="card-body d-flex justify-content-start align-items-start gap-3"
+                                style="padding: 14.5px"
+                            >
+                                <div
+                                    class="d-flex align-items-center justify-content-center text-white rounded-circle"
+                                    style="
+                                        width: 50px;
+                                        height: 50px;
+                                        background-color: #ffc726;
+                                        font-weight: bold;
+                                        font-size: 20px;
+                                    "
+                                >
+                                    B
+                                </div>
+                                <div>
+                                    <p
+                                        style="
+                                            font-size: 15px;
+                                            margin: 0;
+                                            font-weight: bold;
+                                        "
+                                        class="card-title"
+                                    >
+                                        Bella Smith
+                                    </p>
+                                    <span
+                                        style="font-size: 14px"
+                                        class="text-muted"
+                                        >Semester 4</span
+                                    >
                                 </div>
                             </div>
-                            <div class="card rounded-4 w-100">
+                        </div>
+                        <div class="card rounded-4 w-100">
+                            <div
+                                class="card-body d-flex justify-content-start align-items-start gap-3"
+                                style="padding: 14.5px"
+                            >
                                 <div
-                                    class="card-body d-flex justify-content-start align-items-start gap-3" style="padding: 14.5px;"
+                                    class="d-flex align-items-center justify-content-center text-white rounded-circle"
+                                    style="
+                                        width: 50px;
+                                        height: 50px;
+                                        background-color: #ffc726;
+                                        font-weight: bold;
+                                        font-size: 20px;
+                                    "
                                 >
-                                    <div
-                                        class="d-flex align-items-center justify-content-center text-white rounded-circle"
+                                    B
+                                </div>
+                                <div>
+                                    <p
                                         style="
-                                            width: 50px;
-                                            height: 50px;
-                                            background-color: #ffc726;
+                                            font-size: 15px;
+                                            margin: 0;
                                             font-weight: bold;
-                                            font-size: 20px;
                                         "
+                                        class="card-title"
                                     >
-                                        B
-                                    </div>
-                                    <div>
-                                        <p
-                                            style="
-                                                font-size: 15px;
-                                                margin: 0;
-                                                font-weight: bold;
-                                            "
-                                            class="card-title"
-                                        >
-                                            Bella Smith
-                                        </p>
-                                        <span
-                                            style="font-size: 14px"
-                                            class="text-muted"
-                                            >Semester 4</span
-                                        >
-                                    </div>
+                                        Bella Smith
+                                    </p>
+                                    <span
+                                        style="font-size: 14px"
+                                        class="text-muted"
+                                        >Semester 4</span
+                                    >
                                 </div>
                             </div>
-                            <div class="card rounded-4 w-100">
+                        </div>
+                        <div class="card rounded-4 w-100">
+                            <div
+                                class="card-body d-flex justify-content-start align-items-start gap-3"
+                                style="padding: 14.5px"
+                            >
                                 <div
-                                    class="card-body d-flex justify-content-start align-items-start gap-3" style="padding: 14.5px;"
+                                    class="d-flex align-items-center justify-content-center text-white rounded-circle"
+                                    style="
+                                        width: 50px;
+                                        height: 50px;
+                                        background-color: #ffc726;
+                                        font-weight: bold;
+                                        font-size: 20px;
+                                    "
                                 >
-                                    <div
-                                        class="d-flex align-items-center justify-content-center text-white rounded-circle"
+                                    B
+                                </div>
+                                <div>
+                                    <p
                                         style="
-                                            width: 50px;
-                                            height: 50px;
-                                            background-color: #ffc726;
+                                            font-size: 15px;
+                                            margin: 0;
                                             font-weight: bold;
-                                            font-size: 20px;
                                         "
+                                        class="card-title"
                                     >
-                                        B
-                                    </div>
-                                    <div>
-                                        <p
-                                            style="
-                                                font-size: 15px;
-                                                margin: 0;
-                                                font-weight: bold;
-                                            "
-                                            class="card-title"
-                                        >
-                                            Bella Smith
-                                        </p>
-                                        <span
-                                            style="font-size: 14px"
-                                            class="text-muted"
-                                            >Semester 4</span
-                                        >
-                                    </div>
+                                        Bella Smith
+                                    </p>
+                                    <span
+                                        style="font-size: 14px"
+                                        class="text-muted"
+                                        >Semester 4</span
+                                    >
                                 </div>
                             </div>
-                            <div class="card rounded-4 w-100">
+                        </div>
+                        <div class="card rounded-4 w-100">
+                            <div
+                                class="card-body d-flex justify-content-start align-items-start gap-3"
+                                style="padding: 14.5px"
+                            >
                                 <div
-                                    class="card-body d-flex justify-content-start align-items-start gap-3" style="padding: 14.5px;"
+                                    class="d-flex align-items-center justify-content-center text-white rounded-circle"
+                                    style="
+                                        width: 50px;
+                                        height: 50px;
+                                        background-color: #ffc726;
+                                        font-weight: bold;
+                                        font-size: 20px;
+                                    "
                                 >
-                                    <div
-                                        class="d-flex align-items-center justify-content-center text-white rounded-circle"
+                                    B
+                                </div>
+                                <div>
+                                    <p
                                         style="
-                                            width: 50px;
-                                            height: 50px;
-                                            background-color: #ffc726;
+                                            font-size: 15px;
+                                            margin: 0;
                                             font-weight: bold;
-                                            font-size: 20px;
                                         "
+                                        class="card-title"
                                     >
-                                        B
-                                    </div>
-                                    <div>
-                                        <p
-                                            style="
-                                                font-size: 15px;
-                                                margin: 0;
-                                                font-weight: bold;
-                                            "
-                                            class="card-title"
-                                        >
-                                            Bella Smith
-                                        </p>
-                                        <span
-                                            style="font-size: 14px"
-                                            class="text-muted"
-                                            >Semester 4</span
-                                        >
-                                    </div>
+                                        Bella Smith
+                                    </p>
+                                    <span
+                                        style="font-size: 14px"
+                                        class="text-muted"
+                                        >Semester 4</span
+                                    >
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </v-card>
+            </div>
+        </v-card>
     </v-container>
 </template>
 
 <script>
+import axios from "axios";
 import SideBar from "./SideBar.vue";
 export default {
     components: {
         SideBar,
     },
     data() {
-        return {};
+        return {
+            instructorsList: [],
+            totalInstructors: 0,
+            learnersList: [],
+            totalLearners: 0,
+            ongoingSemestersList: [],
+            totalOngoingSemesters: 0,
+            completedSemestersList: [],
+            totalcompletedSemesters: 0,
+        };
+    },
+    mounted() {
+        this.fetchInstructorsList();
+        this.fetchLearnersList();
+        this.fetchOngoingSemestersList();
+        this.fetchCompletedSemestersList();
     },
     methods: {
-        handleClick() {
-            alert("Button clicked!");
+        async fetchInstructorsList() {
+            try {
+                const { data } = await axios.get(
+                    "http://127.0.0.1:8000/api/instructors"
+                );
+                if (data.success && Array.isArray(data.instructors)) {
+                    this.instructursList = data.instructors;
+                    this.totalInstructors = data.instructors.length;
+                }
+            } catch (error) {
+                console.error("Error fetching instructors list:", error);
+            }
+        },
+        async fetchLearnersList() {
+            try {
+                const { data } = await axios.get(
+                    "http://127.0.0.1:8000/api/learners"
+                );
+                if (data.success && Array.isArray(data.learners)) {
+                    this.learnersList = data.instructors;
+                    this.totalLearners = data.learners.length;
+                }
+            } catch (error) {
+                console.error("Error fetching instructors list:", error);
+            }
+        },
+        async fetchOngoingSemestersList() {
+            try {
+                const { data } = await axios.get(
+                    "http://127.0.0.1:8000/api/semesters/ongoing",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem(
+                                "auth_token"
+                            )}`,
+                        },
+                    }
+                );
+                if (
+                    data.status === "success" &&
+                    Array.isArray(data.semesters)
+                ) {
+                    this.ongoingSemestersList = data.semesters;
+                    this.totalOngoingSemesters = data.semesters.length;
+                } else {
+                    console.error("Unexpected API response:", data);
+                }
+            } catch (error) {
+                console.error("Error fetching ongoing semesters list:", error);
+            }
+        },
+        async fetchCompletedSemestersList() {
+            try {
+                const { data } = await axios.get(
+                    "http://127.0.0.1:8000/api/semesters/completed",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem(
+                                "auth_token"
+                            )}`,
+                        },
+                    }
+                );
+                if (
+                    data.status === "success" &&
+                    Array.isArray(data.semesters)
+                ) {
+                    this.completedSemestersList = data.semesters;
+                    this.totalcompletedSemesters = data.semesters.length;
+                    console.log("completed list:", this.completedSemestersList);
+                } else {
+                    console.error("Unexpected API response:", data);
+                }
+            } catch (error) {
+                console.error("Error fetching ongoing semesters list:", error);
+            }
         },
     },
 };
 </script>
-
 
 <style>
 .education-poster {

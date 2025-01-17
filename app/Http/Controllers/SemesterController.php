@@ -109,10 +109,6 @@ class SemesterController extends Controller
             return response()->json([
                 'error' => 'Semester not found',
             ]);
-        } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage(),
-            ]);
         }
     }
     public function delete($id) {
