@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\BinaryTreeNode;
+use Illuminate\Support\Facades\DB;
 
 class BinaryTreeController extends Controller
 {
@@ -43,7 +44,6 @@ class BinaryTreeController extends Controller
     {
         //
     }
-
     public function show(string $id)
     {
         //

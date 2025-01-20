@@ -1,7 +1,7 @@
 <template>
     <SideBar />
 
-    <v-container style="margin-left: 200px">
+    <v-container style="margin-left: 330px">
         <v-row justify="center">
             <v-col cols="12" md="8">
                 <v-card class="pa-5" outlined>
@@ -165,7 +165,6 @@
                             <thead>
                                 <tr>
                                     <th style="width: 200px">ID</th>
-                                    
                                     <th style="width: 200px">Nodes</th>
                                 </tr>
                             </thead>
@@ -175,7 +174,6 @@
                                     :key="index"
                                 >
                                     <td>{{ index + 1 }}</td>
-
                                     <td>
                                         <pre>{{ formatTree(tree) }}</pre>
                                     </td>
@@ -203,7 +201,6 @@ export default {
         return {
             numberSeries: "",
             binaryTree: null,
-            // treeHistory: [],
             searchKey: null,
             searchResult: null,
             insertKey: null,
@@ -315,8 +312,6 @@ export default {
                     );
                 });
         },
-
-
         generateTree() {
             if (!this.$refs.generateForm.validate()) return;
 
@@ -329,8 +324,6 @@ export default {
             this.history.push(JSON.parse(JSON.stringify(this.binaryTree)));
             this.saveTreeToDatabase();
         },
-
-
         buildTree(numbers) {
             class TreeNode {
                 constructor(value) {
@@ -392,6 +385,7 @@ export default {
             this.insertMessage = `Inserted ${key} successfully.`;
             this.insertKey = null;
 
+            this.history.push(JSON.parse(JSON.stringify(this.binaryTree)));
             this.saveTreeToDatabase();
         },
         searchValue() {
@@ -458,6 +452,7 @@ export default {
 
             this.deleteKey = null;
 
+            this.history.push(JSON.parse(JSON.stringify(this.binaryTree)));
             this.saveTreeToDatabase();
         },
         findMinNode(root) {
@@ -467,9 +462,6 @@ export default {
             return root;
         },
     },
-    mounted() {
-        // this.fetchTreeHistory()
-    }
 };
 </script>
 <style scoped>
