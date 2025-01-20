@@ -201,6 +201,7 @@ export default {
         return {
             numberSeries: "",
             binaryTree: null,
+            // treeHistory: [],
             searchKey: null,
             searchResult: null,
             insertKey: null,
