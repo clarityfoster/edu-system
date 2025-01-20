@@ -35,7 +35,7 @@
         </v-row>
         <v-row justify="center" v-if="binaryTree">
             <v-col cols="12" md="10">
-                <v-card class="pa-5" style=" margin-left: 100px;" outlined>
+                <v-card class="pa-5" style="margin-left: 100px" outlined>
                     <v-card-title>
                         <h2 class="text-center">Tree Operations</h2>
                     </v-card-title>
@@ -138,31 +138,59 @@
             </v-col>
         </v-row>
 
-        <!-- Display Binary Search Tree -->
-        <v-row justify="center" v-if="binaryTree">
-            <v-col cols="12" md="10">
-                <v-card class="pa-5" outlined>
-                    <v-card-title>
-                        <h2 class="text-center">Visualize Binary Tree</h2>
-                    </v-card-title>
-                    <v-card-text>
-                        <div class="tree-container">
-                            <BinaryTreeChild
-                                :node="binaryTree"
-                                :searchKey="searchResult ? searchKey : null"
-                                :insertKey="insertKey"
-                            />
-                        </div>
-                    </v-card-text>
-                </v-card>
-            </v-col>
-        </v-row>
+<v-row justify="center" v-if="binaryTree">
+    <v-col cols="12" md="6">
+        <v-card class="pa-5"  style="margin-left: 200px; width: 500px;" outlined>
+            <v-card-title>
+                <h2 class="text-center">Visualize Binary Tree</h2>
+            </v-card-title>
+            <v-card-text>
+                <div class="tree-container">
+                    <BinaryTreeChild
+                        :node="binaryTree"
+                        :searchKey="searchResult ? searchKey : null"
+                        :insertKey="insertKey"
+                    />
+                </div>
+            </v-card-text>
+        </v-card>
+    </v-col>
+
+    <v-col cols="12" md="6">
+        <v-card class="pa-5" style="margin-left: 150px; width: 400px" outlined>
+            <v-card-title>
+                <h2 class="text-center">Binary Tree Table View</h2>
+            </v-card-title>
+            <v-card-text>
+                <v-simple-table>
+                    <thead>
+                        <tr>
+                            <th style="width: 200px">Level</th>
+                            <th>Nodes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            v-for="(nodes, level) in tableData"
+                            :key="level"
+                        >
+                            <td>{{ level }}</td>
+                            <td>{{ nodes.join(", ") }}</td>
+                        </tr>
+                    </tbody>
+                </v-simple-table>
+            </v-card-text>
+        </v-card>
+    </v-col>
+</v-row>
+
     </v-container>
 </template>
 
 <script>
 import BinaryTreeChild from "./BinaryTreeChild.vue";
 import SideBar from "./SideBar.vue";
+import axios from "axios";
 
 export default {
     components: {
@@ -188,7 +216,8 @@ export default {
                 validateNumbers: (value) => {
                     const regex = /^(\s*[+-]?\d+\s*,)*\s*[+-]?\d+\s*$/;
                     return (
-                        regex.test(value) || "Enter valid comma-separated numbers, including positive or negative values."
+                        regex.test(value) ||
+                        "Enter valid comma-separated numbers, including positive or negative values."
                     );
                 },
 
@@ -207,8 +236,50 @@ export default {
         validateNumber() {
             return this.rules.validateNumber;
         },
+        tableData() {
+            if (!this.binaryTree) return [];
+
+            const result = [];
+            const queue = [{ node: this.binaryTree, level: 0 }];
+
+            while (queue.length) {
+                const { node, level } = queue.shift();
+
+                if (!result[level]) result[level] = [];
+                result[level].push(node.value);
+
+                if (node.left)
+                    queue.push({ node: node.left, level: level + 1 });
+                if (node.right)
+                    queue.push({ node: node.right, level: level + 1 });
+            }
+
+            return result;
+        },
     },
     methods: {
+        saveTreeToDatabase() {
+            const data = this.tableData
+                .map((nodes, level) => nodes.map((value) => ({ value, level })))
+                .flat();
+
+            console.log("Data:", data);
+
+            axios
+                .post("http://127.0.0.1:8000/api/save-binary-tree", {
+                    treeData: data,
+                })
+                .then((response) => {
+                    console.log("Tree saved successfully:", response.data);
+                })
+                .catch((error) => {
+                    console.error(
+                        "Error saving tree:",
+                        error.response?.data || error
+                    );
+                });
+        },
+
         generateTree() {
             if (!this.$refs.generateForm.validate()) return;
 
@@ -218,14 +289,15 @@ export default {
                 .filter((num) => !isNaN(num));
 
             this.binaryTree = this.buildTree(numbers);
+            this.saveTreeToDatabase();
         },
+
         buildTree(numbers) {
             class TreeNode {
                 constructor(value) {
                     this.value = value;
                     this.left = null;
                     this.right = null;
-
                 }
             }
             const insertNode = (root, value) => {
@@ -269,7 +341,7 @@ export default {
             }
 
             const insertNode = (root, value) => {
-                if (!root) return { value, left: null, right: null, };
+                if (!root) return { value, left: null, right: null };
                 if (value < root.value)
                     root.left = insertNode(root.left, value);
                 else if (value > root.value)
@@ -280,6 +352,9 @@ export default {
             this.binaryTree = insertNode(this.binaryTree, key);
             this.insertMessage = `Inserted ${key} successfully.`;
             this.insertKey = null;
+
+                this.saveTreeToDatabase();
+
         },
         searchValue() {
             if (!this.$refs.searchForm.validate()) return;
@@ -344,6 +419,8 @@ export default {
                 : `Error: ${key} not found in the tree.`;
 
             this.deleteKey = null;
+
+            this.saveTreeToDatabase();
         },
         findMinNode(root) {
             while (root.left) {
