@@ -138,52 +138,58 @@
             </v-col>
         </v-row>
 
-<v-row justify="center" v-if="binaryTree">
-    <v-col cols="12" md="6">
-        <v-card class="pa-5"  style="margin-left: 200px; width: 500px;" outlined>
-            <v-card-title>
-                <h2 class="text-center">Visualize Binary Tree</h2>
-            </v-card-title>
-            <v-card-text>
-                <div class="tree-container">
-                    <BinaryTreeChild
-                        :node="binaryTree"
-                        :searchKey="searchResult ? searchKey : null"
-                        :insertKey="insertKey"
-                    />
-                </div>
-            </v-card-text>
-        </v-card>
-    </v-col>
-
-    <v-col cols="12" md="6">
-        <v-card class="pa-5" style="margin-left: 150px; width: 400px" outlined>
-            <v-card-title>
-                <h2 class="text-center">Binary Tree Table View</h2>
-            </v-card-title>
-            <v-card-text>
-                <v-simple-table>
-                    <thead>
-                        <tr>
-                            <th style="width: 200px">Level</th>
-                            <th>Nodes</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                            v-for="(nodes, level) in tableData"
-                            :key="level"
-                        >
-                            <td>{{ level }}</td>
-                            <td>{{ nodes.join(", ") }}</td>
-                        </tr>
-                    </tbody>
-                </v-simple-table>
-            </v-card-text>
-        </v-card>
-    </v-col>
-</v-row>
-
+        <v-row class="d-flex align-items-start justify-content-between">
+            <v-col cols="12" md="6" v-if="binaryTree">
+                <v-card
+                    class="pa-5"
+                    outlined
+                >
+                    <v-card-title>
+                        <h2 class="text-center">Visualize Binary Tree</h2>
+                    </v-card-title>
+                    <v-card-text>
+                        <div class="tree-container">
+                            <BinaryTreeChild
+                                :node="binaryTree"
+                                :searchKey="searchResult ? searchKey : null"
+                                :insertKey="insertKey"
+                            />
+                        </div>
+                    </v-card-text>
+                </v-card>
+            </v-col>
+            <v-col cols="12" md="6">
+                <v-card
+                    class="pa-5"
+                    outlined
+                >
+                    <v-card-title>
+                        <h2 class="text-center">Binary Tree Table View</h2>
+                    </v-card-title>
+                    <v-card-text>
+                        <v-simple-table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 200px">ID</th>
+                                    <th>Nodes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    v-for="(tree, index) in history"
+                                    :key="index"
+                                >
+                                    <td>{{ index + 1 }}</td>
+                                    <td>
+                                        <pre>{{ formatTree(tree) }}</pre>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </v-simple-table>
+                    </v-card-text>
+                </v-card>
+            </v-col>
+        </v-row>
     </v-container>
 </template>
 
@@ -211,6 +217,7 @@ export default {
             searchValid: false,
             insertValid: false,
             deleteValid: false,
+            history: [],
             rules: {
                 required: (value) => !!value || "Field is required.",
                 validateNumbers: (value) => {
@@ -258,6 +265,21 @@ export default {
         },
     },
     methods: {
+        formatTree(tree) {
+            if (!tree) return "Empty Tree";
+
+            const formatNode = (node, level = 0) => {
+                if (!node) return "";
+                const indent = " ".repeat(level * 4);
+                return (
+                    `${indent}- Value: ${node.value}\n` +
+                    `${formatNode(node.left, level + 1)}` +
+                    `${formatNode(node.right, level + 1)}`
+                );
+            };
+
+            return formatNode(tree);
+        },
         saveTreeToDatabase() {
             const data = this.tableData
                 .map((nodes, level) => nodes.map((value) => ({ value, level })))
@@ -268,6 +290,7 @@ export default {
             axios
                 .post("http://127.0.0.1:8000/api/save-binary-tree", {
                     treeData: data,
+                    history: this.history,
                 })
                 .then((response) => {
                     console.log("Tree saved successfully:", response.data);
@@ -289,6 +312,7 @@ export default {
                 .filter((num) => !isNaN(num));
 
             this.binaryTree = this.buildTree(numbers);
+            this.history.push(JSON.parse(JSON.stringify(this.binaryTree)));
             this.saveTreeToDatabase();
         },
 
@@ -353,8 +377,7 @@ export default {
             this.insertMessage = `Inserted ${key} successfully.`;
             this.insertKey = null;
 
-                this.saveTreeToDatabase();
-
+            this.saveTreeToDatabase();
         },
         searchValue() {
             if (!this.$refs.searchForm.validate()) return;

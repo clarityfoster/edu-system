@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
@@ -25,6 +24,7 @@ Route::get('/courses', [CourseController::class, 'index']);
 Route::post('/search', [SearchController::class, 'search']);
 Route::post('/save-binary-tree', action: [BinaryTreeController::class, 'saveTree']);
 
+Route::get('/binarytrees/history', [BinaryTreeController::class, 'history']);
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/auth-users', [UserController::class, 'authUser']);
