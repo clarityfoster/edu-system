@@ -264,7 +264,7 @@ export default {
 
             if (value < root.value) {
                 root.left = this.insertNode(root.left, value);
-            } else if (value > root.value) {
+            } else if (value >= root.value) {
                 root.right = this.insertNode(root.right, value);
             }
 
@@ -347,7 +347,7 @@ export default {
                 if (!root) return new TreeNode(value);
                 if (value < root.value)
                     root.left = insertNode(root.left, value);
-                else if (value > root.value)
+                else if (value >= root.value)
                     root.right = insertNode(root.right, value);
                 return root;
             };
@@ -387,7 +387,7 @@ export default {
                 if (!root) return { value, left: null, right: null };
                 if (value < root.value)
                     root.left = insertNode(root.left, value);
-                else if (value > root.value)
+                else if (value >= root.value)
                     root.right = insertNode(root.right, value);
                 return root;
             };
