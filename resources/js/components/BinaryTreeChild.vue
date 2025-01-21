@@ -70,12 +70,6 @@ export default {
   border-color: #388e3c;
 }
 
-/* .node-value.highlight-insert {
-  background-color: #f44336;
-  color: white;
-  border-color: #d32f2f;
-  transform: scale(1.1);
-} */
 
 .node-value.highlight-insert {
     background-color: #f44336;
