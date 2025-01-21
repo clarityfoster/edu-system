@@ -15,8 +15,9 @@ class AuthController extends Controller
             $validator = Validator(request()->all(), [
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|unique:users',
+                'password' => 'required',
                 'role_id' => 'required',
-                'password' => 'required'
+                'semester_id' => 'nullable',
             ]);
             if($validator->fails()) {
                 return response()->json([
@@ -30,6 +31,7 @@ class AuthController extends Controller
             $user->email = request()->email;
             $user->password = request()->password;
             $user->role_id = request()->role_id;
+            $user->semester_id = request()->semester_id;
             $user->save();
             $user->makeVisible('password');
             return response()->json([

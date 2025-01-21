@@ -155,7 +155,7 @@
                     </v-card-text>
                 </v-card>
             </v-col>
-            <v-col cols="12" md="6">
+            <v-col cols="12" md="6" v-if="history.length">
                 <v-card class="pa-5" outlined>
                     <v-card-title>
                         <h2 class="text-center">Binary Tree Table View</h2>
@@ -259,22 +259,33 @@ export default {
         },
     },
     methods: {
+        insertNode(root, value) {
+            if (!root) return new TreeNode(value);
+
+            if (value < root.value) {
+                root.left = this.insertNode(root.left, value);
+            } else if (value > root.value) {
+                root.right = this.insertNode(root.right, value);
+            }
+
+            return root;
+        },
         fetchTreeHistory() {
-                axios
-                    .get("http://127.0.0.1:8000/api/binarytrees/history")
-                    .then((response) => {
-                        this.history = response.data.history || [];
-                        if (this.history.length) {
-                            this.binaryTree = this.history[this.history.length - 1];
-                        }
-                    })
-                    .catch((error) => {
-                        console.error(
-                            "Error fetching tree history:",
-                            error.response?.data || error
-                        );
-                    });
-            },
+            axios
+                .get("http://127.0.0.1:8000/api/binarytrees/history")
+                .then((response) => {
+                    this.history = response.data.history || [];
+                    if (this.history.length) {
+                        this.binaryTree = this.history[this.history.length - 1];
+                    }
+                })
+                .catch((error) => {
+                    console.error(
+                        "Error fetching tree history:",
+                        error.response?.data || error
+                    );
+                });
+        },
         formatTree(tree) {
             if (!tree) return "Empty Tree";
 
