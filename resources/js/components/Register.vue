@@ -159,6 +159,7 @@ export default {
                 try {
                     await axios.post("http://127.0.0.1:8000/api/register", {
                         name: this.name,
+                        phone: this.phone,
                         email: this.email,
                         password: this.password,
                         role_id: this.roles_register.id,
@@ -166,6 +167,7 @@ export default {
                     });
                     alert("Registration successful!");
                     this.name = "";
+                    this.phone = "";
                     this.email = "";
                     this.password = "";
                     this.roles_register = null;

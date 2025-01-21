@@ -50,7 +50,7 @@ class UserController extends Controller
             $validator = validator(request()->all(), [
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users',
-                'phone' => 'required',
+                'phone' => ['required', 'regex:/^\+?[0-9]{1,4}?[-.\s]?[0-9]{1,3}[-.\s]?[0-9]{4,10}$/'],
                 'semester_id' => 'required',
                 'password' => 'required|min:8',
             ]);

@@ -16,6 +16,7 @@ class AuthController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|email|unique:users',
                 'password' => 'required',
+                'phone' => ['required', 'regex:/^\+?[0-9]{1,4}?[-.\s]?[0-9]{1,3}[-.\s]?[0-9]{4,10}$/'],
                 'role_id' => 'required',
                 'semester_id' => 'nullable',
             ]);
@@ -30,6 +31,7 @@ class AuthController extends Controller
             $user->name = request()->name;
             $user->email = request()->email;
             $user->password = request()->password;
+            $user->phone = request()->phone;
             $user->role_id = request()->role_id;
             $user->semester_id = request()->semester_id;
             $user->save();
