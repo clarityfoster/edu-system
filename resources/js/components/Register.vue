@@ -1,8 +1,5 @@
 <template>
-  <v-container
-    class="d-flex justify-center align-center"
-    style="height: 100vh;"
-  >
+  <v-container class="d-flex justify-center align-center" style="height: 100vh;">
     <v-card class="pa-5 elevation-12 rounded-lg" width="400">
       <v-card-title class="justify-center text-h5 font-weight-bold">
         Register
@@ -33,21 +30,20 @@
           ></v-text-field>
 
           <!-- Password Input -->
-          <!-- Confirm Password Input -->
-            <v-text-field
+          <v-text-field
             v-model="password"
-            label=" Password"
+            label="Password"
             type="password"
             :rules="[rules.required, rules.min(8)]"
             outlined
             dense
             clearable
             required
-            ></v-text-field>
-
+          ></v-text-field>
 
           <!-- Role Select -->
-          <v-select
+
+           <v-select
             v-if="role_register && Array.isArray(role_register)"
             v-model="roles_register"
             :items="role_register"
@@ -59,11 +55,31 @@
             dense
             clearable
             required
+            return-object
              v-on:keyup.enter="register"
             ></v-select>
 
-          <!-- Register Button -->
+          <span v-if="roles_register && roles_register.id === 3">
+            <v-select
+            v-model="semester"
+            :items="semesters"
+            item-value="id"
+            item-title="name"
+            label="Select Semester"
+            :rules="[rules.required]"
+            outlined
+            dense
+            clearable
+            required
+            return-object
+             v-on:keyup.enter="register"
+            >
+            </v-select>
 
+            </span>
+          
+
+          <!-- Register Button -->
           <v-btn
             :disabled="!valid"
             color="primary"
@@ -74,14 +90,8 @@
             Register
           </v-btn>
         </v-form>
-         <div class="card-footer text-center">
-              <p class="text-muted mt-3">Already have an account?
-                <router-link class="text-success" to="/">Login</router-link>
-                 .</p>
-            </div>
       </v-card-text>
     </v-card>
-
   </v-container>
 </template>
 
@@ -95,7 +105,8 @@ export default {
       name: "",
       email: "",
       password: "",
-      roles_register: "",
+      roles_register: null,
+      semester:null,
       valid: false,
       rules: {
         required: (value) => !!value || "This field is required.",
@@ -106,42 +117,38 @@ export default {
     };
   },
   computed: {
-  ...mapState(["role_register"]),
-},
-
+    ...mapState(["role_register", "semesters"]),
+  },
   methods: {
-    ...mapActions(["fetchRoleRegister"]),
-
-      async register() {
-        // alert("Registering...");
-          if (this.$refs.registerForm.validate()) {
-            // alert("Registering...");
-            try {
-            await axios.post("http://127.0.0.1:8000/api/register", {
-                name: this.name,
-                email: this.email,
-                password: this.password,
-                role_id: this.roles_register,
-            });
-            alert("Registration successful!");
-            this.name = "";
-            this.email = "";
-            this.password = "";
-            this.role = null;
-            this.$router.push("/");
-            } catch (error) {
-            console.error("Error during registration:", error.response.data);
-            }
+    ...mapActions(["fetchRoleRegister", "fetchSemesters"]),
+    async register() {
+      if (this.$refs.registerForm.validate()) {
+        try {
+          await axios.post("http://127.0.0.1:8000/api/register", {
+            name: this.name,
+            email: this.email,
+            password: this.password,
+            role_id: this.roles_register.id,
+          });
+          alert("Registration successful!");
+          this.name = "";
+          this.email = "";
+          this.password = "";
+          this.roles_register = null;
+          this.$router.push("/");
+        } catch (error) {
+          console.error("Error during registration:", error.response.data);
         }
-        },
-
+      }
+    },
   },
   mounted() {
-    this.fetchRoleRegister();
+      this.fetchRoleRegister();
+      this.fetchSemesters();
   },
   watch: {
-    role_register(newRoles) {
-      console.log("Roles updated in component:", newRoles);
+    roles_register(newValue) {
+      console.log("Selected role:", newValue);
     },
   },
 };
