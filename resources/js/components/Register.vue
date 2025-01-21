@@ -77,7 +77,7 @@
             </v-select>
 
             </span>
-          
+
 
           <!-- Register Button -->
           <v-btn
@@ -90,6 +90,12 @@
             Register
           </v-btn>
         </v-form>
+        <div class="card-footer text-center">
+        <p class="text-muted mt-3">
+             Already have an account?
+            <router-link class="text-primary" to="/">Login</router-link>.
+        </p>
+         </div>
       </v-card-text>
     </v-card>
   </v-container>
