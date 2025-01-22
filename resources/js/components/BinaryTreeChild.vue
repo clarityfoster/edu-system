@@ -10,11 +10,11 @@
             {{ node.value }}
         </div>
         <div class="children position-relative" v-if="node.left || node.right">
-            <div
+            <!-- <div
                 class="line left-line"
                 v-if="node.left"
                 :style="leftLinePosition"
-            ></div>
+            ></div> -->
             <BinaryTreeChild
                 v-if="node.left"
                 :node="node.left"
@@ -26,7 +26,8 @@
                 class="line right-line"
                 v-if="node.right"
                 :style="rightLinePosition"
-            ></div> -->
+            >
+            </div> -->
             <BinaryTreeChild
                 v-if="node.right"
                 :node="node.right"

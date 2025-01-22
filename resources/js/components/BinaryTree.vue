@@ -1,7 +1,7 @@
 <template>
     <SideBar />
 
-    <v-container style="margin-left: 330px">
+    <v-container class="d-flex flex-column" style="margin-left: 330px">
         <v-row justify="center">
             <v-col cols="12" md="8">
                 <v-card class="pa-5" outlined>
@@ -37,7 +37,7 @@
             <v-col cols="12" md="10">
                 <v-card class="pa-5" style="margin-left: 100px" outlined>
                     <v-card-title>
-                        <h2 class="text-center">Tree Operations</h2>
+                        <h3 class="text-center">Tree Operations</h3>
                     </v-card-title>
                     <v-card-text>
                         <v-row>
@@ -137,12 +137,11 @@
                 </v-card>
             </v-col>
         </v-row>
-
         <v-row class="d-flex align-items-start justify-content-center">
             <v-col cols="12" md="6" v-if="binaryTree">
-                <v-card class="pa-5" outlined>
+                <v-card class="pa-5" outlined style="width: 700px;">
                     <v-card-title>
-                        <h2 class="text-center">Visualize Binary Tree</h2>
+                        <h3 class="text-center">Visualize Binary Tree</h3>
                     </v-card-title>
                     <v-card-text>
                         <div class="tree-container">
@@ -156,9 +155,9 @@
                 </v-card>
             </v-col>
             <v-col cols="12" md="6" v-if="history.length">
-                <v-card class="pa-5" outlined>
+                <v-card class="pa-5" outlined style="max-width: 400px; margin-left: 150px;">
                     <v-card-title>
-                        <h2 class="text-center">Binary Tree Table View</h2>
+                        <h3 class="text-center">Binary Tree Table View</h3>
                     </v-card-title>
                     <v-card-text>
                         <v-simple-table>
