@@ -51,8 +51,7 @@ class UserController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users',
                 'phone' => ['required', 'regex:/^\+?[0-9]{1,4}?[-.\s]?[0-9]{1,3}[-.\s]?[0-9]{4,10}$/'],
-                'semester_id' => 'required|array',
-                'semester_id.*' => 'required|integer|exists:semesters,id',
+                'semester_id' => 'required',
                 'password' => 'required|min:8',
             ]);
             if($validator->fails()) {
@@ -109,8 +108,7 @@ class UserController extends Controller
                 'email' => 'nullable|email',
                 'phone' => 'nullable',
                 'role_id' => 'nullable',
-                'semester_id' => 'nullable|array',
-                'semester_id.*' => 'nullable|integer|exists:semesters,id',
+                'semester_id' => 'nullable',
             ]);
             if($validate->fails()) {
                 return response()->json([
