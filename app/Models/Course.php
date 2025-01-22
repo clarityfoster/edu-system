@@ -16,7 +16,4 @@ class Course extends Model
     public function user() {
         return $this->hasMany(User::class);
     }
-    // public function semester() {
-    //     return $this->hasMany(Semester::class);
-    // }
 }

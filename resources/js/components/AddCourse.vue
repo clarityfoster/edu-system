@@ -99,6 +99,7 @@ export default {
                     }
                 );
                 alert("Course created successfully!");
+                this.$router.push("/courselist");
                 this.cancel();
             } catch (error) {
                 console.error(

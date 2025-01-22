@@ -1,7 +1,6 @@
 <template>
     <div class="node">
         <div
-
             class="node-value mx-auto"
             :class="{
                 'highlight-search': isHighlightedSearch,
@@ -10,13 +9,12 @@
         >
             {{ node.value }}
         </div>
-
         <div class="children position-relative" v-if="node.left || node.right">
-            <!-- <div
+            <div
                 class="line left-line"
                 v-if="node.left"
                 :style="leftLinePosition"
-            ></div> -->
+            ></div>
             <BinaryTreeChild
                 v-if="node.left"
                 :node="node.left"
@@ -100,7 +98,6 @@ export default {
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-
 .node-right-value {
     display: flex;
     align-items: center;
@@ -152,14 +149,14 @@ export default {
 }
 
 .left-line {
-    left: 25%;
+    left: 5000%;
     height: 30px;
-    transform: rotate(45deg); /* Rotate 45 degrees */
+    transform: rotate(35deg);
 }
 
 .right-line {
-    right: 25%;
+    right: -10%;
     height: 30px;
-    transform: rotate(-45deg); /* Rotate -45 degrees */
+    transform: rotate(-35deg); /* Rotate -45 degrees */
 }
 </style>

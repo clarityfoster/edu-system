@@ -174,9 +174,9 @@ export default {
                         headers: { Authorization: `Bearer ${token}` },
                     }
                 );
-
                 if (response.data.status === "success") {
                     alert("Semester created successfully!");
+                    this.$router.push("/semesterlist");
                     this.cancel();
                 }
 

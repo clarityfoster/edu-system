@@ -169,6 +169,7 @@ export default {
                     }
                 );
                 alert("Student Create successful!");
+                this.$router.push("/instructorlist");
                 this.cancel();
             } catch (error) {
                 console.error(
