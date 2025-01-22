@@ -278,6 +278,7 @@ export default {
                     if (this.history.length) {
                         this.binaryTree = this.history[this.history.length - 1];
                     }
+                    // console.log('Database data',response.data.history);
                 })
                 .catch((error) => {
                     console.error(
@@ -473,6 +474,9 @@ export default {
             return root;
         },
     },
+    // mounted() {
+    //     this.fetchTreeHistory();
+    // }
 };
 </script>
 <style scoped>

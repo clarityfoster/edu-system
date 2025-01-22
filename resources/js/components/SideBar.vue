@@ -8,7 +8,7 @@
             <div class="nav flex-column pt-3">
                 <div class="d-flex align-items-center mb-4" style="padding-left: 16px;">
                     <i class="bi bi-person-circle fs-1"></i>
-                    <div v-if="!isCollapsed" class="ms-4">
+                    <div  class="ms-4">
                         <h5>{{ authUsers.name }}</h5>
                         <p class="mb-0">{{ authUsers.role?.name }}</p>
                     </div>
@@ -81,6 +81,7 @@
                 </ul>
                 <ul class="nav flex-column">
                     <li class="nav-item">
+
                         <a
                             class="nav-link text-white d-flex align-items-center collapsed"
                             data-bs-target="#instructorListsNav"
@@ -88,7 +89,7 @@
                             href="#"
                         >
                             <i class="mdi mdi-shield-account me-3"></i>
-                            <span v-if="!isCollapsed">Instructors</span>
+                            <span >Instructors</span>
                             <i
                                 class="bi bi-chevron-down ms-auto"
                                 style="color: white"
@@ -129,7 +130,7 @@
                             href="#"
                         >
                             <i class="mdi mdi-calendar-month me-3"></i>
-                            <span v-if="!isCollapsed">Semesters</span>
+                            <span >Semesters</span>
                             <i
                                 class="bi bi-chevron-down ms-auto"
                                 style="color: white"
@@ -171,7 +172,7 @@
                             href="#"
                         >
                             <i class="mdi mdi-book me-3"></i>
-                            <span v-if="!isCollapsed">Courses</span>
+                            <span >Courses</span>
                             <i
                                 class="bi bi-chevron-down ms-auto"
                                 style="color: white"
@@ -209,11 +210,11 @@
                     @click="logout"
                 >
                     <i class="mdi mdi-logout me-2"></i>
-                    <span v-if="!isCollapsed">Logout</span>
+                    <span >Logout</span>
                 </button>
             </div>
         </aside>
-        <button
+        <button v-if="!isCollapsed"
             id="toggle-sidebar"
             class="btn btn-primary d-lg-none"
             @click="toggleSidebar"
@@ -233,7 +234,7 @@ export default {
     name: "SideBar",
     data() {
         return {
-            isCollapsed: false, // Sidebar initially not collapsed
+            isCollapsed: false,
         };
     },
     computed: {
@@ -246,6 +247,9 @@ export default {
     },
     methods: {
         ...mapActions(["fetchUsers", "fetchAuthUsers"]),
+         toggleSidebar() {
+        this.isCollapsed = !this.isCollapsed;
+    },
         async logout() {
             try {
                 const token = localStorage.getItem("auth_token");
@@ -325,7 +329,7 @@ export default {
 }
 
 #sidebar.collapsed {
-    width: 70px;
+    width: 200px;
 }
 
 .sidebar {
