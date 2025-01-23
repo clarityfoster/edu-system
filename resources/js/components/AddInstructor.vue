@@ -145,7 +145,7 @@ export default {
                     }
                 );
                 alert("Instructor Create successful!");
-                this.$router.push("/studentlist");
+                this.$router.push("/instructorlist");
                 this.name = '';
                 this.email = '';
                 this.password = '';

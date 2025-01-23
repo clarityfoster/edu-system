@@ -11,7 +11,10 @@
                     <div  class="ms-4">
                         <h5>{{ authUsers.name }}</h5>
                         <p class="mb-0">{{ authUsers.role?.name }}</p>
+
                     </div>
+                    
+
                 </div>
 
                 <hr class="text-white" />
@@ -214,7 +217,7 @@
                 </button>
             </div>
         </aside>
-        <button v-if="!isCollapsed"
+        <button
             id="toggle-sidebar"
             class="btn btn-primary d-lg-none"
             @click="toggleSidebar"

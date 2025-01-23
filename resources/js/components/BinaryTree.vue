@@ -1,7 +1,7 @@
 <template>
     <SideBar />
 
-    <v-container class="d-flex flex-column" style="margin-left: 330px">
+    <v-container style="margin-left: 330px">
         <v-row justify="center">
             <v-col cols="12" md="8">
                 <v-card class="pa-5" outlined>
@@ -37,7 +37,7 @@
             <v-col cols="12" md="10">
                 <v-card class="pa-5" style="margin-left: 100px" outlined>
                     <v-card-title>
-                        <h3 class="text-center">Tree Operations</h3>
+                        <h2 class="text-center">Tree Operations</h2>
                     </v-card-title>
                     <v-card-text>
                         <v-row>
@@ -137,11 +137,12 @@
                 </v-card>
             </v-col>
         </v-row>
+
         <v-row class="d-flex align-items-start justify-content-center">
             <v-col cols="12" md="6" v-if="binaryTree">
-                <v-card class="pa-5" outlined style="width: 700px;">
+                <v-card class="pa-5" outlined>
                     <v-card-title>
-                        <h3 class="text-center">Visualize Binary Tree</h3>
+                        <h2 class="text-center">Visualize Binary Tree</h2>
                     </v-card-title>
                     <v-card-text>
                         <div class="tree-container">
@@ -155,9 +156,9 @@
                 </v-card>
             </v-col>
             <v-col cols="12" md="6" v-if="history.length">
-                <v-card class="pa-5" outlined style="max-width: 400px; margin-left: 150px;">
+                <v-card class="pa-5" outlined>
                     <v-card-title>
-                        <h3 class="text-center">Binary Tree Table View</h3>
+                        <h2 class="text-center">Binary Tree Table View</h2>
                     </v-card-title>
                     <v-card-text>
                         <v-simple-table>
@@ -359,41 +360,35 @@ export default {
 
             return root;
         },
+
         insertValue() {
             if (!this.$refs.insertForm.validate()) return;
 
             const key = parseInt(this.insertKey);
 
-            const findNode = (root, value) => {
-                if (!root) return null;
-                if (value === root.value) return root;
-                if (value < root.value) return findNode(root.left, value);
-                return findNode(root.right, value);
-            };
+            const insertNode = (root, value) => {
+                if (!root) return { value, left: null, right: null };
 
-            if (findNode(this.binaryTree, key)) {
-                this.insertMessage = `${key} is already in the tree!`;
-                this.insertKey = null;
-                return;
-            }
+                if (value === root.value) {
+                        root.right = insertNode(root.right, value);
+                }
+                else if (value < root.value) {
+                    root.left = insertNode(root.left, value);
+                } else {
+                    root.right = insertNode(root.right, value);
+                }
+
+                return root;
+            };
 
             if (!this.binaryTree) {
                 this.binaryTree = this.buildTree([key]);
                 this.insertMessage = `Inserted ${key} as the root node.`;
-                return;
+            } else {
+                this.binaryTree = insertNode(this.binaryTree, key);
+                this.insertMessage = `Inserted ${key} successfully.`;
             }
 
-            const insertNode = (root, value) => {
-                if (!root) return { value, left: null, right: null };
-                if (value < root.value)
-                    root.left = insertNode(root.left, value);
-                else if (value >= root.value)
-                    root.right = insertNode(root.right, value);
-                return root;
-            };
-
-            this.binaryTree = insertNode(this.binaryTree, key);
-            this.insertMessage = `Inserted ${key} successfully.`;
             this.insertKey = null;
 
             this.history.push(JSON.parse(JSON.stringify(this.binaryTree)));
